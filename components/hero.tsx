@@ -3,7 +3,7 @@ import TempleTimeStatus from './temple-time-status';
 
 const Hero = () => {
   return (
-    <div className='h-[600px] xl:h-[800px] relative top-[-75px] pb-16 lg:pb-0'>
+    <div className='h-[600px] xl:h-[800px] relative top-[-75px] pb-16 lg:pb-0 bg-purple-600'>
       <div className='relative w-full h-full'>
         <Image
           src={'/images/jagannath_deity.jpg'}
