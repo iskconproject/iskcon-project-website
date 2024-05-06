@@ -18,22 +18,17 @@ import {
   MenubarTrigger,
   MenubarContent,
   MenubarItem,
-  MenubarShortcut,
 } from '@/components/ui/menubar';
 import TranslateIcon from './icons/translate-icon';
+import IskconAsansolLogoIcon from './icons/iskcon-asansol-logo';
 
 const Navbar = () => {
   return (
-    <nav className='w-full sticky top-0 shadow-md bg-black/40 backdrop-blur-sm z-20 py-2'>
+    <nav className='w-full sticky top-0 shadow-md bg-white/80 backdrop-blur-sm z-20 py-2'>
       <div className='container mx-auto md:px-auto flex justify-between items-center'>
         <div className='flex gap-2 items-center'>
           <Link href='/'>
-            <Image
-              src='/images/logo/iskcon-asansol-logo.svg'
-              width={60}
-              height={60}
-              alt='logo'
-            />
+            <IskconAsansolLogoIcon className='w-12 h-12 text-red-600 block' />
           </Link>
         </div>
 

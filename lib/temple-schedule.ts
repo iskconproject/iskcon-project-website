@@ -37,11 +37,13 @@ export const nextScheduleWithTime = () => {
     const minutes = date.getMinutes();
     const totalMinutes = hour * 60 + minutes;
 
+    console.log(totalMinutes, 'total minutes')
+
     if (totalMinutes >= 4 * 60 + 30 && totalMinutes < 12 * 60 + 45) {
         return `12:45 pm  ${TEMPLE_SCHEDULE["12:45"]}`;
-    } else if (totalMinutes >= 12 * 60 + 45 && totalMinutes < 16 * 30) {
+    } else if (totalMinutes >= 12 * 60 + 45 && totalMinutes < 16 * 60 +30) {
         return `4:30 pm  ${TEMPLE_SCHEDULE["16:30"]}`;
-    } else if (totalMinutes >= 16 * 60 + 30 && totalMinutes < 20 * 30) {
+    } else if (totalMinutes >= 16 * 60 + 30 && totalMinutes < 20 * 60 + 30) {
         return `8:45 pm  ${TEMPLE_SCHEDULE["20:45"]}`;
     } else {
         return `4:00 am  ${TEMPLE_SCHEDULE["4:00"]}`;

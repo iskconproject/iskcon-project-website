@@ -4,6 +4,7 @@ import { TimeIcon, EnvelopeIcon, PhoneIcon } from '@/components/icons';
 import MahamantraMarquee from './mahamantra-marquee';
 import MapEmbed from './map-embed';
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from 'lucide-react';
+import IskconLogoIcon from './icons/iskcon-logo-icon';
 
 const templeSchedule = [
   {
@@ -72,12 +73,7 @@ const Footer = () => {
         <section>
           <div className="flex gap-2 items-center">
             <Link href="/">
-              <Image
-                src="/images/logo/iskcon-asansol-logo.svg"
-                width={60}
-                height={60}
-                alt="logo"
-              />
+              <IskconLogoIcon className='text-red-600 w-16 h-16'/>
             </Link>
             <div>
               <div className="uppercase font-semibold text-lg flex gap-2">

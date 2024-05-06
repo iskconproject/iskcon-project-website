@@ -55,7 +55,7 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
   }, []);
 
   return (
-    <div className='bg-black/40 backdrop-blur-md p-4 rounded-xl text-center'>
+    <div className='bg-black/20 backdrop-blur-sm p-4 lg:p-4 rounded-xl text-center w-full'>
       <div className='text-center'>
         <div className='flex gap-2 items-center justify-center md:text-xl'>
           <div
