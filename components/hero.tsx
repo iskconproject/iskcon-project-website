@@ -3,15 +3,16 @@ import TempleTimeStatus from './temple-time-status';
 
 const Hero = () => {
   return (
-    <div className='h-[600px] xl:h-[800px] relative top-[-75px] pb-16 lg:pb-0 bg-purple-600'>
-      <div className='relative w-full h-full'>
-        <Image
+    <div className='h-screen relative top-[-75px] pb-16 lg:pb-0 bg-purple-600'>
+       <Image
           src={'/images/jagannath_deity.jpg'}
           className='object-cover object-top w-full h-full '
           fill={true}
           alt={'lord jagannath vigraha'}
         ></Image>
-        <div className='bg-gradient-to-b from-transparent to-black absolute w-full h-full md:w-full bottom-0 px-8 py-4 md:py-0 rounded-md font-light'></div>
+      <div className='relative w-full h-full'>
+       
+        <div className='bg-gradient-to-b from-transparent top-[64px] md:top-0 to-black absolute w-full h-full md:w-full bottom-0 px-8 py-4 md:py-0 rounded-md font-light'></div>
 
         <div className='absolute w-full lg:w-1/3 -bottom-1/3 lg:-bottom-1/4 left-1/2 transform -translate-x-1/2 -translate-y-2/3 text-white text-center'>
           <div className='relative -top-24 lg:top-0'>
