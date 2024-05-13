@@ -27,7 +27,7 @@ const upcomingEvents = [
     Ratha Yatra is a Hindu festival associated with Lord Jagannath to commemorate his annual 
     visit to Gundicha Temple via Mausi Maa Temple (maternal aunt's home) near Saradha Bali, Puri. </p>`,
     image: "/images/temple.svg",
-    link: "/festivals/lord_jagannath_idols.svg",
+    link: "/festivals/rath-yatra",
     className: "bg-orange-50",
   },
 ];
