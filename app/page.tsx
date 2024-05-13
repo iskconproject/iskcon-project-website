@@ -3,6 +3,7 @@ import Carousel, { Slide } from '@/components/ui/carousel/carousel';
 import Activities from '@/components/activities';
 import { Metadata } from 'next';
 import Hero from '@/components/hero';
+import Events from '@/components/events';
 
 const slides: Slide[] = [
   {
@@ -218,6 +219,7 @@ export default function Home() {
         /> */}
         <Hero />
       </section>
+      <Events />
       <DonateUs />
       <Activities />
     </main>
