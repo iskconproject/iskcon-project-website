@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getDaysInMonth(month: number) {
   // Ensure the input is a valid month (between 1 and 12)
   if (month < 1 || month > 12) {
-    console.error('Invalid month. Please provide a month between 1 and 12.');
+    console.error("Invalid month. Please provide a month between 1 and 12.");
     return null;
   }
 
@@ -26,12 +26,12 @@ export function getDaysInMonth(month: number) {
 }
 
 export const padDigit = (digit: number, padding: number) => {
-  return Number(digit.toString().padStart(padding, '0'));
+  return Number(digit.toString().padStart(padding, "0"));
 };
 
 export const loadScript = (src: string) => {
   return new Promise((resolve) => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = src;
     script.onload = () => {
       resolve(true);
@@ -41,4 +41,11 @@ export const loadScript = (src: string) => {
     };
     document.body.appendChild(script);
   });
+};
+
+export const daysLeft = (date: string) => {
+  const today = new Date();
+  const eventDate = new Date(date);
+  const diff = eventDate.getTime() - today.getTime();
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
 };

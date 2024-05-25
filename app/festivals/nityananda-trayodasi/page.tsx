@@ -1,24 +1,26 @@
-import PageHeader from '@/components/page-header';
-import Image from 'next/image';
+import PageHeader from "@/components/page-header";
+import Image from "next/image";
 
 const NityanandaTrayodasiPage = () => {
   return (
     <main>
       <PageHeader className="relative lg:h-[400px] bg-slate-100">
         <Image
-          src={'/images/nityananda_trayodasi.jpg'}
+          src={"/images/nityananda_two_hands.jpg"}
           fill={true}
           alt="Nityananda Trayodasi"
           className="object-cover object-top"
         />
 
-        <div className="absolute left-12 top-1/2 transform -translate-1/2">
-          <h1 className="md:text-4xl font-semibold text-purple-900">
+        <div className="absolute left-0 bottom-0 w-full p-4 transform -translate-1/2 bg-gradient-to-t from-black to-transparent h-[150px] flex items-center justify-center">
+          <div className="flex flex-col gap-2">
+          <h1 className="md:text-4xl font-semibold text-yellow-200">
             Nityananda Trayodasi
           </h1>
-          <p className="text-2xl font-semibold text-slate-800">
+          <p className="text-2xl font-semibold text-yellow-500">
             22nd Feb, 2024
           </p>
+          </div>
         </div>
       </PageHeader>
 
@@ -71,18 +73,20 @@ const NityanandaTrayodasiPage = () => {
         </p>
 
         <section>
-          <p className='font-semibold'>Hare Krishna,</p>
+          <p className="font-semibold">Hare Krishna,</p>
           <p>
             We cordially invite all of you,especially Life members,devotees and
-            wellwishers of ISKCON from 7:30am to 2pm dated <span className='semi'>22nd feb 2024</span>.Please
-            come with your family and get the blessing of Lord Nityananda with
-            Prasadam and make success of this auspicious <span className='font-semibold'>LORD NITYANANDA BIRTH
-            DAY FESTIVAL</span> AT ISKCON Asansol Temple.
+            wellwishers of ISKCON from 7:30am to 2pm dated{" "}
+            <span className="semi">22nd feb 2024</span>.Please come with your
+            family and get the blessing of Lord Nityananda with Prasadam and
+            make success of this auspicious{" "}
+            <span className="font-semibold">
+              LORD NITYANANDA BIRTH DAY FESTIVAL
+            </span>{" "}
+            AT ISKCON Asansol Temple.
           </p>
 
-          <div>
-            
-          </div>
+          <div></div>
         </section>
       </article>
     </main>

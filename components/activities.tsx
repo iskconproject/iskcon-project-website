@@ -1,4 +1,3 @@
-import CowIcon from '@/components/icons/cow-icon';
 import KrishnaIcon from '@/components/icons/krishna-icon';
 import GitaIcon from '@/components/icons/gita-icon';
 import PrasadamIcon from '@/components/icons/prasadam-icon';
@@ -22,17 +21,17 @@ const activities = [
     className: 'bg-blue-100',
   },
   {
-    title: 'Goshala',
-    subtitle: 'Service and care for cows',
-    icon: <CowIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '#',
-    className: 'bg-pink-100',
+    title: 'Daily Bhagwatam Classes',
+    subtitle: 'Learn the teachings of Srimad Bhagwatam',
+    icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
+    link: '/classes/bhagwatam-class',
+    className: 'bg-teal-100',
   },
   {
     title: 'Free Gita Classes',
     subtitle: 'Learn the teachings of Bhagavad Gita',
     icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: 'activities/gita-classes',
+    link: '/classes/gita-class',
     className: 'bg-teal-100',
   },
 ];
@@ -60,7 +59,7 @@ const Activities = () => {
           {activities.map((activity, index) => (
             <Link
               key={index}
-              href={'#'}
+              href={activity.link}
               className="bg-white rounded-md p-4 border text-slate-700 shadow hover:shadow-md"
             >
               <div

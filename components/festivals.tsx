@@ -10,9 +10,15 @@ const festivals = [
     className: 'bg-teal-100',
   },
   {
+    name: 'Jagannath Snana Yatra',
+    image: '/images/temple.svg',
+    link: '/festivals/jagannath-snana-yatra',
+    className: 'bg-orange-100',
+  },
+  {
     name: 'Ratha Yatra',
     image: '/images/temple.svg',
-    link: '/festivals/ratha-yatra',
+    link: '/festivals/rath-yatra',
     className: 'bg-orange-100',
   },
   {

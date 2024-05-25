@@ -1,7 +1,7 @@
 import OfflinePayment from "@/components/offline-payment";
 import PageHeader from "@/components/page-header";
 
-const BhagwatamClass = () => {
+const BhagwatamClassPage = () => {
   return (
     <main className="">
       <PageHeader className="bg-violet-50 h-[auto] md:h-[auto] py-16 md:px-16 text-center">
@@ -46,4 +46,4 @@ const BhagwatamClass = () => {
   );
 };
 
-export default BhagwatamClass;
+export default BhagwatamClassPage;

@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +12,7 @@ import {
 } from "./ui/carousel";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+import Autoplay from "embla-carousel-autoplay";
 
 const upcomingEvents = [
   {
@@ -18,7 +21,7 @@ const upcomingEvents = [
     The Snana Yatra is a bathing festival celebrated on the Purnima (full moon day) of the Hindu month of Jyeshtha. 
     It is an important festival of the Jagannath devotees. It is the birth day of Lord Jagannath.</p>`,
     image: "/images/jagannath.svg",
-    link: "/festivals/snan-yatra",
+    link: "/festivals/jagannath-snana-yatra",
     className: "bg-teal-50",
   },
   {
@@ -45,6 +48,11 @@ const Events = () => {
               align: "start",
               loop: true,
             }}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
             className="w-full mx-auto mt-12"
           >
             <CarouselContent>
