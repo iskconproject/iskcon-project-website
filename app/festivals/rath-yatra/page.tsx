@@ -1,9 +1,14 @@
+'use client';
+
+import useViewport from "@/app/hooks/useViewport";
 import PageHeader from "@/components/page-header";
 import Image from "next/image";
 
 const rathYatraDate = "7.7.2024";
 
 const RathYatraPage = () => {
+  const {isMobile} = useViewport();
+  const iframeWidth = isMobile ? 300 : 500;
   return (
     <main>
       <PageHeader className="relative lg:h-[600px] bg-slate-100">
@@ -68,8 +73,8 @@ const RathYatraPage = () => {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D295166652902886%26set%3Da.218707847215434%26type%3D3&show_text=true&width=500&is_preview=true"
-                width="500"
+                src={`https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto.php%3Ffbid%3D295166652902886%26set%3Da.218707847215434%26type%3D3&show_text=true&width=${iframeWidth}&is_preview=true`}
+                width={iframeWidth}
                 height="533"
                 style={{ border: "none", overflow: "hidden" }}
                 scrolling="no"

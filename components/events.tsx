@@ -62,7 +62,7 @@ const Events = () => {
                     <Card className={cn(event.name)}>
                       <CardContent
                         className={cn(
-                          "flex aspect-square items-center justify-center p-6 h-[250px] w-full",
+                          "flex aspect-square items-center justify-center p-6 md:h-[250px] w-full",
                           event.className
                         )}
                       >
@@ -70,7 +70,7 @@ const Events = () => {
                           href={event.link}
                           className="flex flex-col items-center justify-center w-full h-full"
                         >
-                          <div className="flex gap-4 items-center justify-between">
+                          <div className="flex flex-col md:flex-row gap-0 md:gap-4 items-center justify-between">
                             <div className="w-1/4">
                               <Image
                                 src={event.image}
@@ -81,11 +81,11 @@ const Events = () => {
                               />
                             </div>
                             <div className="w-3/4 text-left h-full">
-                              <h2 className="text-lg font-semibold text-gray-600 mt-4">
+                              <h2 className="text-lg font-semibold text-gray-600 md:mt-4">
                                 {event.name}
                               </h2>
                               <div
-                                className="text-sm text-gray-500 mt-8 max-w-md"
+                                className="text-xs md:text-sm text-gray-500 md:mt-8 max-w-md"
                                 dangerouslySetInnerHTML={{
                                   __html: event.description,
                                 }}

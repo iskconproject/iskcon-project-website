@@ -161,9 +161,7 @@ export default function Home() {
   return (
     <main>
       {jsonLD()}
-      <section>
-        <Hero />
-      </section>
+      <Hero />
       <Events />
       <DonateUs />
       <Activities />
