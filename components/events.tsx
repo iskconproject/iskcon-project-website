@@ -18,8 +18,7 @@ const upcomingEvents = [
   {
     name: "Jagannath Snana Yatra 2024",
     description: ` <p>
-    The Snana Yatra is a bathing festival celebrated on the Purnima (full moon day) of the Hindu month of Jyeshtha. 
-    It is an important festival of the Jagannath devotees. It is the birth day of Lord Jagannath.</p>`,
+    22nd June, 2024 at Jagannath Temple, Garui, Asansol</p>`,
     image: "/images/jagannath.svg",
     link: "/festivals/jagannath-snana-yatra",
     className: "bg-teal-50",
@@ -27,8 +26,7 @@ const upcomingEvents = [
   {
     name: "Ratha Yatra 2024",
     description: ` <p>
-    Ratha Yatra is a Hindu festival associated with Lord Jagannath to commemorate his annual 
-    visit to Gundicha Temple via Mausi Maa Temple (maternal aunt's home) near Saradha Bali, Puri. </p>`,
+    7th - 15th July, 2024, Budha Ground, Asansol </p>`,
     image: "/images/temple.svg",
     link: "/festivals/rath-yatra",
     className: "bg-orange-50",
@@ -70,8 +68,8 @@ const Events = () => {
                           href={event.link}
                           className="flex flex-col items-center justify-center w-full h-full"
                         >
-                          <div className="flex flex-col md:flex-row gap-0 md:gap-4 items-center justify-between">
-                            <div className="w-1/4">
+                          <div className="flex flex-col sm:flex-row gap-0 md:gap-4 items-center justify-between">
+                            <div className="w-1/2 md:w-1/4">
                               <Image
                                 src={event.image}
                                 alt={event.name}
@@ -80,12 +78,12 @@ const Events = () => {
                                 className="object-contain p-4"
                               />
                             </div>
-                            <div className="w-3/4 text-left h-full">
-                              <h2 className="text-lg font-semibold text-gray-600 md:mt-4">
+                            <div className="w-3/4 text-left h-full flex flex-col gap-4 justify-center">
+                              <h2 className="text-xs md:text-lg font-semibold text-gray-600 md:mt-4">
                                 {event.name}
                               </h2>
                               <div
-                                className="text-xs md:text-sm text-gray-500 md:mt-8 max-w-md"
+                                className="text-xs md:text-sm text-gray-500 max-w-md"
                                 dangerouslySetInnerHTML={{
                                   __html: event.description,
                                 }}

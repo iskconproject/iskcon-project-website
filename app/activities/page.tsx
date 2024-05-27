@@ -28,17 +28,17 @@ const activities = [
     className: 'bg-blue-100',
   },
   {
-    title: 'Goshala',
-    subtitle: 'Service and care for cows',
-    icon: <CowIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '#',
-    className: 'bg-pink-100',
+    title: 'Daily Bhagwatam Classes',
+    subtitle: 'Learn the teachings of Srimad Bhagwatam',
+    icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
+    link: '/classes/bhagwatam-class',
+    className: 'bg-teal-100',
   },
   {
     title: 'Free Gita Classes',
     subtitle: 'Learn the teachings of Bhagavad Gita',
     icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: 'activities/gita-classes',
+    link: '/classes/gita-class',
     className: 'bg-teal-100',
   },
 ];
@@ -56,7 +56,7 @@ const Activities = () => {
           to lead a life filled with happiness, robust health, peace of
           mind, and virtuous qualities through God consciousness.`}
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-16">
           {activities.map((activity, index) => (
             <Link
               key={index}

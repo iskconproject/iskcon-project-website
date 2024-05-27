@@ -5,18 +5,18 @@ const BhagwatamClassPage = () => {
   return (
     <main className="">
       <PageHeader className="bg-violet-50 h-[auto] md:h-[auto] py-16 md:px-16 text-center">
-        <div>
+        <div className="container">
           <h1 className="text-xl md:text-3xl font-semibold text-gray-600">
             Srimad Bhagwatam Class
           </h1>
-          <p>
+          <p className="mt-2 max-w-2xl mx-auto">
             Join us for the daily Srimad Bhagwatam class. The class is conducted
             by our temple devotees and is open for all. The class is conducted
             in Bengali and is a great way to learn about the teachings of the
             Bhagwatam.
           </p>
 
-          <div className="py-8 px-8 space-y-4 text-red-700 md:text-2xl">
+          <div className="py-8 px-8 space-y-4 text-red-700 md:text-xl max-w-2xl mx-auto">
             <p>
               निगमकल्पतरोर्गलितं फलं शुकमुखादमृतद्रवसंयुतम् । पिबत भागवतं
               रसमालयं मुहुरहो रसिका भुवि भावुका: ॥ १.१.३ ॥
