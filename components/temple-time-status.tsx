@@ -55,9 +55,10 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
   }, []);
 
   return (
-    <div className="bg-black/20 backdrop-blur-sm p-4 lg:p-4 rounded-xl text-center w-full">
+    <div className="bg-black/20 backdrop-blur-sm p-2 lg:p-4 rounded-xl text-center w-full">
       <div className="text-center">
         <div className="flex gap-2 items-center justify-center md:text-xl">
+          <span className="text-xs md:text-lg uppercase">Darshan is</span>
           <div
             className={clsx(
               "w-4 h-4 md:w-6 md:h-6 rounded-full border-4",
@@ -69,7 +70,7 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
           <div className="text-xs md:text-lg uppercase flex items-center">{templeStatus}</div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="text-slate-300 text-xs md:text-lg">
             Next Schedule: {nextScheduleWithTime()}
           </div>
@@ -77,7 +78,7 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
       </div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={"link"} className="text-purple-300 text-xs md:text-lg">
+          <Button variant={"link"} className="text-purple-300 h-2 md:h-16 text-xs md:text-lg">
             View Temple Schedule
           </Button>
         </DialogTrigger>
@@ -95,14 +96,14 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
         </DialogContent>
       </Dialog>
 
-      <div className="flex gap-4 justify-center md:mt-4">
+      {/* <div className="flex gap-4 justify-center md:mt-4">
         <a href="tel:+91 9433320314">
           <Button className="text-xs h-8">Call Now</Button>
         </a>
         <a href="https://maps.app.goo.gl/nAaXWFALFN4kY7Af8" target="_blank">
           <Button className="text-xs h-8">Get Directions</Button>
         </a>
-      </div>
+      </div> */}
     </div>
   );
 };
