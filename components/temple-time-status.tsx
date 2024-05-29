@@ -55,7 +55,7 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
   }, []);
 
   return (
-    <div className="bg-black/20 backdrop-blur-sm p-2 lg:p-4 rounded-xl text-center w-full">
+    <div className="bg-purple/20 backdrop-blur-sm p-2 lg:p-4 rounded-xl text-center w-full">
       <div className="text-center">
         <div className="flex gap-2 items-center justify-center md:text-xl">
           <span className="text-xs md:text-lg uppercase">Darshan is</span>
@@ -96,14 +96,6 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
         </DialogContent>
       </Dialog>
 
-      {/* <div className="flex gap-4 justify-center md:mt-4">
-        <a href="tel:+91 9433320314">
-          <Button className="text-xs h-8">Call Now</Button>
-        </a>
-        <a href="https://maps.app.goo.gl/nAaXWFALFN4kY7Af8" target="_blank">
-          <Button className="text-xs h-8">Get Directions</Button>
-        </a>
-      </div> */}
     </div>
   );
 };
