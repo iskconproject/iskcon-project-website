@@ -55,7 +55,7 @@ const TempleTimeStatus: React.FC<Props> = ({ className }) => {
   }, []);
 
   return (
-    <div className="bg-purple/20 backdrop-blur-sm p-2 lg:p-4 rounded-xl text-center w-full">
+    <div className="bg-slate-800/20 backdrop-blur-sm p-2 lg:p-4 rounded-xl text-center w-full">
       <div className="text-center">
         <div className="flex gap-2 items-center justify-center md:text-xl">
           <span className="text-xs md:text-lg uppercase">Darshan is</span>

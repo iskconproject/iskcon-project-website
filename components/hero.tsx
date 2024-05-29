@@ -15,13 +15,13 @@ const Hero = () => {
 
         <div className='absolute w-full text-center bottom-0 text-white'>
           <div className='lg:top-0'>
-            <h1 className='text-sm sm:text-3xl lg:text-5xl text-white font-thin'>
+            <h1 className='text-lg sm:text-3xl lg:text-5xl text-white font-thin'>
               Welcome to
             </h1>
-            <h1 className='text-sm sm:text-4xl lg:text-5xl xl:text-5xl font-bold text-yellow-400 shadow-lg'>
+            <h1 className='text-2xl sm:text-4xl lg:text-5xl xl:text-5xl font-bold text-yellow-400 shadow-lg'>
               Sri Sri Jagannath Mandir
             </h1>
-            <span className='sm:text-3xl font-light'>Asansol</span>
+            <span className='text-lg sm:text-3xl font-light'>Asansol</span>
           </div>
           <div className='md:mt-4'>
             <TempleTimeStatus />
