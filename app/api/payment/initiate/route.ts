@@ -16,11 +16,13 @@ export async function POST(request: Request) {
   //   order_tags,
   // });
 
-  const response = await createOrder({
-    amount: amount,
-    currency: 'INR',
-    receipt: 'receipt#1',
-  });
+  // const response = await createOrder({
+  //   amount: amount,
+  //   currency: 'INR',
+  //   receipt: 'receipt#1',
+  // });
 
-  return Response.json(response);
+
+
+  return Response.json('test', { status: 200 });
 }
