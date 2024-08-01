@@ -49,10 +49,10 @@ const Members = () => {
               you precisely this opportunity.
             </p>
           </div>
-          <h3 className="py-8 text-xl md:text-2xl font-semibold text-gray-700 mt-8">
+          {/* <h3 className="py-8 text-xl md:text-2xl font-semibold text-gray-700 mt-8">
             Our founder members
-          </h3>
-          <FounderMembers />
+          </h3> */}
+          {/* <FounderMembers /> */}
 
           <div className="w-full text-center">
             <Button className="mt-16 w-fit mx-auto">

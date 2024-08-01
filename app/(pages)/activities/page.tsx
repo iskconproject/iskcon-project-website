@@ -17,14 +17,14 @@ const activities = [
     title: 'Deity Worship',
     subtitle: 'Daily worship of the Lord. Join us',
     icon: <KrishnaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '#',
+    link: '/activities/deity-worship',
     className: 'bg-orange-100',
   },
   {
     title: 'Devotee Prasadam',
     subtitle: 'Daily distribution of prasadam for devotees',
     icon: <PrasadamIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '#',
+    link: '/activities/prasadam',
     className: 'bg-blue-100',
   },
   {

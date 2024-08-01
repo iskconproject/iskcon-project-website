@@ -1,9 +1,14 @@
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import clsx from "clsx";
+import Image from "next/image";
 
-const OfflinePayment = () => {
+type Props = {
+  className?: string;
+};
+
+const OfflinePayment: React.FC<Props> = ({ className }) => {
   return (
-    <section className="text-slate-800">
+    <section className={clsx(className, "text-slate-800")}>
       <h3 className="text-sm md:text-xl">
         Donate via NEFT/RTGS/IMPS/PayTm/UPI
       </h3>
@@ -53,7 +58,7 @@ const OfflinePayment = () => {
           <CardContent>
             <div className="mt-2 relative h-[100px]">
               <Image
-                src={'/images/paytm_qr_code.png'}
+                src={"/images/paytm_qr_code.png"}
                 fill
                 alt="paytm qr code"
                 className="object-contain"

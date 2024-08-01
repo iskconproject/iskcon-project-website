@@ -110,29 +110,27 @@ const MobileNav = () => {
             <div
               className={
                 showMoreSection
-                ? "fixed flex flex-col bottom-0 left-0 w-full bg-slate-800/90 backdrop-blur-sm z-0 justify-center p-4 gap-8 transition-transform duration-300 ease-in-out transform -translate-y-[72px]"
-                : "fixed flex flex-col bottom-0 left-0 w-full bg-slate-800/90 backdrop-blur-sm z-0 justify-center p-4 gap-8 transition-transform duration-300 ease-in-out transform translate-y-full"
+                  ? "fixed flex flex-col bottom-0 left-0 w-full bg-slate-800/90 backdrop-blur-sm z-0 justify-center p-4 gap-8 transition-transform duration-300 ease-in-out transform -translate-y-[72px]"
+                  : "fixed flex flex-col bottom-0 left-0 w-full bg-slate-800/90 backdrop-blur-sm z-0 justify-center p-4 gap-8 transition-transform duration-300 ease-in-out transform translate-y-full"
               }
             >
               {" "}
               <div className="flex justify-end p-4">
-                <button
-                  className="text-white w-8 h-8"
-                  onClick={handleShowMore}
-                >
+                <button className="text-white w-8 h-8" onClick={handleShowMore}>
                   {/* Your close icon */}
-                  <X className="w-8 h-8"/>
+                  <X className="w-8 h-8" />
                 </button>
               </div>
               {moreItems.map((item) => (
                 <Link
                   href={item.href}
                   key={item.name}
-                  className="py-2 px-4 hover:bg-gray-100 text-2xl"
+                  className="py-2 px-4 hover:bg-transparent text-2xl"
                   onClick={() => {
                     if (popoverClose.current) {
                       (popoverClose.current as HTMLButtonElement).click();
                     }
+                    setShowMoreSection(false);
                   }}
                 >
                   {item.name}

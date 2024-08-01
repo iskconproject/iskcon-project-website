@@ -1,3 +1,4 @@
+import OfflinePayment from "@/components/offline-payment";
 import PageHeader from "@/components/page-header";
 import Image from "next/image";
 
@@ -6,7 +7,7 @@ const JagannathSnanaYatraPage = () => {
     <main>
       <PageHeader className="relative lg:h-[600px] bg-slate-100">
         <Image
-          src={"/images/jagannath_dev_snana_yatra.jpg"}
+          src={"/images/jagannath-dev_snan_yatra.jpg"}
           fill={true}
           alt="Jagannath Snana Yatra"
           className="object-cover object-top"
@@ -67,6 +68,8 @@ const JagannathSnanaYatraPage = () => {
           <div></div>
         </section>
       </article>
+
+      <OfflinePayment className="container py-16" />
     </main>
   );
 };
