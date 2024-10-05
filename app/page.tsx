@@ -5,6 +5,7 @@ import Hero from "@/components/hero";
 import Events from "@/components/events";
 import YoutubeGallery from "@/components/youtube-gallery";
 import Social from "@/components/social";
+import EventsAndAnnouncements from "@/components/events-and-announcements";
 
 export const metadata: Metadata = {
   title: "Iskcon Project | Donate for our ongoing Jagannath Temple in Asansol",
@@ -162,7 +163,7 @@ export default function Home() {
     <main>
       {jsonLD()}
       <Hero />
-      <Events />
+      <EventsAndAnnouncements />
       <DonateUs />
       <Activities />
       <YoutubeGallery />

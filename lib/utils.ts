@@ -49,3 +49,13 @@ export const daysLeft = (date: string) => {
   const diff = eventDate.getTime() - today.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 };
+
+export const getMonthName = (date: string) => {
+  return new Date(date)
+    .toLocaleString("default", { month: "short" })
+    .substring(0, 3);
+};
+
+export const getDay = (date: string) => {
+  return new Date(date).getDate();
+}
