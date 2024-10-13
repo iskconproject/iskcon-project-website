@@ -1,28 +1,17 @@
-import { createOrder } from '../razorpayPayment';
+import { NextRequest, NextResponse } from "next/server";
+import { generatePaymentUrl } from "@/services/eazypay";
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+export async function POST(req: NextRequest) {
+  try {
+    const { amount, email } = await req.json();
+    const paymentUrl = generatePaymentUrl(amount, email);
 
-export async function POST(request: Request) {
-  const payload = await request.json();
-  const { amount } = payload;
-
-  // const response = await createOrder({
-  //   customer_details,
-  //   order_amount,
-  //   order_meta: {
-  //     return_url: `${BASE_URL}/order-summary/{order_id}/status`,
-  //   },
-  //   order_currency: 'INR',
-  //   order_tags,
-  // });
-
-  // const response = await createOrder({
-  //   amount: amount,
-  //   currency: 'INR',
-  //   receipt: 'receipt#1',
-  // });
-
-
-
-  return Response.json('test', { status: 200 });
+    return NextResponse.json({ paymentUrl });
+  } catch (error) {
+    console.error("Error initiating payment:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }

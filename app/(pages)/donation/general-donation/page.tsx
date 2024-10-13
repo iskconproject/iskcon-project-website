@@ -1,36 +1,18 @@
-'use client';
+"use client";
 
-import useCashfree from '@/app/hooks/useCashfree';
-import useRazorpay from '@/app/hooks/useRazorpay';
-import GeneralDonationForm from '@/components/forms/general-donation-form';
-import OfflinePayment from '@/components/offline-payment';
-import PageHeader from '@/components/page-header';
-import { Card } from '@/components/ui/card';
-import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEazypay } from "@/app/hooks/useEazypay";
+import GeneralDonationForm from "@/components/forms/general-donation-form";
+import OfflinePayment from "@/components/offline-payment";
+import PageHeader from "@/components/page-header";
+import { Card } from "@/components/ui/card";
+import Image from "next/image";
 
 const GeneralDonationPage = () => {
-  // const { performCashfreeCheckout, isCheckoutLoading } = useCashfree();
-  const { performRazorpayCheckout, isCheckoutLoading, orderId } = useRazorpay();
-
-  useEffect(() => {
-    if(!orderId) return;
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: 1000, //  = INR 10
-      name: 'ISKCON Asansol',
-      description: 'Donation',
-      image: '/images/logo.png',
-      order_id: orderId,
-      callback_url: `${process.env.NEXT_PUBLIC_BASE_URL}/order-summary/${orderId}/status`,
-      notes: {
-        address: 'Razorpay Corporate Office'
-      },
-      theme: {
-        color: '#F37254'
-      }
-    };
-  }, [orderId])
+  const {
+    performEazypayCheckout: initiatePayment,
+    isMutating: isProcessingPayment,
+    error: paymentError,
+  } = useEazypay();
 
   return (
     <main>
@@ -61,11 +43,11 @@ const GeneralDonationPage = () => {
             <Card className="bg-yellow-50 p-4 shadow-md">
               <GeneralDonationForm
                 onFormSubmit={(data) => {
-                  performRazorpayCheckout({
+                  initiatePayment({
                     amount: Number(data.amount),
                   });
                 }}
-                isLoading={isCheckoutLoading}
+                isLoading={isProcessingPayment}
               />
             </Card>
           </div>

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Order } from '../model/order';
 import axiosFetcher from './api.service';
 
 export const initatePaymentRequest = async (
