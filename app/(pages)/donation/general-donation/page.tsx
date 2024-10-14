@@ -20,7 +20,7 @@ const GeneralDonationPage = () => {
 
   useEffect(() => {
     if (returnUrl) {
-      router.push(returnUrl.paymentUrl);
+      window.location.href = returnUrl.paymentUrl;
     }
   }, [returnUrl, router]);
 
