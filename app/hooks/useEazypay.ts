@@ -14,10 +14,12 @@ interface EazypayResponse {
 }
 
 export const useEazypay = () => {
-  const { trigger, isMutating, error } = useSWRMutation(
-    API_CONFIG.endpoints.payment.initiate,
-    initatePaymentRequest
-  );
+  const { trigger, isMutating, error, data } = useSWRMutation<
+    EazypayResponse,
+    any,
+    any,
+    any
+  >(API_CONFIG.endpoints.payment.initiate, initatePaymentRequest);
 
   const performEazypayCheckout = async ({ amount, email }: EazypayParams) => {
     const payload = JSON.stringify({ amount, email });
@@ -31,5 +33,5 @@ export const useEazypay = () => {
     }
   };
 
-  return { performEazypayCheckout, isMutating, error };
+  return { performEazypayCheckout, isMutating, error, returnUrl: data };
 };

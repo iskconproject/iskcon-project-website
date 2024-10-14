@@ -6,13 +6,23 @@ import OfflinePayment from "@/components/offline-payment";
 import PageHeader from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const GeneralDonationPage = () => {
+  const router = useRouter();
   const {
     performEazypayCheckout: initiatePayment,
     isMutating: isProcessingPayment,
     error: paymentError,
+    returnUrl,
   } = useEazypay();
+
+  useEffect(() => {
+    if (returnUrl) {
+      router.push(returnUrl.paymentUrl);
+    }
+  }, [returnUrl, router]);
 
   return (
     <main>
