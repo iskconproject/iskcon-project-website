@@ -14,7 +14,19 @@ export const encryptData = (data: string): string => {
   return encrypted;
 };
 
-export const generatePaymentUrl = (amount: number, email?: string): string => {
+export const generateEncryptedPaymentUrl = (
+  params: Record<string, string>
+): string => {
+  const baseUrl = "https://eazypay.icicibank.com/EazyPG";
+  const encryptedParams = Object.entries(params).map(([key, value]) => {
+    const encryptedValue = encryptData(value);
+    return `${encodeURIComponent(key)}=${encodeURIComponent(encryptedValue)}`;
+  });
+
+  return `${baseUrl}?${encryptedParams.join("&")}`;
+};
+
+export const generatePaymentUrl = (amount: string, email?: string): string => {
   const mandatoryFields = MANDATORY_FIELDS;
   const optionalFields = email ? email : " ";
   const referenceNo = REFERENCE_NO;
@@ -23,8 +35,15 @@ export const generatePaymentUrl = (amount: number, email?: string): string => {
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = PAY_MODE;
 
-  const plainText = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
-  const encryptedPayload = encryptData(plainText);
+  const encryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${encryptData(
+    mandatoryFields
+  )}&optional fields=${encryptData(optionalFields)}&returnurl=${encryptData(
+    returnUrl
+  )}&Reference No=${encryptData(referenceNo)}&submerchantid=${encryptData(
+    subMerchantId
+  )}&transaction amount=${encryptData(transactionAmount)}&paymode=${encryptData(
+    payMode
+  )}`;
 
   return `https://eazypay.icicibank.com/EazyPG?${encryptedPayload}`;
 };

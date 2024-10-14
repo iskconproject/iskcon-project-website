@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -6,20 +6,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import indianStates from '@/data/indian-states.json';
+} from "@/components/ui/select";
+import indianStates from "@/data/indian-states.json";
 
 type Props = {
   className?: string;
@@ -29,10 +29,10 @@ type Props = {
 
 const FormSchema = z.object({
   amount: z.string().min(1, {
-    message: 'Minimum amount is ₹100',
+    message: "Minimum amount is ₹100",
   }),
   name: z.string().min(1, {
-    message: 'Please provide a valid name',
+    message: "Please provide a valid name",
   }),
   initiatedName: z.string().optional(),
   dob: z.date().optional(),
@@ -40,29 +40,33 @@ const FormSchema = z.object({
   email: z
     .string()
     .email({
-      message: 'Please provide a valid email',
+      message: "Please provide a valid email",
     })
     .optional(),
   phone: z.string().min(10).max(10, {
-    message: 'Please provide a valid phone number',
+    message: "Please provide a valid phone number",
   }),
   street_address: z.string().min(1, {
-    message: 'Please provide a valid address',
+    message: "Please provide a valid address",
   }),
   city: z.string().min(1, {
-    message: 'Please provide a valid city',
+    message: "Please provide a valid city",
   }),
   state: z.string().min(1, {
-    message: 'Please provide a valid state',
+    message: "Please provide a valid state",
   }),
-  postal_code: z.string().min(6).max(6, {
-    message: 'Please provide a valid postal code',
-  }),
+  postal_code: z
+    .string()
+    .min(6)
+    .max(6, {
+      message: "Please provide a valid postal code",
+    })
+    .optional(),
   pan_number: z
     .string()
     .min(10)
     .max(10, {
-      message: 'Please provide a valid PAN number',
+      message: "Please provide a valid PAN number",
     })
     .optional(),
 });
@@ -77,30 +81,30 @@ const GeneralDonationForm: React.FC<Props> = ({
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: '',
-      amount: '',
+      name: "",
+      amount: "",
     },
   });
 
   const { watch, setError } = form;
   const onSubmit = (data: FormValues) => {
     if (Number(data.amount) < 100) {
-      form.setError('amount', {
+      form.setError("amount", {
         message: `Minimum amount is ₹${100}`,
       });
-      form.setFocus('amount');
+      form.setFocus("amount");
       return;
     }
     onFormSubmit(data);
   };
 
-  const watchAmount = watch('amount');
+  const watchAmount = watch("amount");
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn('space-y-6', className)}
+        className={cn("space-y-6", className)}
       >
         <FormField
           control={form.control}
@@ -248,7 +252,7 @@ const GeneralDonationForm: React.FC<Props> = ({
             name="postal_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>Postal Code</FormLabel>
+                <FormLabel>Postal Code</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter postal code" {...field} />
                 </FormControl>

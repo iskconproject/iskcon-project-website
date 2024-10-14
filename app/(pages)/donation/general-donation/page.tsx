@@ -54,7 +54,7 @@ const GeneralDonationPage = () => {
               <GeneralDonationForm
                 onFormSubmit={(data) => {
                   initiatePayment({
-                    amount: Number(data.amount),
+                    amount: data.amount,
                   });
                 }}
                 isLoading={isProcessingPayment}

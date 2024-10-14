@@ -5,7 +5,7 @@ import { API_CONFIG } from "../config/api.config";
 import { initatePaymentRequest } from "../service/payment.service";
 
 interface EazypayParams {
-  amount: number;
+  amount: string;
   email?: string;
 }
 
