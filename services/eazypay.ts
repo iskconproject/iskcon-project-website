@@ -30,7 +30,7 @@ export const generatePaymentUrl = (amount: string, email?: string): string => {
   const mandatoryFields = MANDATORY_FIELDS;
   const optionalFields = email ? email : " ";
   const referenceNo = REFERENCE_NO;
-  const returnUrl = "https://iskconproject.com/api/payment/callback";
+  const returnUrl = "https://iskconproject.com/";
   const transactionAmount = amount;
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = PAY_MODE;
