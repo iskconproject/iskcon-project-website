@@ -5,6 +5,7 @@ import GeneralDonationForm from "@/components/forms/general-donation-form";
 import OfflinePayment from "@/components/offline-payment";
 import PageHeader from "@/components/page-header";
 import { Card } from "@/components/ui/card";
+import { openInNewTab } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -20,7 +21,7 @@ const GeneralDonationPage = () => {
 
   useEffect(() => {
     if (returnUrl) {
-      window.location.href = returnUrl.paymentUrl;
+      openInNewTab(returnUrl.paymentUrl);
     }
   }, [returnUrl, router]);
 

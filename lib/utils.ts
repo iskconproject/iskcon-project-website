@@ -58,4 +58,9 @@ export const getMonthName = (date: string) => {
 
 export const getDay = (date: string) => {
   return new Date(date).getDate();
-}
+};
+
+export const openInNewTab = (url: string) => {
+  const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  if (newWindow) newWindow.opener = null;
+};
