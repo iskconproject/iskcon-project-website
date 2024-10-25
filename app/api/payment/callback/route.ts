@@ -31,10 +31,7 @@ export async function POST(req: NextRequest) {
       !rs
     ) {
       console.error("Missing required parameters");
-      return NextResponse.json(
-        { message: "Bad Request: Missing required parameters" },
-        { status: 400 }
-      );
+      return NextResponse.redirect("/payment-failure");
     }
 
     // Generate the SHA512 signature using the response parameters
