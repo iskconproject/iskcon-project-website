@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
     const id = params.get("ID");
     const rs = params.get("RS");
 
+    console.log({ responseCode, uniqueRefNumber, totalAmount, transactionAmount, paymentMode, id, rs });
+
     if (
       !responseCode ||
       !uniqueRefNumber ||
