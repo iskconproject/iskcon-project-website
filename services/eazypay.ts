@@ -35,6 +35,9 @@ export const generatePaymentUrl = (amount: string, email?: string): string => {
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = PAY_MODE;
 
+  const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
+
+  console.log("Non Encrypted Payload:", nonEncryptedPayload);
   const encryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${encryptData(
     mandatoryFields
   )}&optional fields=${encryptData(optionalFields)}&returnurl=${encryptData(
