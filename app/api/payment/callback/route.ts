@@ -21,3 +21,26 @@ export async function GET(req: NextRequest) {
     return redirect("/payment-failure");
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { referenceNo, status, signature } = body;
+
+    // Verify signature if your payment gateway returns one
+    const data = `${referenceNo}|${status}`;
+    const isValid = verifySignature(data, signature || "");
+
+    if (isValid && status === "Success") {
+      return NextResponse.redirect("/payment-success");
+    } else {
+      return NextResponse.redirect("/payment-failure");
+    }
+  } catch (error) {
+    console.error("Error processing payment callback:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

@@ -21,7 +21,7 @@ const GeneralDonationPage = () => {
 
   useEffect(() => {
     if (returnUrl) {
-      openInNewTab(returnUrl.paymentUrl);
+      router.push(returnUrl.paymentUrl);
     }
   }, [returnUrl, router]);
 
