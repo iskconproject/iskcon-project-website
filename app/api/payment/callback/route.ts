@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text(); // Read the plain text response
@@ -19,7 +18,15 @@ export async function POST(req: NextRequest) {
     const id = params.get("ID");
     const rs = params.get("RS");
 
-    console.log({ responseCode, uniqueRefNumber, totalAmount, transactionAmount, paymentMode, id, rs });
+    console.log({
+      responseCode,
+      uniqueRefNumber,
+      totalAmount,
+      transactionAmount,
+      paymentMode,
+      id,
+      rs,
+    });
 
     if (
       !responseCode ||
@@ -57,9 +64,6 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Error processing payment callback:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.redirect("/payment-failure");
   }
 }
