@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text(); // Read the plain text response
@@ -18,15 +19,7 @@ export async function POST(req: NextRequest) {
     const id = params.get("ID");
     const rs = params.get("RS");
 
-    console.log({
-      responseCode,
-      uniqueRefNumber,
-      totalAmount,
-      transactionAmount,
-      paymentMode,
-      id,
-      rs,
-    });
+    console.log({ responseCode, uniqueRefNumber, totalAmount, transactionAmount, paymentMode, id, rs });
 
     if (
       !responseCode ||
@@ -38,7 +31,10 @@ export async function POST(req: NextRequest) {
       !rs
     ) {
       console.error("Missing required parameters");
-      return NextResponse.redirect("/payment-failure");
+      return NextResponse.json(
+        { message: "Unauthorized: Missing required parameters" },
+        { status: 401 }
+      );
     }
 
     // Generate the SHA512 signature using the response parameters
@@ -64,6 +60,9 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Error processing payment callback:", error);
-    return NextResponse.redirect("/payment-failure");
+    return NextResponse.json(
+      { message: "There was an error processing your payment" },
+      { status: 500 }
+    );
   }
 }
