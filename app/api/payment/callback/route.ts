@@ -75,9 +75,9 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Error processing payment callback:", error);
-    return NextResponse.json(
-      { message: "There was an error processing your payment" },
-      { status: 500 }
-    );
+    const queryParams = new URLSearchParams();
+    queryParams.append("error", "internal-server-error");
+    queryParams.append("status", "500");
+    return redirect(`/payment-failure?${queryParams.toString()}`);
   }
 }
