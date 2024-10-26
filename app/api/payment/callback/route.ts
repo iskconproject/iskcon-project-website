@@ -38,7 +38,10 @@ export async function POST(req: NextRequest) {
       !rs
     ) {
       console.error("Missing required parameters");
-      return NextResponse.redirect("https://iskconproject.com/payment-failure");
+      return NextResponse.redirect(
+        "https://iskconproject.com/payment-failure",
+        303
+      );
     }
 
     // Generate the SHA512 signature using the response parameters
@@ -52,11 +55,13 @@ export async function POST(req: NextRequest) {
     if (generatedSignature === rs) {
       if (responseCode === "Success") {
         return NextResponse.redirect(
-          "https://iskconproject.com/payment-success"
+          "https://iskconproject.com/payment-success",
+          303
         );
       } else {
         return NextResponse.redirect(
-          "https://iskconproject.com/payment-failure"
+          "https://iskconproject.com/payment-failure",
+          303
         );
       }
     } else {
