@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text(); // Read the plain text response
@@ -19,7 +18,15 @@ export async function POST(req: NextRequest) {
     const id = params.get("ID");
     const rs = params.get("RS");
 
-    console.log({ responseCode, uniqueRefNumber, totalAmount, transactionAmount, paymentMode, id, rs });
+    console.log({
+      responseCode,
+      uniqueRefNumber,
+      totalAmount,
+      transactionAmount,
+      paymentMode,
+      id,
+      rs,
+    });
 
     if (
       !responseCode ||
@@ -31,10 +38,7 @@ export async function POST(req: NextRequest) {
       !rs
     ) {
       console.error("Missing required parameters");
-      return NextResponse.json(
-        { message: "Unauthorized: Missing required parameters" },
-        { status: 401 }
-      );
+      return NextResponse.redirect("https://iskconproject.com/payment-failure");
     }
 
     // Generate the SHA512 signature using the response parameters
@@ -47,9 +51,13 @@ export async function POST(req: NextRequest) {
     // Verify the signature
     if (generatedSignature === rs) {
       if (responseCode === "Success") {
-        return NextResponse.redirect("/payment-success");
+        return NextResponse.redirect(
+          "https://iskconproject.com/payment-success"
+        );
       } else {
-        return NextResponse.redirect("/payment-failure");
+        return NextResponse.redirect(
+          "https://iskconproject.com/payment-failure"
+        );
       }
     } else {
       console.error("Invalid signature");
