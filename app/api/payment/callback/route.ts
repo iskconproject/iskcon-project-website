@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
-import { redirect } from "next/navigation";
+
+const paymentSuccessUrl = "https://iskconproject.com/payment-success";
+const paymentFailureUrl = "https://iskconproject.com/payment-failure";
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,11 +40,23 @@ export async function POST(req: NextRequest) {
       !id ||
       !rs
     ) {
+      console.log({
+        responseCode,
+        uniqueRefNumber,
+        totalAmount,
+        transactionAmount,
+        paymentMode,
+        id,
+        rs,
+      });
       console.error("Missing required parameters");
       const queryParams = new URLSearchParams();
       queryParams.append("error", "missing-parameters");
       queryParams.append("uniqueRefNumber", uniqueRefNumber || "");
-      return redirect(`/payment-failure?${queryParams.toString()}`);
+      return NextResponse.redirect(
+        `${paymentFailureUrl}?${queryParams.toString()}`,
+        303
+      );
     }
 
     // Generate the SHA512 signature using the response parameters
@@ -55,14 +69,14 @@ export async function POST(req: NextRequest) {
     // Verify the signature
     if (generatedSignature === rs) {
       if (responseCode === "Success") {
-        const successUrl = new URL("https://iskconproject.com/payment-success");
+        const successUrl = new URL(paymentSuccessUrl);
         successUrl.searchParams.append("amount", transactionAmount || "");
         successUrl.searchParams.append("reference", uniqueRefNumber || "");
 
         return NextResponse.redirect(successUrl.toString(), 303);
       } else {
         return NextResponse.redirect(
-          "https://iskconproject.com/payment-failure",
+          `${paymentFailureUrl}?error=${responseCode}`,
           303
         );
       }
@@ -78,6 +92,9 @@ export async function POST(req: NextRequest) {
     const queryParams = new URLSearchParams();
     queryParams.append("error", "internal-server-error");
     queryParams.append("status", "500");
-    return redirect(`/payment-failure?${queryParams.toString()}`);
+    return NextResponse.redirect(
+      `${paymentFailureUrl}?${queryParams.toString()}`,
+      303
+    );
   }
 }
