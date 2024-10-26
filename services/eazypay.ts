@@ -27,12 +27,12 @@ export const generateEncryptedPaymentUrl = (
 };
 
 export const generatePaymentUrl = (amount: string, email?: string): string => {
-  const mandatoryFields = MANDATORY_FIELDS;
   const optionalFields = email ? email : " ";
-  const referenceNo = REFERENCE_NO;
-  const returnUrl = "https://iskconproject.com/api/payment/callback";
   const transactionAmount = amount;
   const subMerchantId = SUB_MERCHANT_ID;
+  const referenceNo = REFERENCE_NO;
+  const mandatoryFields = `${referenceNo}|${subMerchantId}|${transactionAmount}|x|${9876543210}`;
+  const returnUrl = "https://iskconproject.com/api/payment/callback";
   const payMode = PAY_MODE;
 
   const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
