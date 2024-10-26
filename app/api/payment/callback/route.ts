@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { redirect } from "next/navigation";
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,10 +39,10 @@ export async function POST(req: NextRequest) {
       !rs
     ) {
       console.error("Missing required parameters");
-      return NextResponse.redirect(
-        "https://iskconproject.com/payment-failure",
-        303
-      );
+      const queryParams = new URLSearchParams();
+      queryParams.append("error", "missing-parameters");
+      queryParams.append("uniqueRefNumber", uniqueRefNumber || "");
+      return redirect(`/payment-failure?${queryParams.toString()}`);
     }
 
     // Generate the SHA512 signature using the response parameters
@@ -54,10 +55,11 @@ export async function POST(req: NextRequest) {
     // Verify the signature
     if (generatedSignature === rs) {
       if (responseCode === "Success") {
-        return NextResponse.redirect(
-          "https://iskconproject.com/payment-success",
-          303
-        );
+        const successUrl = new URL("https://iskconproject.com/payment-success");
+        successUrl.searchParams.append("amount", transactionAmount || "");
+        successUrl.searchParams.append("reference", uniqueRefNumber || "");
+
+        return NextResponse.redirect(successUrl.toString(), 303);
       } else {
         return NextResponse.redirect(
           "https://iskconproject.com/payment-failure",
