@@ -21,7 +21,7 @@ export const generateEncryptedPaymentUrl = (
   const baseUrl = "https://eazypay.icicibank.com/EazyPG";
   const encryptedParams = Object.entries(params).map(([key, value]) => {
     const encryptedValue = encryptData(value);
-    return `${encodeURIComponent(key)}=${encodeURIComponent(encryptedValue)}`;
+    return `${key}=${encryptedValue}`;
   });
 
   return `${baseUrl}?${encryptedParams.join("&")}`;
@@ -32,7 +32,7 @@ export const generateUnencryptedPaymentUrl = (
 ): string => {
   const baseUrl = "https://eazypay.icicibank.com/EazyPG";
   const encryptedParams = Object.entries(params).map(([key, value]) => {
-    return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    return `${encodeURIComponent(key)}=${value}`;
   });
 
   return `${baseUrl}?${encryptedParams.join("&")}`;
@@ -45,11 +45,11 @@ export const generateEazypayPaymentUrl = (
   const params: Record<string, string> = {
     merchantid: MERCHANT_ID,
     "mandatory fields": "123abc|45|10|x|9876543210",
-    "optional fields": email || "test@gmail.com",
+    "optional fields": "test@gmail.com",
     returnurl: "https://iskconproject.com/api/payment/callback",
     "Reference No": REFERENCE_NO,
     submerchantid: SUB_MERCHANT_ID,
-    "transaction amount": amount,
+    "transaction amount": "10",
     paymode: PAY_MODE.toString(),
   };
 
