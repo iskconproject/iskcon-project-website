@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { v4 as uuidv4 } from "uuid";
 
 const AES_KEY = process.env.AES_KEY || ""; // AES encryption key from env
 const MERCHANT_ID = process.env.MERCHANT_ID || ""; // Merchant ID from env
@@ -26,29 +27,36 @@ export const generateEncryptedPaymentUrl = (
   return `${baseUrl}?${encryptedParams.join("&")}`;
 };
 
-export const generatePaymentUrl = (amount: string, email?: string): string => {
-  const optionalFields = "test@gmail.com";
-  const transactionAmount = 10;
-  const subMerchantId = SUB_MERCHANT_ID;
-  const payMode = 9;
-  const referenceNo = REFERENCE_NO;
-  const mandatoryFields = "123abc|45|10|x|9876543210";
-  const returnUrl = "https://iskconproject.com/api/payment/callback";
+export const generateUnencryptedPaymentUrl = (
+  params: Record<string, string>
+): string => {
+  const baseUrl = "https://eazypay.icicibank.com/EazyPG";
+  const encryptedParams = Object.entries(params).map(([key, value]) => {
+    return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+  });
 
-  const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
+  return `${baseUrl}?${encryptedParams.join("&")}`;
+};
 
-  console.log("Non Encrypted Payload:", nonEncryptedPayload);
-  const encryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${encryptData(
-    mandatoryFields
-  )}&optional fields=${encryptData(optionalFields)}&returnurl=${encryptData(
-    returnUrl
-  )}&Reference No=${encryptData(referenceNo)}&submerchantid=${encryptData(
-    subMerchantId
-  )}&transaction amount=${encryptData(
-    String(transactionAmount)
-  )}&paymode=${encryptData(String(payMode))}`;
+export const generateEazypayPaymentUrl = (
+  amount: string,
+  email?: string
+): string => {
+  const params: Record<string, string> = {
+    merchantid: MERCHANT_ID,
+    "mandatory fields": "123abc|45|10|x|9876543210",
+    "optional fields": email || "test@gmail.com",
+    returnurl: "https://iskconproject.com/api/payment/callback",
+    "Reference No": `ISKCON_ASN_${uuidv4()}`, // Assuming UUID generation
+    submerchantid: SUB_MERCHANT_ID,
+    "transaction amount": amount,
+    paymode: PAY_MODE.toString(),
+  };
 
-  return `https://eazypay.icicibank.com/EazyPG?${encryptedPayload}`;
+  console.log("unencrypted payment url", generateUnencryptedPaymentUrl(params));
+
+  console.log("Non Encrypted Payload:", params);
+  return generateEncryptedPaymentUrl(params);
 };
 
 export const verifySignature = (data: string, signature: string): boolean => {
