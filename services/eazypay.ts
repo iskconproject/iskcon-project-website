@@ -47,7 +47,7 @@ export const generateEazypayPaymentUrl = (
     "mandatory fields": "123abc|45|10|x|9876543210",
     "optional fields": email || "test@gmail.com",
     returnurl: "https://iskconproject.com/api/payment/callback",
-    "Reference No": `ISKCON_ASN_${uuidv4()}`, // Assuming UUID generation
+    "Reference No": REFERENCE_NO,
     submerchantid: SUB_MERCHANT_ID,
     "transaction amount": amount,
     paymode: PAY_MODE.toString(),
