@@ -38,25 +38,29 @@ export const generateUnencryptedPaymentUrl = (
   return `${baseUrl}?${encryptedParams.join("&")}`;
 };
 
-export const generateEazypayPaymentUrl = (
-  amount: string,
-  email?: string
-): string => {
-  const params: Record<string, string> = {
-    merchantid: MERCHANT_ID,
-    "mandatory fields": "123abc|45|10|x|9876543210",
-    "optional fields": "test@gmail.com",
-    returnurl: "https://iskconproject.com/api/payment/callback",
-    "Reference No": REFERENCE_NO,
-    submerchantid: SUB_MERCHANT_ID,
-    "transaction amount": "10",
-    paymode: PAY_MODE.toString(),
-  };
+export const generateEazypayPaymentUrl = (amount: string, email?: string): string => {
+  const optionalFields = "test@gmail.com";
+  const transactionAmount = 10;
+  const subMerchantId = SUB_MERCHANT_ID;
+  const payMode = 9;
+  const referenceNo = REFERENCE_NO;
+  const mandatoryFields = "123abc|45|10|x|9876543210";
+  const returnUrl = "https://iskconproject.com/api/payment/callback";
 
-  console.log("unencrypted payment url", generateUnencryptedPaymentUrl(params));
+  const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
 
-  console.log("Non Encrypted Payload:", params);
-  return generateEncryptedPaymentUrl(params);
+  console.log("Non Encrypted Payload:", nonEncryptedPayload);
+  const encryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${encryptData(
+    mandatoryFields
+  )}&optional fields=${encryptData(optionalFields)}&returnurl=${encryptData(
+    returnUrl
+  )}&Reference No=${encryptData(referenceNo)}&submerchantid=${encryptData(
+    subMerchantId
+  )}&transaction amount=${encryptData(
+    String(transactionAmount)
+  )}&paymode=${encryptData(String(payMode))}`;
+
+  return `https://eazypay.icicibank.com/EazyPG?${encryptedPayload}`;
 };
 
 export const verifySignature = (data: string, signature: string): boolean => {
