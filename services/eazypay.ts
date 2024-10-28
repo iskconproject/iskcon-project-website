@@ -43,7 +43,7 @@ export const generateEazypayPaymentUrl = (amount: string, email?: string): strin
   const transactionAmount = 10;
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = 9;
-  const referenceNo = REFERENCE_NO;
+  const referenceNo = `${'ISK_ASN'}_${uuidv4()}`;
   const mandatoryFields = "123abc|45|10|x|9876543210";
   const returnUrl = "https://iskconproject.com/api/payment/callback";
 
