@@ -39,12 +39,12 @@ export const generateUnencryptedPaymentUrl = (
 };
 
 export const generateEazypayPaymentUrl = (amount: string, email?: string): string => {
-  const optionalFields = "test@gmail.com";
-  const transactionAmount = 10;
+  const optionalFields = email || 'test@gmail.com';
+  const transactionAmount = amount;
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = 9;
   const referenceNo = `${'ISK_ASN'}_${uuidv4()}`;
-  const mandatoryFields = "123abc|45|10|x|9876543210";
+  const mandatoryFields = `${referenceNo}|${SUB_MERCHANT_ID}|${amount}|x|9876543210`;
   const returnUrl = "https://iskconproject.com/api/payment/callback";
 
   const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;
