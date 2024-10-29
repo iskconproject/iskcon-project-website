@@ -37,7 +37,7 @@ export const generateUnencryptedPaymentUrl = (
 };
 
 export const generateEazypayPaymentUrl = (amount: string, name: string, phoneNumber: string, email?: string): string => {
-  const optionalFields = email || ' ';
+  const optionalFields = email || 'projectiskcon@gmail.com';
   const transactionAmount = amount;
   const subMerchantId = SUB_MERCHANT_ID;
   const payMode = PAY_MODE;
