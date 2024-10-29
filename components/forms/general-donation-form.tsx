@@ -129,8 +129,8 @@ const GeneralDonationForm: React.FC<Props> = ({
                 />
               </FormControl>
               <FormMessage>
-                {watchAmount && Number(watchAmount) < 100
-                  ? `Minimum amount is ₹${100}`
+                {watchAmount && Number(watchAmount) < 1
+                  ? `Minimum amount is ₹${1}`
                   : null}
               </FormMessage>
             </FormItem>
