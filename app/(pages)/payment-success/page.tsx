@@ -38,7 +38,7 @@ const PaymentSuccessPage = () => {
           )}
           {amount && (
             <p className="text-gray-600 md:text-lg mb-4">
-              <strong>Amount:</strong> ${amount}
+              <strong>Amount:</strong> ₹{amount}
             </p>
           )}
           <blockquote className="text-gray-500 italic md:text-lg mb-8">

@@ -6,16 +6,13 @@ const paymentFailureUrl = "https://iskconproject.com/payment-failure";
 
 const SECRET_KEY = process.env.AES_KEY;
 
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text(); // Read the plain text response
-    console.log("Request body:", body);
 
     // Parse the plain text response into an object
     const params = new URLSearchParams(body);
 
-    console.log(params, "params");
     const id = params.get("ID");
     const responseCode = params.get("Response Code");
     const uniqueRefNumber = params.get("Unique Ref Number");
@@ -41,15 +38,6 @@ export async function POST(req: NextRequest) {
       !id ||
       !rs
     ) {
-      console.log({
-        responseCode,
-        uniqueRefNumber,
-        totalAmount,
-        transactionAmount,
-        paymentMode,
-        id,
-        rs,
-      });
       console.error("Missing required parameters");
       const queryParams = new URLSearchParams();
       queryParams.append("error", "missing-parameters");
@@ -66,24 +54,30 @@ export async function POST(req: NextRequest) {
       .update(data)
       .digest("hex");
 
-    console.log("Generated Signature:", generatedSignature);
-    console.log("is rs equal to generatedSignature", rs === generatedSignature);
-
     // Verify the signature
-    // if (generatedSignature === rs) { // TODO: Uncomment this line later once the signature verification is fixed
-    if (responseCode === "E000") {
-      const successUrl = new URL(paymentSuccessUrl);
-      successUrl.searchParams.append("amount", transactionAmount || "");
-      successUrl.searchParams.append("reference", uniqueRefNumber || "");
+    if (generatedSignature === rs) {
+      // TODO: Uncomment this line later once the signature verification is fixed
+      if (responseCode === "E000") {
+        const successUrl = new URL(paymentSuccessUrl);
+        successUrl.searchParams.append("amount", transactionAmount || "");
+        successUrl.searchParams.append("reference", uniqueRefNumber || "");
 
-      return NextResponse.redirect(successUrl.toString(), 303);
+        return NextResponse.redirect(successUrl.toString(), 303);
+      } else {
+        return NextResponse.redirect(
+          `${paymentFailureUrl}?error=${responseCode}`,
+          303
+        );
+      }
     } else {
+      console.error("Invalid signature");
+      const queryParams = new URLSearchParams();
+      queryParams.append("error", "invalid-signature");
       return NextResponse.redirect(
-        `${paymentFailureUrl}?error=${responseCode}`,
+        `${paymentFailureUrl}?${queryParams.toString()}`,
         303
       );
     }
-    // }
   } catch (error) {
     console.error("Error processing payment callback:", error);
     const queryParams = new URLSearchParams();
