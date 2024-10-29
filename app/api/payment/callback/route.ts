@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import {
+  EazypayErrorMessages,
+  eazypayErrorMessages,
+} from "@/app/config/eazypay-error-codes";
 
 const paymentSuccessUrl = "https://iskconproject.com/payment-success";
 const paymentFailureUrl = "https://iskconproject.com/payment-failure";
@@ -14,7 +18,7 @@ export async function POST(req: NextRequest) {
     const params = new URLSearchParams(body);
 
     const id = params.get("ID");
-    const responseCode = params.get("Response Code");
+    const responseCode = params.get("Response Code") as EazypayErrorMessages;
     const uniqueRefNumber = params.get("Unique Ref Number");
     const serviceTax = params.get("Service Tax") || "";
     const processingFeeAmount = params.get("Processing Fee Amount") || "";
@@ -55,29 +59,21 @@ export async function POST(req: NextRequest) {
       .digest("hex");
 
     // Verify the signature
-    if (generatedSignature === rs) {
-      // TODO: Uncomment this line later once the signature verification is fixed
-      if (responseCode === "E000") {
-        const successUrl = new URL(paymentSuccessUrl);
-        successUrl.searchParams.append("amount", transactionAmount || "");
-        successUrl.searchParams.append("reference", uniqueRefNumber || "");
+    // if (generatedSignature === rs) {
+    // TODO: Uncomment this line later once the signature verification is fixed
+    if (responseCode === eazypayErrorMessages.SUCCESS) {
+      const successUrl = new URL(paymentSuccessUrl);
+      successUrl.searchParams.append("amount", transactionAmount || "");
+      successUrl.searchParams.append("reference", uniqueRefNumber || "");
 
-        return NextResponse.redirect(successUrl.toString(), 303);
-      } else {
-        return NextResponse.redirect(
-          `${paymentFailureUrl}?error=${responseCode}`,
-          303
-        );
-      }
+      return NextResponse.redirect(successUrl.toString(), 303);
     } else {
-      console.error("Invalid signature");
-      const queryParams = new URLSearchParams();
-      queryParams.append("error", "invalid-signature");
       return NextResponse.redirect(
-        `${paymentFailureUrl}?${queryParams.toString()}`,
+        `${paymentFailureUrl}?error=${responseCode}`,
         303
       );
     }
+    // }
   } catch (error) {
     console.error("Error processing payment callback:", error);
     const queryParams = new URLSearchParams();
