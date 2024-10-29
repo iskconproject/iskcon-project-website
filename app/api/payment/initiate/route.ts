@@ -3,8 +3,13 @@ import { generateEazypayPaymentUrl } from "@/services/eazypay";
 
 export async function POST(req: NextRequest) {
   try {
-    const { amount, email } = await req.json();
-    const paymentUrl = generateEazypayPaymentUrl(amount, email);
+    const { amount, email, name, phoneNumber } = await req.json();
+    const paymentUrl = generateEazypayPaymentUrl(
+      amount,
+      name,
+      phoneNumber,
+      email
+    );
 
     return NextResponse.json({ paymentUrl });
   } catch (error) {

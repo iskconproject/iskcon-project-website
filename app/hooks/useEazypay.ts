@@ -6,6 +6,8 @@ import { initatePaymentRequest } from "../service/payment.service";
 
 interface EazypayParams {
   amount: string;
+  name: string;
+  phoneNumber: string;
   email?: string;
 }
 
@@ -21,7 +23,7 @@ export const useEazypay = () => {
     any
   >(API_CONFIG.endpoints.payment.initiate, initatePaymentRequest);
 
-  const performEazypayCheckout = async ({ amount, email }: EazypayParams) => {
+  const performEazypayCheckout = async ({ amount, name, phoneNumber, email }: EazypayParams) => {
     const payload = JSON.stringify({ amount, email });
 
     try {

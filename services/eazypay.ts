@@ -3,10 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const AES_KEY = process.env.AES_KEY || ""; // AES encryption key from env
 const MERCHANT_ID = process.env.MERCHANT_ID || ""; // Merchant ID from env
-const REFERENCE_NO = process.env.REFERENCE_NO || ""; // Reference number from env
 const SUB_MERCHANT_ID = process.env.SUB_MERCHANT_ID || ""; // Sub merchant ID from env
 const PAY_MODE = process.env.PAY_MODE || ""; // Pay mode from env
-const MANDATORY_FIELDS = "123abc|45|10|x|9876543210"; // Mandatory fields from env
 
 export const encryptData = (data: string): string => {
   const cipher = crypto.createCipheriv("aes-128-ecb", AES_KEY, null);
@@ -38,13 +36,13 @@ export const generateUnencryptedPaymentUrl = (
   return `${baseUrl}?${encryptedParams.join("&")}`;
 };
 
-export const generateEazypayPaymentUrl = (amount: string, email?: string): string => {
-  const optionalFields = email || 'test@gmail.com';
+export const generateEazypayPaymentUrl = (amount: string, name: string, phoneNumber: string, email?: string): string => {
+  const optionalFields = email || '';
   const transactionAmount = amount;
   const subMerchantId = SUB_MERCHANT_ID;
-  const payMode = 9;
+  const payMode = PAY_MODE;
   const referenceNo = `${'ISK_ASN'}_${uuidv4()}`;
-  const mandatoryFields = `${referenceNo}|${SUB_MERCHANT_ID}|${amount}|x|9876543210`;
+  const mandatoryFields = `${referenceNo}|${SUB_MERCHANT_ID}|${amount}|${name}|${phoneNumber}`;
   const returnUrl = "https://iskconproject.com/api/payment/callback";
 
   const nonEncryptedPayload = `merchantid=${MERCHANT_ID}&mandatory fields=${mandatoryFields}&optional fields=${optionalFields}&returnurl=${returnUrl}&Reference No=${referenceNo}&submerchantid=${subMerchantId}&transaction amount=${transactionAmount}&paymode=${payMode}`;

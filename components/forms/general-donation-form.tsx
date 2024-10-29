@@ -29,7 +29,7 @@ type Props = {
 
 const FormSchema = z.object({
   amount: z.string().min(1, {
-    message: "Minimum amount is ₹100",
+    message: "Minimum amount is ₹1",
   }),
   name: z.string().min(1, {
     message: "Please provide a valid name",
@@ -46,15 +46,24 @@ const FormSchema = z.object({
   phone: z.string().min(10).max(10, {
     message: "Please provide a valid phone number",
   }),
-  street_address: z.string().min(1, {
-    message: "Please provide a valid address",
-  }),
-  city: z.string().min(1, {
-    message: "Please provide a valid city",
-  }),
-  state: z.string().min(1, {
-    message: "Please provide a valid state",
-  }),
+  street_address: z
+    .string()
+    .min(1, {
+      message: "Please provide a valid address",
+    })
+    .optional(),
+  city: z
+    .string()
+    .min(1, {
+      message: "Please provide a valid city",
+    })
+    .optional(),
+  state: z
+    .string()
+    .min(1, {
+      message: "Please provide a valid state",
+    })
+    .optional(),
   postal_code: z
     .string()
     .min(6)
@@ -88,9 +97,9 @@ const GeneralDonationForm: React.FC<Props> = ({
 
   const { watch, setError } = form;
   const onSubmit = (data: FormValues) => {
-    if (Number(data.amount) < 100) {
+    if (Number(data.amount) < 1) {
       form.setError("amount", {
-        message: `Minimum amount is ₹${100}`,
+        message: `Minimum amount is ₹${1}`,
       });
       form.setFocus("amount");
       return;
@@ -141,20 +150,6 @@ const GeneralDonationForm: React.FC<Props> = ({
             </FormItem>
           )}
         />
-
-        {/* <FormField
-          control={form.control}
-          name="initiatedName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Initiated Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter initiated name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
 
         <div className="grid md:grid-cols-2 gap-4">
           <FormField
