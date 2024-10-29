@@ -24,7 +24,7 @@ export const useEazypay = () => {
   >(API_CONFIG.endpoints.payment.initiate, initatePaymentRequest);
 
   const performEazypayCheckout = async ({ amount, name, phoneNumber, email }: EazypayParams) => {
-    const payload = JSON.stringify({ amount, email });
+    const payload = JSON.stringify({ amount, name, phoneNumber, email });
 
     try {
       const response = await trigger(payload);

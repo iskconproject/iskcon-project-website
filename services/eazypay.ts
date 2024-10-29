@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const AES_KEY = process.env.AES_KEY || ""; // AES encryption key from env
 const MERCHANT_ID = process.env.MERCHANT_ID || ""; // Merchant ID from env
 const SUB_MERCHANT_ID = process.env.SUB_MERCHANT_ID || ""; // Sub merchant ID from env
-const PAY_MODE = process.env.PAY_MODE || ""; // Pay mode from env
+const PAY_MODE = process.env.PAY_MODE || "9"; // Pay mode from env
 
 export const encryptData = (data: string): string => {
   const cipher = crypto.createCipheriv("aes-128-ecb", AES_KEY, null);
