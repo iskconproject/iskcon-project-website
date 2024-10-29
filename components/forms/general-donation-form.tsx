@@ -154,26 +154,25 @@ const GeneralDonationForm: React.FC<Props> = ({
         <div className="grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
                 <FormLabel required>Phone</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -186,7 +185,7 @@ const GeneralDonationForm: React.FC<Props> = ({
           name="street_address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel required>Street Address</FormLabel>
+              <FormLabel>Street Address</FormLabel>
               <FormControl>
                 <Input placeholder="Enter street address" {...field} />
               </FormControl>
@@ -201,7 +200,7 @@ const GeneralDonationForm: React.FC<Props> = ({
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>City</FormLabel>
+                <FormLabel>City</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter city" {...field} />
                 </FormControl>
@@ -215,7 +214,7 @@ const GeneralDonationForm: React.FC<Props> = ({
             name="state"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>State</FormLabel>
+                <FormLabel>State</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={String(field.value)}
@@ -255,20 +254,6 @@ const GeneralDonationForm: React.FC<Props> = ({
               </FormItem>
             )}
           />
-
-          {/* <FormField
-            control={form.control}
-            name="pan_number"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>PAN Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter PAN number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
         </div>
 
         <Button type="submit" loading={isLoading}>
