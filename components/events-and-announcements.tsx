@@ -14,9 +14,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useCalendarApi from "@/app/hooks/useCalendarApi";
-import { VaishnavEvent } from "./vaishnava-calendar";
 import { getDay, getMonthName } from "@/lib/utils";
+import { VaishnavEvent } from "@/components/vaishnava-calendar";
+
+interface EventsAndAnnouncementsProps {
+  calendarEvents: VaishnavEvent[];
+}
 
 const carouselItems = [
   {
@@ -36,29 +39,12 @@ const carouselItems = [
   },
 ];
 
-const EventsAndAnnouncements = () => {
+const EventsAndAnnouncements: React.FC<EventsAndAnnouncementsProps> = ({
+  calendarEvents = [],
+}) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const { fetchCalendarEventsByMonthAndYear } = useCalendarApi();
-  const [calendarEvents, setCalendarEvents] = useState<VaishnavEvent[]>([]);
-
-  const fetchUpcomingCalendarEvents = async (count: number) => {
-    const currentMonth = new Date().getMonth() + 1;
-    const currentYear = new Date().getFullYear();
-    const currentDay = new Date().getDate();
-    const payload = JSON.stringify({ month: currentMonth, year: currentYear });
-    const response = await fetchCalendarEventsByMonthAndYear(payload);
-    const sortedEvents = response.events.sort((a, b) => {
-        return new Date(a.start).getDate() - new Date(b.start).getDate();
-    });
-
-    return sortedEvents
-      .filter((event) => {
-        return new Date(event.start).getDate() >= currentDay;
-      })
-      .slice(0, count);
-  };
 
   useEffect(() => {
     if (!api) {
@@ -84,12 +70,6 @@ const EventsAndAnnouncements = () => {
 
     return () => clearInterval(intervalId);
   }, [api]);
-
-  useEffect(() => {
-    fetchUpcomingCalendarEvents(5).then((events) => {
-      setCalendarEvents(events);
-    });
-  }, []);
 
   return (
     <section className="py-16 bg-purple-100">

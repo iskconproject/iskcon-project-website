@@ -6,6 +6,8 @@ import Events from "@/components/events";
 import YoutubeGallery from "@/components/youtube-gallery";
 import Social from "@/components/social";
 import EventsAndAnnouncements from "@/components/events-and-announcements";
+import { VaishnavEvent } from "@/components/vaishnava-calendar";
+import { getCalendarEvents } from "@/lib/calendar.server";
 
 export const metadata: Metadata = {
   title: "Iskcon Project | Donate for our ongoing Jagannath Temple in Asansol",
@@ -158,12 +160,13 @@ const jsonLD = () => {
   );
 };
 
-export default function Home() {
+export default async function Home() {
+  const calendarEvents = await getCalendarEvents();
   return (
     <main>
       {jsonLD()}
       <Hero />
-      <EventsAndAnnouncements />
+      <EventsAndAnnouncements calendarEvents={calendarEvents} />
       <DonateUs />
       <Activities />
       <YoutubeGallery />

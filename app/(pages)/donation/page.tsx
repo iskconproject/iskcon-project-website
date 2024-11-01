@@ -106,9 +106,7 @@ const Donation = () => {
           })}
         </div>
 
-        <div className="py-32">
-          <OfflinePayment />
-        </div>
+       
       </div>
     </main>
   );
