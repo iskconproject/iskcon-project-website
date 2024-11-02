@@ -53,16 +53,16 @@ const schema = z.object({
   }),
   street_address: z.string().min(1, {
     message: 'Please provide a valid address',
-  }),
+  }).optional(),
   city: z.string().min(1, {
     message: 'Please provide a valid city',
-  }),
+  }).optional(),
   state: z.string().min(1, {
     message: 'Please provide a valid state',
-  }),
+  }).optional(),
   postal_code: z.string().min(6).max(6, {
     message: 'Please provide a valid postal code',
-  }),
+  }).optional(),
   pan_number: z
     .string()
     .min(10)

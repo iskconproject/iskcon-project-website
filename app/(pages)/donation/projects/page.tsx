@@ -1,13 +1,27 @@
-'use client';
+"use client";
 
-import FutureTempleContributionForm from '@/components/forms/future-temple-contribution-form';
-import Image from 'next/image';
-import { Card } from '@/components/ui/card';
-import useCashfreeCheckout from '@/app/hooks/useCashfree';
-import OfflinePayment from '@/components/offline-payment';
+import FutureTempleContributionForm from "@/components/forms/future-temple-contribution-form";
+import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import OfflinePayment from "@/components/offline-payment";
+import { useEazypay } from "@/app/hooks/useEazypay";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const NewTemple = () => {
-  const { performCashfreeCheckout, isCheckoutLoading } = useCashfreeCheckout();
+  const router = useRouter();
+  const {
+    performEazypayCheckout: initiatePayment,
+    isMutating: isProcessingPayment,
+    error: paymentError,
+    returnUrl,
+  } = useEazypay();
+
+  useEffect(() => {
+    if (returnUrl) {
+      router.push(returnUrl.paymentUrl);
+    }
+  }, [returnUrl, router]);
 
   return (
     <main className="py-8">
@@ -29,7 +43,7 @@ const NewTemple = () => {
           </div>
           <div className="relative rounded-lg overflow-hidden bg-purple-200">
             <Image
-              src={'/images/temple.svg'}
+              src={"/images/temple.svg"}
               fill={true}
               alt="new temple image"
               className="object-contain"
@@ -42,33 +56,18 @@ const NewTemple = () => {
 
           <FutureTempleContributionForm
             className="mt-4"
-            isLoading={isCheckoutLoading}
+            isLoading={isProcessingPayment}
             onFormSubmit={(data) => {
-              console.log(data, 'on submit')
-              performCashfreeCheckout({
-                customer_details: {
-                  customer_name: data.name,
-                  customer_id: data.phone,
-                  customer_email: data.email,
-                  customer_phone: data.phone,
-                },
-                order: {
-                  order_amount: data.amount || '',
-                  order_tags: {
-                    address: `${data?.street_address},${data?.city},${data?.state},${data.postal_code}`,
-                    pan_number: data?.pan_number,
-                    initiated_name: data?.initiatedName,
-                    type: 'donation',
-                    purpose: 'projects',
-                  },
-                },
+              if (!data.amount) return;
+              initiatePayment({
+                amount: data.amount,
+                name: data.name,
+                phoneNumber: data.phone,
+                email: data.email,
               });
             }}
           />
         </Card>
-      </div>
-      <div className="py-16 container">
-        <OfflinePayment />
       </div>
     </main>
   );

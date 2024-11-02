@@ -1,14 +1,30 @@
-'use client';
+"use client";
 
-import NityaSevaForm from '@/components/forms/nitya-seva-form';
-import PageHeader from '@/components/page-header';
-import Image from 'next/image';
-import { Card } from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
-import OfflinePayment from '@/components/offline-payment';
+import NityaSevaForm from "@/components/forms/nitya-seva-form";
+import PageHeader from "@/components/page-header";
+import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useEazypay } from "@/app/hooks/useEazypay";
+import { useEffect } from "react";
 
 const NityaSeva = () => {
   const { toast } = useToast();
+  const router = useRouter();
+  const {
+    performEazypayCheckout: initiatePayment,
+    isMutating: isProcessingPayment,
+    error: paymentError,
+    returnUrl,
+  } = useEazypay();
+
+  useEffect(() => {
+    if (returnUrl) {
+      router.push(returnUrl.paymentUrl);
+    }
+  }, [returnUrl, router]);
+
   return (
     <main>
       <PageHeader className="relative lg:h-[500px]">
@@ -47,17 +63,17 @@ const NityaSeva = () => {
           <NityaSevaForm
             className="mt-2"
             onFormSubmit={(data) => {
-              //console.log('form data', data);
-              toast({
-                title: 'Hare Krishna! Thank you for your contribution.',
-                description: 'We will contact you soon.',
+              const { amount, name, email, phone } = data;
+              if (!amount) return;
+              initiatePayment({
+                amount,
+                name,
+                email,
+                phoneNumber: phone,
               });
             }}
           />
         </Card>
-      </div>
-      <div className="py-16 container">
-        <OfflinePayment />
       </div>
     </main>
   );
