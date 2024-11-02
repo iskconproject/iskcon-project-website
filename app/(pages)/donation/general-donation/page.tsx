@@ -37,7 +37,7 @@ const GeneralDonationPage = () => {
         <div className="container mx-auto">
           <div className="space-y-4 lg:w-2/3 mx-auto lg:px-8">
             <h1 className="text-center text-purple-600 md:text-4xl ">
-              Make a humble donation to the divine
+              Make a humble donation to Sri Sri Jagannath
             </h1>
             <p className="text-xs md:text-sm text-gray-700 text-center">
               Your contribution will help us in our mission to spread the
