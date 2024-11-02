@@ -24,8 +24,8 @@ interface EventsAndAnnouncementsProps {
 const carouselItems = [
   {
     id: 1,
-    image: "/placeholder.svg?height=600&width=800",
-    alt: "Kathamrita Sindhu Audio Player Advertisement",
+    image: "/images/govardhan.svg",
+    alt: "Happy Govardhan Puja",
   },
   {
     id: 2,
@@ -74,37 +74,16 @@ const EventsAndAnnouncements: React.FC<EventsAndAnnouncementsProps> = ({
   return (
     <section className="py-16 bg-purple-100">
       <div className="flex flex-col md:flex-row gap-8 container">
-        {/* <div className="flex-1">
-          <h2 className="text-3xl font-bold text-purple-900 mb-4 text-center uppercase">
-            Events and Announcements
-          </h2>
-          <Carousel setApi={setApi} className="w-full max-w-xs mx-auto">
-            <CarouselContent>
-              {carouselItems.map((item) => (
-                <CarouselItem key={item.id}>
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <Image
-                          src={item.image}
-                          alt={item.alt}
-                          width={400}
-                          height={400}
-                          className="rounded-lg object-cover"
-                        />
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-          <div className="py-2 text-center text-sm text-muted-foreground">
-            Slide {current} of {count}
+        <div className="flex-1">
+          <div className="relative w-full h-full">
+            <Image
+              src={"/images/govardhan.svg"}
+              alt="Happy Govardhan Puja"
+              className="object-contain"
+              fill
+            />
           </div>
-        </div> */}
+        </div>
         <div className="flex-1">
           <h2 className="text-3xl font-bold text-purple-900 mb-4 text-center uppercase">
             Upcoming Events
