@@ -1,18 +1,17 @@
-import { EnvelopeIcon, PhoneIcon } from '@/components/icons';
-import MapEmbed from '@/components/map-embed';
-import PageHeader from '@/components/page-header';
+import { EnvelopeIcon, PhoneIcon } from "@/components/icons";
+import MapEmbed from "@/components/map-embed";
+import PageHeader from "@/components/page-header";
 
 const ContactUs = () => {
   return (
     <main>
       <PageHeader title="Contact Us" />
       <section className="py-16 container">
-        <p>Last updated on 23-12-2023 15:52:06</p>
         <p>You may contact us using the information below: </p>
 
         <div className="mt-2 flex gap-2">
           <div className="flex gap-2">
-            <PhoneIcon className="w-4 h-4" />{' '}
+            <PhoneIcon className="w-4 h-4" />{" "}
             <a href="tel:+919433320314">+91 9433320314</a>
           </div>
           <div className="flex gap-2 items-center">

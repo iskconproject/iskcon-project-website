@@ -49,9 +49,9 @@ const PaymentFailurePage = () => {
                 View Donations
               </Button>
             </Link>
-            <Link href="/contact-support">
+            <Link href="/contact-us">
               <Button variant="secondary">
-                Contact Support
+                Contact Us
               </Button>
             </Link>
           </div>
