@@ -4,12 +4,14 @@ import PrasadamIcon from '@/components/icons/prasadam-icon';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import RadhaKrishnaIcon from './icons/radha-krishna-icon';
+import Image from 'next/image';
 
 const activities = [
   {
     title: 'Deity Worship',
     subtitle: 'Daily worship of the Lord. Join us',
-    icon: <KrishnaIcon className="w-12 h-12 md:w-32 md:h-32" />,
+    icon: <RadhaKrishnaIcon className="w-12 h-12 md:w-32 md:h-32" />,
     link: '/activities/deity-worship',
     className: 'bg-orange-100',
   },
@@ -23,13 +25,13 @@ const activities = [
   {
     title: 'Daily Bhagwatam Classes',
     subtitle: 'Learn the teachings of Srimad Bhagwatam',
-    icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
+    icon: <Image src="/images/bhagwatam.png" width={140} height={140} alt='bhagwatam' />,
     link: '/classes/bhagwatam-class',
     className: 'bg-teal-100',
   },
   {
-    title: 'Free Gita Classes',
-    subtitle: 'Learn the teachings of Bhagavad Gita',
+    title: 'Sunday Spritual Classes',
+    subtitle: 'Come and join us for spiritual classes',
     icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
     link: '/classes/gita-class',
     className: 'bg-teal-100',

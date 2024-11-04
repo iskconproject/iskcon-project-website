@@ -1,45 +1,50 @@
-import CowIcon from '@/components/icons/cow-icon';
-import GitaIcon from '@/components/icons/gita-icon';
-import KrishnaIcon from '@/components/icons/krishna-icon';
-import PrasadamIcon from '@/components/icons/prasadam-icon';
-import PageHeader from '@/components/page-header';
-import { cn } from '@/lib/utils';
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
+import GitaIcon from "@/components/icons/gita-icon";
+import PrasadamIcon from "@/components/icons/prasadam-icon";
+import RadhaKrishnaIcon from "@/components/icons/radha-krishna-icon";
+import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'Activities',
+  title: "Activities",
 };
 
 const activities = [
   {
-    title: 'Deity Worship',
-    subtitle: 'Daily worship of the Lord. Join us',
-    icon: <KrishnaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '/activities/deity-worship',
-    className: 'bg-orange-100',
+    title: "Deity Worship",
+    subtitle: "Daily worship of the Lord. Join us",
+    icon: <RadhaKrishnaIcon className="w-12 h-12 md:w-32 md:h-32" />,
+    link: "/activities/deity-worship",
+    className: "bg-orange-100",
   },
   {
-    title: 'Devotee Prasadam',
-    subtitle: 'Daily distribution of prasadam for devotees',
+    title: "Devotee Prasadam",
+    subtitle: "Daily distribution of prasadam for devotees",
     icon: <PrasadamIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '/activities/prasadam',
-    className: 'bg-blue-100',
+    link: "/activities/prasadam",
+    className: "bg-blue-100",
   },
   {
-    title: 'Daily Bhagwatam Classes',
-    subtitle: 'Learn the teachings of Srimad Bhagwatam',
-    icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '/classes/bhagwatam-class',
-    className: 'bg-teal-100',
+    title: "Daily Bhagwatam Classes",
+    subtitle: "Learn the teachings of Srimad Bhagwatam",
+    icon: (
+      <Image
+        src="/images/bhagwatam.png"
+        width={140}
+        height={140}
+        alt="bhagwatam"
+      />
+    ),
+    link: "/classes/bhagwatam-class",
+    className: "bg-teal-100",
   },
   {
-    title: 'Free Gita Classes',
-    subtitle: 'Learn the teachings of Bhagavad Gita',
+    title: "Sunday Spritual Classes",
+    subtitle: "Come and join us for spiritual classes",
     icon: <GitaIcon className="w-12 h-12 md:w-32 md:h-32" />,
-    link: '/classes/gita-class',
-    className: 'bg-teal-100',
+    link: "/classes/gita-class",
+    className: "bg-teal-100",
   },
 ];
 
@@ -60,12 +65,12 @@ const Activities = () => {
           {activities.map((activity, index) => (
             <Link
               key={index}
-              href={'#'}
+              href={activity.link}
               className="bg-white rounded-md p-4 border text-slate-700 shadow hover:shadow-md "
             >
               <div
                 className={cn(
-                  'mx-auto w-full text-center p-4 rounded-md flex justify-center',
+                  "mx-auto w-full text-center p-4 rounded-md flex justify-center",
                   activity.className
                 )}
               >
