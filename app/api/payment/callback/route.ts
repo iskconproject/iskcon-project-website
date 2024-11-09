@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const body = await req.text(); // Read the plain text response
 
     // Parse the plain text response into an object
-    const paramsdo = new URLSearchParams(body);
+    const params = new URLSearchParams(body);
 
     const id = params.get("ID");
     const responseCode = params.get("Response Code") as EazypayErrorMessages;
