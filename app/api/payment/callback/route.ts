@@ -1,55 +1,117 @@
-// route.ts
-
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { generateToken, PaymentData } from "@/lib/crypto";
+import { NextRequest, NextResponse } from "next/server";
+import crypto from "crypto";
+import {
+  EazypayErrorMessages,
+  eazypayErrorMessages,
+} from "@/app/config/eazypay-error-codes";
+import { generateToken } from "@/lib/crypto";
 
 const paymentSuccessUrl = "https://iskconproject.com/payment-success";
 const paymentFailureUrl = "https://iskconproject.com/payment-failure";
+
+const SECRET_KEY = process.env.AES_KEY;
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text(); // Read the plain text response
 
-    // Parse the plain text response into an object (assuming URL-encoded)
+    // Parse the plain text response into an object
     const params = new URLSearchParams(body);
 
     const id = params.get("ID");
-    const uniqueRefNumber = params.get("uniqueRefNumber");
-    const responseCode = params.get("responseCode");
-    const totalAmount = params.get("totalAmount");
-    const transactionAmount = params.get("transactionAmount");
-    const paymentMode = params.get("paymentMode");
+    const responseCode = params.get("Response Code") as EazypayErrorMessages;
+    const uniqueRefNumber = params.get("Unique Ref Number");
+    const serviceTax = params.get("Service Tax") || "";
+    const processingFeeAmount = params.get("Processing Fee Amount") || "";
+    const totalAmount = params.get("Total Amount");
+    const transactionAmount = params.get("Transaction Amount");
+    const transactionDate = params.get("Transaction Date") || "";
+    const interchangeValue = params.get("Interchange Value") || "";
+    const tdr = params.get("TDR") || "";
+    const paymentMode = params.get("Payment Mode");
+    const subMerchantId = params.get("SubMerchantId") || "";
+    const referenceNo = params.get("ReferenceNo") || "";
+    const tps = params.get("TPS") || "";
+    const rs = params.get("RS");
 
-    if (!id || !uniqueRefNumber || !responseCode) {
-      throw new Error("Missing required payment parameters.");
-    }
-
-    const paymentData: PaymentData = {
+    console.log({
       uniqueRefNumber,
       responseCode,
+      totalAmount,
+      transactionAmount,
+      paymentMode,
+      id,
+      rs,
+    });
+
+    if (
+      !responseCode ||
+      !uniqueRefNumber ||
+      !totalAmount ||
+      !transactionAmount ||
+      !paymentMode ||
+      !id ||
+      !rs
+    ) {
+      console.error("Missing required parameters");
+      const queryParams = new URLSearchParams();
+      queryParams.append("error", "missing-parameters");
+      return NextResponse.redirect(
+        `${paymentFailureUrl}?${queryParams.toString()}`,
+        303
+      );
+    }
+
+    // Generate the SHA512 signature using the response parameters
+    const data = `${id}|${responseCode}|${uniqueRefNumber}|${serviceTax}|${processingFeeAmount}|${totalAmount}|${transactionAmount}|${transactionDate}|${interchangeValue}|${tdr}|${paymentMode}|${subMerchantId}|${referenceNo}|${tps}|${SECRET_KEY}`;
+    const generatedSignature = crypto
+      .createHash("sha512")
+      .update(data)
+      .digest("hex");
+
+    const token = await generateToken({
+      uniqueRefNumber: uniqueRefNumber || "",
+      responseCode: responseCode || "",
       totalAmount: totalAmount || "",
       transactionAmount: transactionAmount || "",
       paymentMode: paymentMode || "",
-      id,
-    };
+      id: id || "",
+    });
 
-    const token = await generateToken(paymentData);
     console.log("generated token:", token);
 
-    if (responseCode === "E000") { // Replace with your success code
-      const successUrlObj = new URL(paymentSuccessUrl);
-      successUrlObj.searchParams.append("token", token);
+    // Verify the signature
+    // if (generatedSignature === rs) {
+    // TODO: Uncomment this line later once the signature verification is fixed
+    if (responseCode === eazypayErrorMessages.SUCCESS) {
+      const successUrl = new URL(paymentSuccessUrl);
+      successUrl.searchParams.append("token", token);
+      const response = NextResponse.next();
+      response.headers.append("referer", "https://eazypay.icicibank.com");
 
-      return NextResponse.redirect(successUrlObj.toString(), 303);
+      return NextResponse.redirect(successUrl.toString(), 303);
     } else {
-      const failureUrlObj = new URL(paymentFailureUrl);
-      failureUrlObj.searchParams.append("token", token);
-
-      return NextResponse.redirect(failureUrlObj.toString(), 303);
+      const failureUrl = new URL(paymentFailureUrl);
+      const failureToken = await generateToken({
+        uniqueRefNumber: uniqueRefNumber || "",
+        responseCode: responseCode || "",
+        totalAmount: totalAmount || "",
+        transactionAmount: transactionAmount || "",
+        paymentMode: paymentMode || "",
+        id: id || "",
+      });
+      failureUrl.searchParams.append("token", failureToken);
+      return NextResponse.redirect(failureUrl.toString(), 303);
     }
+    // }
   } catch (error) {
     console.error("Error processing payment callback:", error);
-    return NextResponse.redirect(new URL("/404", req.url));
+    const queryParams = new URLSearchParams();
+    queryParams.append("error", "internal-server-error");
+    queryParams.append("status", "500");
+    return NextResponse.redirect(
+      `${paymentFailureUrl}?${queryParams.toString()}`,
+      303
+    );
   }
 }

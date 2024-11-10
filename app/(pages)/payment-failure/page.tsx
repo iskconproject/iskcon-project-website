@@ -38,14 +38,7 @@ const PaymentFailurePage = () => {
     return <p>Loading...</p>;
   }
 
-  const {
-    uniqueRefNumber,
-    responseCode,
-    totalAmount,
-    transactionAmount,
-    paymentMode,
-    id,
-  } = paymentData;
+  const { uniqueRefNumber, responseCode, totalAmount, transactionAmount, paymentMode, id } = paymentData;
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -106,16 +99,16 @@ const PaymentFailurePage = () => {
               <p className="font-semibold text-yellow-700">Important Notice</p>
             </div>
             <p className="text-sm text-yellow-800">
-              If the amount has been deducted from your bank account, please
-              save a screenshot of the transaction for reference and contact us
+              If the amount has been deducted from your bank account, please save a
+              screenshot of the transaction for reference and contact us
               immediately. Our team will assist you in resolving this issue.
             </p>
           </div>
         </CardContent>
         <blockquote className="text-gray-500 italic text-sm mb-8 p-4">
-          "When one is in difficulty, the consciousness of God comes naturally.
-          A sincere devotee prays to the Lord, whether in happiness or
-          distress." - Srila Prabhupada
+          "When one is in difficulty, the consciousness of God comes naturally. A
+          sincere devotee prays to the Lord, whether in happiness or distress." -
+          Srila Prabhupada
         </blockquote>
       </Card>
 
