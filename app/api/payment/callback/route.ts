@@ -74,11 +74,19 @@ export async function POST(req: NextRequest) {
     if (responseCode === eazypayErrorMessages.SUCCESS) {
       const successUrl = new URL(paymentSuccessUrl);
       const response = NextResponse.next();
+      successUrl.searchParams.append("uniqueRefNumber", uniqueRefNumber);
+      successUrl.searchParams.append("amount", totalAmount);
+      successUrl.searchParams.append("transactionDate", transactionDate);
+      successUrl.searchParams.append("paymentMode", paymentMode);
       response.headers.append("referer", "https://eazypay.icicibank.com");
-
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
       const failureUrl = new URL(paymentFailureUrl);
+      failureUrl.searchParams.append("uniqueRefNumber", uniqueRefNumber);
+      failureUrl.searchParams.append("responseCode", responseCode);
+      failureUrl.searchParams.append("totalAmount", totalAmount);
+      failureUrl.searchParams.append("transactionAmount", transactionAmount);
+      failureUrl.searchParams.append("paymentMode", paymentMode);
       return NextResponse.redirect(failureUrl.toString(), 303);
     }
     // }

@@ -8,6 +8,8 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/payment-success" ||
     request.nextUrl.pathname === "/payment-failure";
 
+    console.log(request.headers, 'headers');
+
   if (isPaymentPage) {
     try {
       const referer = request.headers.get("referer");
