@@ -8,14 +8,16 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/payment-success" ||
     request.nextUrl.pathname === "/payment-failure";
 
-    console.log(request.headers, 'headers');
+  console.log(request.headers, "headers");
 
   if (isPaymentPage) {
     try {
-      const referer = request.headers.get("referer");
-      if (!referer || !referer.includes("https://eazypay.icicibank.com")) {
-        return NextResponse.redirect(new URL("/404", request.url));
-      }
+      //   const referer = request.headers.get("referer");
+      //   if (!referer || !referer.includes("https://eazypay.icicibank.com")) {
+      //     return NextResponse.redirect(new URL("/404", request.url));
+      //   }
+
+      // TODO: Implement a secure way to verify the payment response
 
       // Attach payment data to response headers for use in the page
       const response = NextResponse.next();
