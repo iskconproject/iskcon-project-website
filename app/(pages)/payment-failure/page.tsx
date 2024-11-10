@@ -1,16 +1,51 @@
+// pages/payment-failure.tsx
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
+interface PaymentData {
+  uniqueRefNumber: string;
+  responseCode: string;
+  totalAmount: string;
+  transactionAmount: string;
+  paymentMode: string;
+  id: string;
+}
+
 const PaymentFailurePage = () => {
-  const searchParams = useSearchParams();
-  const error = searchParams.get("error");
-  const uniqueRefNumber = searchParams.get("uniqueRefNumber");
-  const status = searchParams.get("status");
+  const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
+
+  useEffect(() => {
+    const fetchPaymentData = async () => {
+      const response = await fetch("/api/get-payment-data");
+      if (response.ok) {
+        const data = await response.json();
+        setPaymentData(data);
+      } else {
+        // Optionally, handle errors or redirect to a custom error page
+        console.error("Failed to fetch payment data.");
+      }
+    };
+
+    fetchPaymentData();
+  }, []);
+
+  if (!paymentData) {
+    return <p>Loading...</p>;
+  }
+
+  const {
+    uniqueRefNumber,
+    responseCode,
+    totalAmount,
+    transactionAmount,
+    paymentMode,
+    id,
+  } = paymentData;
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -28,10 +63,10 @@ const PaymentFailurePage = () => {
           <CardTitle>Error Details</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
-          {error && (
+          {responseCode && (
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium">Error:</p>
-              <p className="text-sm text-red-600">{error}</p>
+              <p className="text-sm font-medium">Response Code:</p>
+              <p className="text-sm text-red-600">{responseCode}</p>
             </div>
           )}
           {uniqueRefNumber && (
@@ -40,15 +75,33 @@ const PaymentFailurePage = () => {
               <p className="text-sm">{uniqueRefNumber}</p>
             </div>
           )}
-          {status && (
+          {totalAmount && (
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium">Status Code:</p>
-              <p className="text-sm">{status}</p>
+              <p className="text-sm font-medium">Total Amount:</p>
+              <p className="text-sm">{totalAmount}</p>
+            </div>
+          )}
+          {transactionAmount && (
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Transaction Amount:</p>
+              <p className="text-sm">{transactionAmount}</p>
+            </div>
+          )}
+          {paymentMode && (
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Payment Mode:</p>
+              <p className="text-sm">{paymentMode}</p>
+            </div>
+          )}
+          {id && (
+            <div className="flex items-center justify-betweeen">
+              <p className="text-sm font-medium">Transaction ID:</p>
+              <p className="text-sm">{id}</p>
             </div>
           )}
 
           <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 justify-center mb-2">
               <AlertTriangle className="text-yellow-600 h-5 w-5" />
               <p className="font-semibold text-yellow-700">Important Notice</p>
             </div>
