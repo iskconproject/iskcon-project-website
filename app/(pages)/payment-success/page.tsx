@@ -1,70 +1,74 @@
-'use client';
+"use client";
 
-import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import PageHeader from '@/components/page-header';
-import Link from 'next/link';
-import { CheckCircle2 } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CheckCircleIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-const PaymentSuccessPage = () => {
+export default function Component() {
   const searchParams = useSearchParams();
-  const uniqueRefNumber = searchParams.get('uniqueRefNumber');
-  const amount = searchParams.get('amount');
-
-
+  const uniqueRefNumber = searchParams.get("uniqueRefNumber");
+  const amount = searchParams.get("amount");
+  const transactionDate = searchParams.get("transactionDate");
+  const paymentMode = searchParams.get("paymentMode");
   return (
-    <main className="">
-      <PageHeader className="bg-green-50 h-[auto] md:h-[auto] py-16 md:px-16 text-center">
-        <div>
-          <h1 className="text-xl md:text-3xl font-semibold text-gray-600">
-            Payment Successful
-          </h1>
-          <p>Thank you for your donation! Your payment has been successfully processed.</p>
-        </div>
-      </PageHeader>
-      <div className="container mx-auto py-4 text-center">
-        <CheckCircle2 className="text-green-500 w-16 h-16 mx-auto my-4" />
-        <div className="bg-white rounded-md p-8 shadow-md border">
-          <h2 className="text-lg md:text-2xl font-semibold text-gray-700 mb-4">
-            Hare Krishna!
-          </h2>
-          <p className="text-gray-600 md:text-lg mb-4">
-            We are deeply grateful for your generous donation. Here are the details of your transaction:
-          </p>
-          {uniqueRefNumber && (
-            <p className="text-gray-600 md:text-lg mb-4">
-              <strong>Reference Number:</strong> {uniqueRefNumber}
-            </p>
-          )}
-          {amount && (
-            <p className="text-gray-600 md:text-lg mb-4">
-              <strong>Amount:</strong> ₹{amount}
-            </p>
-          )}
-          <blockquote className="text-gray-500 italic md:text-lg mb-8">
-            "In this age of Kali, the holy name of the Lord, the Hare Krishna maha-mantra, is the incarnation of Lord Krishna. Simply by chanting the holy name, one associates with the Lord directly. Anyone who does this is certainly delivered." - Chaitanya Charitamrita, Adi-lila 17.22
-          </blockquote>
-          <div className="mt-8">
-            <Link href="/">
-              <Button className="mr-4">
-                Go to Home
-              </Button>
-            </Link>
-            <Link href="/donation">
-              <Button variant="secondary" className="mr-4">
-                View Donations
-              </Button>
-            </Link>
-            <Link href="/contact-support">
-              <Button variant="secondary">
-                Contact Support
-              </Button>
-            </Link>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <CheckCircleIcon className="h-16 w-16 text-green-500 dark:text-green-400" />
+      <h1 className="text-3xl font-bold mt-2">
+        Hare Krishna! Payment Successful
+      </h1>
+
+      <div className="pt-2 text-center text-sm">
+        <p className="text-gray-600">
+          We are deeply grateful for your generous donation. Here are the
+          details of your transaction:
+        </p>
+      </div>
+      <Card className="mt-8 w-full max-w-md lg:max-w-xl p-4">
+        <CardHeader>
+          <CardTitle>Payment Details</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium">Amount:</p>
+            <p className="text-sm">₹ {amount}</p>
           </div>
-        </div>
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium">Date:</p>
+            <p className="text-sm">
+              {transactionDate || new Date().toLocaleDateString("en-IN")}
+            </p>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium">Payment Method:</p>
+            <p className="text-sm">{paymentMode}</p>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium">Reference Number:</p>
+            <p className="text-sm">{uniqueRefNumber}</p>
+          </div>
+        </CardContent>
+        <blockquote className="text-gray-500 italic text-sm mb-8 p-4">
+          "In this age of Kali, the holy name of the Lord, the Hare Krishna
+          maha-mantra, is the incarnation of Lord Krishna. Simply by chanting
+          the holy name, one associates with the Lord directly. Anyone who does
+          this is certainly delivered." - Chaitanya Charitamrita, Adi-lila 17.22
+        </blockquote>
+      </Card>
+      <div className="mt-8">
+        <Link href="/">
+          <Button className="mr-4">Go to Home</Button>
+        </Link>
+        <Link href="/donation">
+          <Button variant="secondary" className="mr-4">
+            View Donations
+          </Button>
+        </Link>
+        <Link href="/contact-support">
+          <Button variant="secondary">Contact Support</Button>
+        </Link>
       </div>
     </main>
   );
-};
-
-export default PaymentSuccessPage;
+}

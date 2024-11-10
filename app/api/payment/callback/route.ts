@@ -33,6 +33,8 @@ export async function POST(req: NextRequest) {
     const tps = params.get("TPS") || "";
     const rs = params.get("RS");
 
+    console.log({uniqueRefNumber, responseCode, totalAmount, transactionAmount, paymentMode, id, rs});
+
     if (
       !responseCode ||
       !uniqueRefNumber ||
@@ -65,13 +67,16 @@ export async function POST(req: NextRequest) {
       const successUrl = new URL(paymentSuccessUrl);
       successUrl.searchParams.append("amount", transactionAmount || "");
       successUrl.searchParams.append("reference", uniqueRefNumber || "");
+      successUrl.searchParams.append('transactionDate', transactionDate || '');
+      successUrl.searchParams.append('paymentMode', paymentMode || '');
 
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
-      return NextResponse.redirect(
-        `${paymentFailureUrl}?error=${responseCode}`,
-        303
-      );
+      const failureUrl = new URL(paymentFailureUrl);
+      failureUrl.searchParams.append("error", responseCode);
+      failureUrl.searchParams.append("status", "400");
+      failureUrl.searchParams.append("uniqueRefNumber", uniqueRefNumber || "");
+      return NextResponse.redirect(failureUrl.toString(), 303);
     }
     // }
   } catch (error) {

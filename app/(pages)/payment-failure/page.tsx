@@ -1,61 +1,83 @@
-'use client';
+"use client";
 
-import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import PageHeader from '@/components/page-header';
-import Link from 'next/link';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const PaymentFailurePage = () => {
   const searchParams = useSearchParams();
-  const error = searchParams.get('error');
-  const uniqueRefNumber = searchParams.get('uniqueRefNumber');
-  const status = searchParams.get('status');
+  const error = searchParams.get("error");
+  const uniqueRefNumber = searchParams.get("uniqueRefNumber");
+  const status = searchParams.get("status");
 
   return (
-    <main className="">
-      <PageHeader className="bg-red-50 h-[auto] md:h-[auto] py-16 md:px-16 text-center">
-        <div>
-          <h1 className="text-xl md:text-3xl font-semibold text-gray-600">
-            Payment Failed
-          </h1>
-          <p>Unfortunately, your payment could not be processed at this time.</p>
-        </div>
-      </PageHeader>
-      <div className="container mx-auto py-16 text-center">
-        <div className="bg-white rounded-md p-8 shadow-md border">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <AlertTriangle className="h-16 w-16 text-red-500 dark:text-red-400" />
+      <h1 className="text-3xl font-bold mt-2">Payment Failed</h1>
+
+      <div className="pt-2 text-center text-sm">
+        <p className="text-gray-600">
+          Unfortunately, your payment could not be processed at this time.
+        </p>
+      </div>
+
+      <Card className="mt-8 w-full max-w-md lg:max-w-xl p-4">
+        <CardHeader>
+          <CardTitle>Error Details</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4">
           {error && (
-            <p className="text-red-700 md:text-lg mb-4">
-              Error: {error}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Error:</p>
+              <p className="text-sm text-red-600">{error}</p>
+            </div>
           )}
           {uniqueRefNumber && (
-            <p className="text-gray-600 md:text-lg mb-4">
-              Reference Number: {uniqueRefNumber}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Reference Number:</p>
+              <p className="text-sm">{uniqueRefNumber}</p>
+            </div>
           )}
           {status && (
-            <p className="text-gray-600 md:text-lg mb-4">
-              Status Code: {status}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Status Code:</p>
+              <p className="text-sm">{status}</p>
+            </div>
           )}
-          <div className="mt-8">
-            <Link href="/">
-              <Button className="mr-4">
-                Go to Home
-              </Button>
-            </Link>
-            <Link href="/donation">
-              <Button variant="secondary" className="mr-4">
-                View Donations
-              </Button>
-            </Link>
-            <Link href="/contact-us">
-              <Button variant="secondary">
-                Contact Us
-              </Button>
-            </Link>
+
+          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle className="text-yellow-600 h-5 w-5" />
+              <p className="font-semibold text-yellow-700">Important Notice</p>
+            </div>
+            <p className="text-sm text-yellow-800">
+              If the amount has been deducted from your bank account, please
+              save a screenshot of the transaction for reference and contact us
+              immediately. Our team will assist you in resolving this issue.
+            </p>
           </div>
-        </div>
+        </CardContent>
+        <blockquote className="text-gray-500 italic text-sm mb-8 p-4">
+          "When one is in difficulty, the consciousness of God comes naturally.
+          A sincere devotee prays to the Lord, whether in happiness or
+          distress." - Srila Prabhupada
+        </blockquote>
+      </Card>
+
+      <div className="mt-8">
+        <Link href="/">
+          <Button className="mr-4">Go to Home</Button>
+        </Link>
+        <Link href="/donation">
+          <Button variant="secondary" className="mr-4">
+            View Donations
+          </Button>
+        </Link>
+        <Link href="/contact-us">
+          <Button variant="secondary">Contact Us</Button>
+        </Link>
       </div>
     </main>
   );
