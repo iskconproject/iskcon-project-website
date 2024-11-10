@@ -17,10 +17,12 @@ export const verifyToken = async (token: string) => {
   try {
     const decoded = Buffer.from(token, "base64").toString();
     const [payload, signature] = decoded.split(".");
+    console.log({ payload, signature });
 
     const hmac = createHmac("sha256", SECRET_KEY);
     hmac.update(payload);
     const expectedSignature = hmac.digest("hex");
+    console.log({ expectedSignature });
 
     if (signature !== expectedSignature) {
       return false;
