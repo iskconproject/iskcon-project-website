@@ -5,6 +5,7 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   // Get payment related paths
   console.log('entered middleware')
+  console.log('referrer', request.headers.get("referer"));
   const isPaymentPage =
     request.nextUrl.pathname === "/payment-success" ||
     request.nextUrl.pathname === "/payment-failure";
