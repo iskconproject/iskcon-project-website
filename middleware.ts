@@ -1,15 +1,13 @@
-// middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { verifyToken } from "@/lib/crypto";
+import { NextRequest, NextResponse } from "next/server";
+import { verifyToken } from "./lib/crypto";
 
+// middleware.ts
 export async function middleware(request: NextRequest) {
   const isPaymentPage =
     request.nextUrl.pathname === "/payment-success" ||
     request.nextUrl.pathname === "/payment-failure";
 
   if (isPaymentPage) {
-    // Get encrypted token from query params
     const encryptedToken = request.nextUrl.searchParams.get("token");
 
     if (!encryptedToken) {
@@ -17,20 +15,20 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      // Verify and decrypt token
-      const isValid = await verifyToken(encryptedToken);
+      const paymentData = await verifyToken(encryptedToken);
 
-      if (!isValid) {
+      if (!paymentData) {
         return NextResponse.redirect(new URL("/404", request.url));
       }
+
+      const response = NextResponse.next();
+      response.headers.set("x-payment-data", JSON.stringify(paymentData));
+      return response;
     } catch (error) {
+      console.error("Middleware error:", error);
       return NextResponse.redirect(new URL("/404", request.url));
     }
   }
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/payment-success", "/payment-failure"],
-};

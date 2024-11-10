@@ -34,7 +34,15 @@ export async function POST(req: NextRequest) {
     const tps = params.get("TPS") || "";
     const rs = params.get("RS");
 
-    console.log({uniqueRefNumber, responseCode, totalAmount, transactionAmount, paymentMode, id, rs});
+    console.log({
+      uniqueRefNumber,
+      responseCode,
+      totalAmount,
+      transactionAmount,
+      paymentMode,
+      id,
+      rs,
+    });
 
     if (
       !responseCode ||
@@ -62,31 +70,37 @@ export async function POST(req: NextRequest) {
       .digest("hex");
 
     const token = generateToken({
-      uniqueRefNumber,
-      responseCode,
-      totalAmount,
-      transactionAmount,
-      paymentMode,
-      id,
-    })
+      uniqueRefNumber: uniqueRefNumber || "",
+      responseCode: responseCode || "",
+      totalAmount: totalAmount || "",
+      transactionAmount: transactionAmount || "",
+      paymentMode: paymentMode || "",
+      id: id || "",
+      timestamp: Date.now(),
+    });
+
+    console.log("generated token:", token);
 
     // Verify the signature
     // if (generatedSignature === rs) {
     // TODO: Uncomment this line later once the signature verification is fixed
     if (responseCode === eazypayErrorMessages.SUCCESS) {
       const successUrl = new URL(paymentSuccessUrl);
-      successUrl.searchParams.append("amount", transactionAmount || "");
-      successUrl.searchParams.append("reference", uniqueRefNumber || "");
-      successUrl.searchParams.append('transactionDate', transactionDate || '');
-      successUrl.searchParams.append('paymentMode', paymentMode || '');
-      successUrl.searchParams.append('token', token);
+      successUrl.searchParams.append("token", token);
 
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
       const failureUrl = new URL(paymentFailureUrl);
-      failureUrl.searchParams.append("error", responseCode);
-      failureUrl.searchParams.append("status", "400");
-      failureUrl.searchParams.append("uniqueRefNumber", uniqueRefNumber || "");
+      const failureToken = generateToken({
+        uniqueRefNumber: uniqueRefNumber || "",
+        responseCode: responseCode || "",
+        totalAmount: totalAmount || "",
+        transactionAmount: transactionAmount || "",
+        paymentMode: paymentMode || "",
+        id: id || "",
+        timestamp: Date.now(),
+      });
+      failureUrl.searchParams.append("token", failureToken);
       return NextResponse.redirect(failureUrl.toString(), 303);
     }
     // }
