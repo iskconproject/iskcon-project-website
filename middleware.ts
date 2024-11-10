@@ -1,25 +1,29 @@
 // middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { verifyToken } from "@/lib/crypto";
 
-export function middleware(request: NextRequest) {
-  // Get payment related paths
-  console.log('entered middleware')
-  console.log('referrer', request.headers.get("referer"));
+export async function middleware(request: NextRequest) {
   const isPaymentPage =
     request.nextUrl.pathname === "/payment-success" ||
     request.nextUrl.pathname === "/payment-failure";
 
   if (isPaymentPage) {
-    // Check for payment gateway referrer or custom token
-    const referrer = request.headers.get("referer");
-    const paymentToken = request.nextUrl.searchParams.get("token");
+    // Get encrypted token from query params
+    const encryptedToken = request.nextUrl.searchParams.get("token");
 
-    const validReferrer = referrer?.includes("https://eazypay.icicibank.com");
-    const validToken = paymentToken && paymentToken.length > 0;
+    if (!encryptedToken) {
+      return NextResponse.redirect(new URL("/404", request.url));
+    }
 
-    // Redirect to 404 if direct access
-    if (!validReferrer && !validToken) {
+    try {
+      // Verify and decrypt token
+      const isValid = await verifyToken(encryptedToken);
+
+      if (!isValid) {
+        return NextResponse.redirect(new URL("/404", request.url));
+      }
+    } catch (error) {
       return NextResponse.redirect(new URL("/404", request.url));
     }
   }
@@ -27,7 +31,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Configure middleware to run only on payment routes
 export const config = {
   matcher: ["/payment-success", "/payment-failure"],
 };

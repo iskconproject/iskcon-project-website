@@ -4,6 +4,7 @@ import {
   EazypayErrorMessages,
   eazypayErrorMessages,
 } from "@/app/config/eazypay-error-codes";
+import { generateToken } from "@/lib/crypto";
 
 const paymentSuccessUrl = "https://iskconproject.com/payment-success";
 const paymentFailureUrl = "https://iskconproject.com/payment-failure";
@@ -60,6 +61,15 @@ export async function POST(req: NextRequest) {
       .update(data)
       .digest("hex");
 
+    const token = generateToken({
+      uniqueRefNumber,
+      responseCode,
+      totalAmount,
+      transactionAmount,
+      paymentMode,
+      id,
+    })
+
     // Verify the signature
     // if (generatedSignature === rs) {
     // TODO: Uncomment this line later once the signature verification is fixed
@@ -69,6 +79,7 @@ export async function POST(req: NextRequest) {
       successUrl.searchParams.append("reference", uniqueRefNumber || "");
       successUrl.searchParams.append('transactionDate', transactionDate || '');
       successUrl.searchParams.append('paymentMode', paymentMode || '');
+      successUrl.searchParams.append('token', token);
 
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
