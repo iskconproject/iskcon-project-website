@@ -1,9 +1,12 @@
-import { createHmac } from "crypto";
+// lib/crypto.ts
 
 const SECRET_KEY = process.env.AES_KEY!;
 const DELIMITER = "|||";
 
-interface PaymentData {
+/**
+ * PaymentData interface defines the structure of the payment information.
+ */
+export interface PaymentData {
   uniqueRefNumber: string;
   responseCode: string;
   totalAmount: string;
@@ -13,17 +16,60 @@ interface PaymentData {
   timestamp: number;
 }
 
-export const generateToken = (data: PaymentData) => {
+/**
+ * Converts a string to an ArrayBuffer.
+ */
+const str2ab = (str: string): ArrayBuffer => {
+  const encoder = new TextEncoder();
+  return encoder.encode(str);
+};
+
+/**
+ * Converts an ArrayBuffer to a hex string.
+ */
+const ab2hex = (buffer: ArrayBuffer): string => {
+  const byteArray = new Uint8Array(buffer);
+  const hexCodes = Array.from(byteArray).map((value) => {
+    return value.toString(16).padStart(2, "0");
+  });
+  return hexCodes.join("");
+};
+
+/**
+ * Imports the secret key for HMAC.
+ */
+const importKey = async (key: string) => {
+  return await crypto.subtle.importKey(
+    "raw",
+    str2ab(key),
+    {
+      name: "HMAC",
+      hash: { name: "SHA-256" },
+    },
+    false,
+    ["sign", "verify"]
+  );
+};
+
+/**
+ * Generates a token using HMAC.
+ */
+export const generateToken = async (data: PaymentData): Promise<string> => {
   const timestamp = Date.now();
   const payload = JSON.stringify({ ...data, timestamp });
 
-  const hmac = createHmac("sha256", SECRET_KEY);
-  hmac.update(payload);
-  const signature = hmac.digest("hex");
+  const key = await importKey(SECRET_KEY);
+  const signature = await crypto.subtle.sign("HMAC", key, str2ab(payload));
 
-  return Buffer.from(`${payload}${DELIMITER}${signature}`).toString("base64");
+  const hexSignature = ab2hex(signature);
+  return Buffer.from(`${payload}${DELIMITER}${hexSignature}`).toString(
+    "base64"
+  );
 };
 
+/**
+ * Verifies the token and returns the PaymentData if valid.
+ */
 export const verifyToken = async (
   token: string
 ): Promise<PaymentData | null> => {
@@ -35,11 +81,15 @@ export const verifyToken = async (
       return null;
     }
 
-    const hmac = createHmac("sha256", SECRET_KEY);
-    hmac.update(payload);
-    const expectedSignature = hmac.digest("hex");
+    const key = await importKey(SECRET_KEY);
+    const isValid = await crypto.subtle.verify(
+      "HMAC",
+      key,
+      str2ab(signature),
+      str2ab(payload)
+    );
 
-    if (signature !== expectedSignature) {
+    if (!isValid) {
       return null;
     }
 

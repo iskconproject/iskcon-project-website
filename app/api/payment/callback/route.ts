@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       .update(data)
       .digest("hex");
 
-    const token = generateToken({
+    const token = await generateToken({
       uniqueRefNumber: uniqueRefNumber || "",
       responseCode: responseCode || "",
       totalAmount: totalAmount || "",
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
       const failureUrl = new URL(paymentFailureUrl);
-      const failureToken = generateToken({
+      const failureToken = await generateToken({
         uniqueRefNumber: uniqueRefNumber || "",
         responseCode: responseCode || "",
         totalAmount: totalAmount || "",
