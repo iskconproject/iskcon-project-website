@@ -4,7 +4,6 @@ import {
   EazypayErrorMessages,
   eazypayErrorMessages,
 } from "@/app/config/eazypay-error-codes";
-import { generateToken } from "@/lib/crypto";
 
 const paymentSuccessUrl = "https://iskconproject.com/payment-success";
 const paymentFailureUrl = "https://iskconproject.com/payment-failure";
@@ -69,38 +68,17 @@ export async function POST(req: NextRequest) {
       .update(data)
       .digest("hex");
 
-    const token = await generateToken({
-      uniqueRefNumber: uniqueRefNumber || "",
-      responseCode: responseCode || "",
-      totalAmount: totalAmount || "",
-      transactionAmount: transactionAmount || "",
-      paymentMode: paymentMode || "",
-      id: id || "",
-    });
-
-    console.log("generated token:", token);
-
     // Verify the signature
     // if (generatedSignature === rs) {
     // TODO: Uncomment this line later once the signature verification is fixed
     if (responseCode === eazypayErrorMessages.SUCCESS) {
       const successUrl = new URL(paymentSuccessUrl);
-      successUrl.searchParams.append("token", token);
       const response = NextResponse.next();
       response.headers.append("referer", "https://eazypay.icicibank.com");
 
       return NextResponse.redirect(successUrl.toString(), 303);
     } else {
       const failureUrl = new URL(paymentFailureUrl);
-      const failureToken = await generateToken({
-        uniqueRefNumber: uniqueRefNumber || "",
-        responseCode: responseCode || "",
-        totalAmount: totalAmount || "",
-        transactionAmount: transactionAmount || "",
-        paymentMode: paymentMode || "",
-        id: id || "",
-      });
-      failureUrl.searchParams.append("token", failureToken);
       return NextResponse.redirect(failureUrl.toString(), 303);
     }
     // }
