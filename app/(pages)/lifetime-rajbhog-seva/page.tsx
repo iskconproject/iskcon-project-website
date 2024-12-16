@@ -86,7 +86,7 @@ export default function LifetimeRajbhogSevaPage() {
               <CardContent className="space-y-4">
                 <p className="text-lg">
                   Be one among the 365 blessed devotees to receive Lord
-                  Jagannath's mercy through His prasadam daily. This lifetime
+                  Jagannath's mercy through His prasadam. This lifetime
                   program ensures your eternal connection with the Lord through
                   prasadam seva.
                 </p>
