@@ -60,7 +60,7 @@ type Props = {
   onFormSubmit: (data: FormValues) => void;
 };
 
-export function LifetimeMahaprasadamForm({ className, onFormSubmit }: Props) {
+export function LifetimeRajbhogSevaForm({ className, onFormSubmit }: Props) {
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
   });

@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { LifetimeMahaprasadamForm } from "@/components/forms/lifetime-mahaprasadam-form";
+import { LifetimeRajbhogSevaForm } from "@/components/forms/lifetime-rajbhog-seva-form";
 import { useEazypay } from "@/app/hooks/useEazypay";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LifetimeMahaprasadamPage() {
+export default function LifetimeRajbhogSevaPage() {
   const router = useRouter();
   const {
     performEazypayCheckout: initiatePayment,
@@ -93,7 +93,7 @@ export default function LifetimeMahaprasadamPage() {
 
                 <h3 className="font-semibold text-xl mt-6">Program Benefits</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>Daily Mahaprasadam for life (one person)</li>
+                  <li>Rajbhog for your family once a year for lifetime</li>
                   <li>Special darshan privileges during festivals</li>
                   <li>Service opportunity in Lord Jagannath's kitchen</li>
                   <li>Participation in special temple ceremonies</li>
@@ -129,10 +129,10 @@ export default function LifetimeMahaprasadamPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <LifetimeMahaprasadamForm
+                <LifetimeRajbhogSevaForm
                   onFormSubmit={(data) => {
                     initiatePayment({
-                      amount: '51001',
+                      amount: "51001",
                       email: data.email,
                       name: data.name,
                       phoneNumber: data.phone,
