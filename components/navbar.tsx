@@ -114,13 +114,15 @@ const Navbar = () => {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href='/members' legacyBehavior passHref>
+                    <Link href='https://members.iskconproject.com' legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Membership
+                      Our Members
                     </NavigationMenuLink>
-                  </Link>
+                    </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
