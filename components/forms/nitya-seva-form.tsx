@@ -22,14 +22,13 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
 import { useEffect } from 'react';
-import { DateInput } from '@/components/ui/date-input';
 import indianStates from '@/data/indian-states.json';
 
 type Props = {
   className?: string;
   onFormSubmit: (data: FormValues) => void;
+  isLoading?: boolean;
 };
 
 const sevaTypes = [
@@ -104,9 +103,7 @@ const FormSchema = z.object({
   seva_type: z.string().min(1, {
     message: 'Please provide a valid seva type',
   }),
-  amount: z.string().min(1, {
-    message: 'Please provide a valid amount',
-  }),
+  amount: z.string().optional(),
   name: z.string().min(1, {
     message: 'Please provide a valid name',
   }),
@@ -124,16 +121,16 @@ const FormSchema = z.object({
   }),
   street_address: z.string().min(1, {
     message: 'Please provide a valid address',
-  }),
+  }).optional(),
   city: z.string().min(1, {
     message: 'Please provide a valid city',
-  }),
+  }).optional(),
   state: z.string().min(1, {
     message: 'Please provide a valid state',
-  }),
+  }).optional(),
   postal_code: z.string().min(6).max(6, {
     message: 'Please provide a valid postal code',
-  }),
+  }).optional(),
   pan_number: z
     .string()
     .min(10)
@@ -151,7 +148,7 @@ const FormSchema = z.object({
 
 type FormValues = z.infer<typeof FormSchema>;
 
-const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
+const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit, isLoading }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -168,12 +165,12 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
   useEffect(() => {
     const sevaType = watchSevaType;
     if (sevaType !== 'others') {
-      setValue('amount', '');
+      setValue('amount', String(sevaTypes.find((seva) => seva.value === sevaType)?.amount || ''));
     }
   }, [watchSevaType, setValue]);
 
+
   const onSubmit = (data: FormValues) => {
-    //console.log(data, 'data submitted', 'watch', watch('name'));
     onFormSubmit(data);
   };
   return (
@@ -256,47 +253,6 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
           )}
         />
 
-        {/* <FormField
-          control={form.control}
-          name="initiatedName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Initiated Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter initiated name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* <div className="md:grid md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="dob"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Date of birth</FormLabel>
-                <DateInput {...field} />
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="anniversary"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Date of Anniversary</FormLabel>
-                <DateInput {...field} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div> */}
-
         <div className="md:grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -347,7 +303,7 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>City</FormLabel>
+                <FormLabel>City</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter city" {...field} />
                 </FormControl>
@@ -361,7 +317,7 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
             name="state"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>State</FormLabel>
+                <FormLabel>State</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={String(field.value)}
@@ -393,7 +349,7 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
             name="postal_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel required>Postal Code</FormLabel>
+                <FormLabel>Postal Code</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter postal code" {...field} />
                 </FormControl>
@@ -402,55 +358,11 @@ const NityaSevaForm: React.FC<Props> = ({ className, onFormSubmit }) => {
             )}
           />
 
-          {/* <FormField
-            control={form.control}
-            name="pan_number"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>PAN Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter PAN number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
         </div>
-        {/* <FormField
-          control={form.control}
-          name="preferred_language"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Preferred Language</FormLabel>
 
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={String(field.value)}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select language" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {preferred_languages.map((language) => (
-                    <SelectItem
-                      key={language.value}
-                      value={language.value}
-                      className="text-sm"
-                    >
-                      {language.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <FormMessage {...field} />
-            </FormItem>
-          )}
-        /> */}
-
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "Processing..." : "Submit"}
+        </Button>
       </form>
     </Form>
   );

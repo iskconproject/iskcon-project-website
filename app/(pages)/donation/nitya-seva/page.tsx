@@ -62,6 +62,7 @@ const NityaSeva = () => {
           <h3 className="font-semibold text-xl lg:text-2xl text-center text-red-600">{`Contribute and receive Krishna's blessings`}</h3>
           <NityaSevaForm
             className="mt-2"
+            isLoading={isProcessingPayment}
             onFormSubmit={(data) => {
               const { amount, name, email, phone } = data;
               if (!amount) return;

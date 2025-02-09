@@ -3,7 +3,6 @@
 import FutureTempleContributionForm from "@/components/forms/future-temple-contribution-form";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
-import OfflinePayment from "@/components/offline-payment";
 import { useEazypay } from "@/app/hooks/useEazypay";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
