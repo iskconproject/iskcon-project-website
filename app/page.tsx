@@ -165,7 +165,7 @@ export default async function Home() {
   return (
     <main>
       {jsonLD()}
-      <Hero />
+      <Hero/>
       <EventsAndAnnouncements calendarEvents={calendarEvents} />
       <LifetimeRajbhogSeva />
       <DonateUs />
