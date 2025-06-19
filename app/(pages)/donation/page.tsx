@@ -106,6 +106,8 @@ const Donation = () => {
           })}
         </div>
       </div>
+
+      <OfflinePayment className="mt-16" />
     </main>
   );
 };

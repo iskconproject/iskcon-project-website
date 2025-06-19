@@ -1,71 +1,64 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import clsx from "clsx";
+
 import Image from "next/image";
 
 type Props = {
-  className?: string;
-};
-
+  className?: string
+}
 const OfflinePayment: React.FC<Props> = ({ className }) => {
   return (
-    <section className={clsx(className, "text-slate-800")}>
-      <h3 className="text-sm md:text-xl">
-        Donate via NEFT/RTGS/IMPS/PayTm/UPI
-      </h3>
+    <section
+      className={`relative py-10 md:px-0 bg-white to-white min-h-[60vh] ${className || ""}`}
+    >
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-orange-600 mb-2 tracking-tight">Offline Donations</h2>
+        <p className="text-lg text-slate-700 mb-8 max-w-2xl">
+          For those who prefer to donate offline, you can contribute through cash or cheque at our temple office. Your support is invaluable and even a small donation can make a significant difference in our efforts to serve the community and promote spiritual welfare.
+        </p>
 
-      <div className="grid md:grid-cols-3 gap-4 mt-4">
-        <Card className="bg-yellow-50 p-2 rounded-md shadow-md">
-          <CardContent className="py-2">
-            <CardTitle className="text-base">NEFT/RTGS/IMPS</CardTitle>
-            <div className="mt-2">
-              <p>
-                <span className="font-semibold">Bank Name</span> : Axis Bank
-              </p>
-              <p>
-                <span className="font-semibold">Account Name</span> : Namhatta
-                Development Trust
-              </p>
-              <p>
-                <span className="font-semibold">A/C No</span> : 919010069148882
-              </p>
-              <p>
-                <span className="font-semibold">IFSC Code</span> : UTIB0000150
-              </p>
+        <div className="grid md:grid-cols-3 gap-0 items-stretch relative">
+          {/* Bank Details Card */}
+          <div className="flex flex-col justify-center px-4 md:px-0 py-4 md:py-0">
+            <div className="mb-4">
+              <div className="text-lg font-semibold text-slate-900 mb-2">Bank Transfer Details</div>
+              <div className="space-y-2 text-base">
+                <div><span className="font-semibold">Bank Name:</span> ICICI Bank</div>
+                <div><span className="font-semibold">Account Name:</span> ISKCON</div>
+                <div><span className="font-semibold">A/C No:</span> 402401000048</div>
+                <div><span className="font-semibold">IFSC Code:</span> ICIC0004024</div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-yellow-50 p-2 rounded-md shadow-md">
-          <CardContent className="py-2">
-            <CardTitle className="text-base">Another account</CardTitle>
-            <div className="mt-2">
-              <p>
-                <span className="font-semibold">Bank Name</span> : ICICI Bank
-              </p>
-              <p>
-                <span className="font-semibold">Account Name</span> : ISKCON
-              </p>
-              <p>
-                <span className="font-semibold">A/C No</span> : 402401000048
-              </p>
-              <p>
-                <span className="font-semibold">IFSC Code</span> : ICIC0004024
-              </p>
+          </div>
+
+          {/* OR Separator */}
+          <div className="flex flex-col items-center justify-center">
+            <div className="hidden md:flex flex-col items-center h-full">
+              <div className="w-px h-32 bg-slate-300 mb-2" />
+              <span className="text-lg font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">OR</span>
+              <div className="w-px h-32 bg-slate-300 mt-2" />
             </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-yellow-50 p-2 rounded-md shadow-md ">
-          <CardTitle className="text-base text-center">Scan and Pay</CardTitle>
-          <CardContent>
-            <div className="mt-2 relative h-[100px]">
+            <div className="flex md:hidden items-center my-4">
+              <div className="h-px w-12 bg-slate-300 mr-2" />
+              <span className="text-base font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">OR</span>
+              <div className="h-px w-12 bg-slate-300 ml-2" />
+            </div>
+          </div>
+
+          {/* QR Code Card */}
+          <div className="flex flex-col justify-center items-center px-4 md:px-0 py-4 md:py-0">
+            <div className="text-lg font-semibold text-slate-900 mb-2 text-center">Scan and Pay</div>
+            <div className="mb-4">
               <Image
-                src={"/images/paytm_qr_code.png"}
-                fill
-                alt="paytm qr code"
-                className="object-contain"
+                src="/images/namhatta-development-trust.png"
+                width={220}
+                height={220}
+                alt="MS Namhatta Development Trust QR Code"
+                className="rounded-lg shadow-md border border-slate-200"
               />
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-center text-sm text-slate-600">MS NAMHATTA DEVELOPMENT TRUST</div>
+            <div className="text-center text-xs text-slate-500 mt-1">Scan and pay with any UPI app</div>
+          </div>
+        </div>
       </div>
     </section>
   );

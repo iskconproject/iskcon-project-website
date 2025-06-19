@@ -9,11 +9,12 @@ import { useEazypay } from "@/app/hooks/useEazypay";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import RathYatraRouteMap from "@/components/rath-yatra-route-map";
+import OfflinePayment from "@/components/offline-payment";
 
 const rathYatraDate = "27.6.2025";
 
 const RathYatraPage = () => {
-  const {isMobile} = useViewport();
+  const { isMobile } = useViewport();
   const router = useRouter();
   const {
     performEazypayCheckout: initiatePayment,
@@ -151,7 +152,7 @@ const RathYatraPage = () => {
                 <RathYatraDonationForm
                   className="mt-4"
                   onFormSubmit={(data) => {
-                    if(!data.amount) return;
+                    if (!data.amount) return;
                     initiatePayment({
                       amount: data.amount,
                       email: data.email,
@@ -164,8 +165,14 @@ const RathYatraPage = () => {
               </div>
             </div>
           </div>
+
         </div>
+
+
       </section>
+      <OfflinePayment />
+
+
     </main>
   );
 };

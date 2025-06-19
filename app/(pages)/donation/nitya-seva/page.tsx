@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useEazypay } from "@/app/hooks/useEazypay";
 import { useEffect } from "react";
+import OfflinePayment from "@/components/offline-payment";
 
 const NityaSeva = () => {
   const { toast } = useToast();
@@ -76,6 +77,9 @@ const NityaSeva = () => {
           />
         </Card>
       </div>
+      {/* offline payment section */}
+      <OfflinePayment className="mt-16" />
+
     </main>
   );
 };

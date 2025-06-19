@@ -2,6 +2,7 @@
 
 import { useEazypay } from "@/app/hooks/useEazypay";
 import GeneralDonationForm from "@/components/forms/general-donation-form";
+import OfflinePayment from "@/components/offline-payment";
 import PageHeader from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
@@ -47,7 +48,7 @@ const GeneralDonationPage = () => {
             <Card className="bg-yellow-50 p-4 shadow-md">
               <GeneralDonationForm
                 onFormSubmit={(data) => {
-                  if(!data.amount) return;
+                  if (!data.amount) return;
                   initiatePayment({
                     amount: data.amount,
                     email: data.email,
@@ -61,6 +62,9 @@ const GeneralDonationPage = () => {
           </div>
         </div>
       </section>
+
+      {/* offline payment section */}
+      <OfflinePayment className="mt-16" />
     </main>
   );
 };

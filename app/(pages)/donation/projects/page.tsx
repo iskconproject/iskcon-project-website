@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { useEazypay } from "@/app/hooks/useEazypay";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import OfflinePayment from "@/components/offline-payment";
 
 const NewTemple = () => {
   const router = useRouter();
@@ -68,6 +69,9 @@ const NewTemple = () => {
           />
         </Card>
       </div>
+
+      {/* offline payment section */}
+      <OfflinePayment className="mt-16" />
     </main>
   );
 };
