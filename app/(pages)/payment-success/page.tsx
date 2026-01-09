@@ -5,13 +5,15 @@ import { Button } from "@/components/ui/button";
 import { CheckCircleIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function Component() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const uniqueRefNumber = searchParams.get("uniqueRefNumber");
   const amount = searchParams.get("amount");
   const transactionDate = searchParams.get("transactionDate");
   const paymentMode = searchParams.get("paymentMode");
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <CheckCircleIcon className="h-16 w-16 text-green-500 dark:text-green-400" />
@@ -70,5 +72,17 @@ export default function Component() {
         </Link>
       </div>
     </main>
+  );
+}
+
+export default function Component() {
+  return (
+    <Suspense fallback={
+      <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </main>
+    }>
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }
