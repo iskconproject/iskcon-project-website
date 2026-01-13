@@ -90,13 +90,17 @@ const Navbar = () => {
                 <NavigationMenuList className="gap-1">
                   {/* Home */}
                   <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
-                      <NavigationMenuLink className={cn(
-                        "px-4 py-2 text-sm font-medium text-maroon-700 dark:text-zinc-300 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors rounded-lg hover:bg-saffron-50 dark:hover:bg-zinc-900"
-                      )}>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/"
+                        className={cn(
+                          "px-4 py-2 text-sm font-medium text-maroon-700 dark:text-zinc-300 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors rounded-lg hover:bg-saffron-50 dark:hover:bg-zinc-900",
+                          "inline-flex items-center justify-center"
+                        )}
+                      >
                         Home
-                      </NavigationMenuLink>
-                    </Link>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
 
                   {/* About Dropdown */}
@@ -109,8 +113,9 @@ const Navbar = () => {
                         <ul className="grid w-[400px] gap-1 p-4 bg-white dark:bg-zinc-950 rounded-xl shadow-xl border border-cream-200 dark:border-zinc-800">
                           {item.items.map((subItem) => (
                             <li key={subItem.name}>
-                              <Link href={subItem.href} legacyBehavior passHref>
-                                <NavigationMenuLink
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={subItem.href}
                                   className={cn(
                                     "block select-none rounded-lg p-3 leading-none no-underline outline-none transition-colors",
                                     "hover:bg-gradient-to-r hover:from-saffron-50 hover:to-gold-50",
@@ -124,8 +129,8 @@ const Navbar = () => {
                                   <p className="text-xs text-maroon-600/70 dark:text-zinc-400 line-clamp-1">
                                     {subItem.description}
                                   </p>
-                                </NavigationMenuLink>
-                              </Link>
+                                </Link>
+                              </NavigationMenuLink>
                             </li>
                           ))}
                         </ul>
@@ -136,21 +141,19 @@ const Navbar = () => {
                   {/* Quick Links */}
                   {quickLinks.map((link) => (
                     <NavigationMenuItem key={link.name}>
-                      <Link
-                        href={link.href}
-                        legacyBehavior
-                        passHref
-                      >
-                        <NavigationMenuLink
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={link.href}
                           className={cn(
-                            "px-4 py-2 text-sm font-medium text-maroon-700 dark:text-zinc-300 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors rounded-lg hover:bg-saffron-50 dark:hover:bg-zinc-900"
+                            "px-4 py-2 text-sm font-medium text-maroon-700 dark:text-zinc-300 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors rounded-lg hover:bg-saffron-50 dark:hover:bg-zinc-900",
+                            "inline-flex items-center justify-center"
                           )}
                           target={link.external ? '_blank' : undefined}
                           rel={link.external ? 'noopener noreferrer' : undefined}
                         >
                           {link.name}
-                        </NavigationMenuLink>
-                      </Link>
+                        </Link>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
                 </NavigationMenuList>
