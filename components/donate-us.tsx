@@ -1,90 +1,161 @@
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { Heart, ArrowRight, Building2, Utensils, Flower2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const items = [
+const donationItems = [
   {
     title: "Temple Donation",
-    subtitle: "Any other contribution for temple",
+    subtitle: "Support daily temple operations and worship",
+    icon: Building2,
     imageURL: "/images/namaste.svg",
     link: "/donation/general-donation",
-    className: "bg-teal-100",
-    buttonText: "Donate",
+    gradient: "from-teal-500 to-emerald-600",
+    bgColor: "bg-teal-50",
   },
-
   {
     title: "Nitya Seva",
-    subtitle: "Daily worship of the Lord. Join us",
+    subtitle: "Participate in daily deity worship and offerings",
+    icon: Flower2,
     imageURL: "/images/lord_jagannath_idols.svg",
     link: "/donation/nitya-seva",
-    className: "bg-orange-100",
-    buttonText: "Donate",
+    gradient: "from-saffron-500 to-orange-600",
+    bgColor: "bg-saffron-50",
   },
   {
-    title: "Projects",
-    subtitle: "Daily distribution of prasadam for devotees",
+    title: "Temple Projects",
+    subtitle: "Contribute to temple development and expansion",
+    icon: Utensils,
     imageURL: "/images/temple.svg",
     link: "/donation/projects",
-    className: "bg-blue-100",
-    buttonText: "Donate",
+    gradient: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
   },
-  // {
-  //   title: "Gita Donation",
-  //   subtitle: "Contribute and help us distribute Gita to 3 lakh people",
-  //   imageURL: "/images/ram_mandir.svg",
-  //   link: "/donation/gita-donation",
-  //   className: "bg-pink-100",
-  //   buttonText: "Donate",
-  // },
 ];
 
 const DonateUs = () => {
   return (
-    <section>
-      <div className="container py-16">
-        <div className="flex flex-col gap-4 justify-between md:flex-row">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-white relative">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 section-pattern opacity-50" />
+
+      <div className="container relative">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <h3 className="text-3xl">Contribute</h3>
-            <p className="text-sm md:text-base">
-              Your small donation can make a big difference!
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-saffron-100 rounded-full text-saffron-700 text-sm font-medium mb-4">
+              <Heart className="w-4 h-4" />
+              <span>Make a Difference</span>
+            </div>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 mb-3">
+              Support Our <span className="text-saffron-600">Mission</span>
+            </h2>
+            <p className="text-maroon-600 max-w-lg">
+              Your generous contribution helps spread Krishna consciousness and maintain the sacred services
             </p>
           </div>
 
-          <Link href={"/donation"} className="flex items-center">
-            <Button variant={"outline"}>View All</Button>
+          <Link href="/donation">
+            <Button
+              variant="outline"
+              className="border-saffron-300 text-saffron-700 hover:bg-saffron-50 rounded-full px-6 group"
+            >
+              View All Options
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
-          {items.map((item, index) => {
-            return (
-              <Link
-                href={item.link}
-                className="bg-white rounded-md p-4 shadow-md border"
-                key={index}
-              >
-                <div className="h-40 bg-purple-100 rounded-md relative">
+        {/* Donation Cards Grid */}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {donationItems.map((item, index) => (
+            <Link
+              href={item.link}
+              key={index}
+              className={cn(
+                "group relative bg-white rounded-3xl overflow-hidden",
+                "border border-cream-200 shadow-lg shadow-maroon-900/5",
+                "hover:shadow-2xl hover:shadow-saffron-500/10 hover:-translate-y-2",
+                "transition-all duration-300"
+              )}
+            >
+              {/* Image Container */}
+              <div className={cn("relative h-48 overflow-hidden", item.bgColor)}>
+                <div className="absolute inset-0 flex items-center justify-center p-6">
                   <Image
-                    fill={true}
                     src={item.imageURL}
-                    alt="lord jagannath icon"
-                    className={cn("object-contain p-2", item.className)}
+                    alt={item.title}
+                    width={150}
+                    height={150}
+                    className="object-contain group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-
-                <div className="flex justify-between items-center mt-2">
-                  <h4 className="mt-2 font-semibold text-purple-600">
-                    {item.title}
-                  </h4>
-
-                  <Button className="mt-2" variant={"secondary"}>
-                    {item.buttonText}
-                  </Button>
+                
+                {/* Icon Badge */}
+                <div className={cn(
+                  "absolute top-4 right-4 w-10 h-10 rounded-xl flex items-center justify-center",
+                  "bg-gradient-to-br text-white shadow-lg",
+                  item.gradient
+                )}>
+                  <item.icon className="w-5 h-5" />
                 </div>
-              </Link>
-            );
-          })}
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="font-heading text-xl font-semibold text-maroon-800 mb-2 group-hover:text-saffron-600 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-maroon-600/80 text-sm mb-4">
+                  {item.subtitle}
+                </p>
+
+                {/* Donate Button */}
+                <Button
+                  className={cn(
+                    "w-full rounded-full font-semibold",
+                    "bg-gradient-to-r text-white",
+                    item.gradient,
+                    "hover:opacity-90 transition-opacity"
+                  )}
+                >
+                  <Heart className="w-4 h-4 mr-2" />
+                  Donate Now
+                </Button>
+              </div>
+
+              {/* Hover Glow Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <div className={cn(
+                  "absolute -inset-px rounded-3xl bg-gradient-to-r opacity-20",
+                  item.gradient
+                )} />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Trust Indicators */}
+        <div className="mt-12 flex flex-wrap justify-center gap-6 md:gap-12 text-sm text-maroon-500">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>Secure Payments</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>80G Tax Benefits</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>Instant Receipt</span>
+          </div>
         </div>
       </div>
     </section>

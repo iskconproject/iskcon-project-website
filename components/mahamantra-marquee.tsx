@@ -1,31 +1,26 @@
-type Props = {
+import { cn } from "@/lib/utils";
+
+interface MahamantraMarqueeProps {
   className?: string;
-};
+}
 
-const MahamantraMarquee: React.FC<Props> = ({ className }) => {
+const MahamantraMarquee = ({ className }: MahamantraMarqueeProps) => {
+  const mantra = "Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare";
+  
   return (
-    <div className={className}>
-      <div className="relative flex overflow-x-hidden">
-        <div className="animate-marquee whitespace-nowrap">
-          <span className="mx-4">Hare Krishna</span>
-          <span className="mx-4">Hare Krishna</span>
-          <span className="mx-4">Krishna Krishna</span>
-          <span className="mx-4">Hare Hare...</span>
-          <span className="mx-4">Hare Rama</span>
-          <span className="mx-4">Hare Rama</span>
-          <span className="mx-4">Rama Rama</span>
-          <span className="mx-4">Hare Hare...</span>
+    <div className={cn("relative overflow-hidden", className)}>
+      <div className="flex items-center whitespace-nowrap">
+        <div className="animate-marquee flex items-center gap-8">
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
         </div>
-
-        <div className="absolute top-0 animate-marquee2 whitespace-nowrap">
-          <span className="mx-4">Hare Krishna</span>
-          <span className="mx-4">Hare Krishna</span>
-          <span className="mx-4">Krishna Krishna</span>
-          <span className="mx-4">Hare Hare...</span>
-          <span className="mx-4">Hare Rama</span>
-          <span className="mx-4">Hare Rama</span>
-          <span className="mx-4">Rama Rama</span>
-          <span className="mx-4">Hare Hare...</span>
+        <div className="animate-marquee2 flex items-center gap-8 absolute top-0">
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
+          <span className="text-lg font-medium tracking-wide">🙏 {mantra}</span>
         </div>
       </div>
     </div>

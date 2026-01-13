@@ -7,143 +7,252 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
-import TempleTimeStatus from './temple-time-status';
 import Image from 'next/image';
-import {
-  Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-} from '@/components/ui/menubar';
-import TranslateIcon from './icons/translate-icon';
-import IskconAsansolLogoIcon from './icons/iskcon-asansol-logo';
+import { cn } from '@/lib/utils';
+import { ChevronDown, Menu, X, Heart } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Button } from './ui/button';
+
+const navigationItems = [
+  {
+    title: 'About',
+    items: [
+      { name: 'History', href: '/iskcon/history', description: 'The journey of ISKCON worldwide' },
+      { name: 'Philosophy', href: '/iskcon/philosophy', description: 'Core teachings of Krishna consciousness' },
+      { name: 'Founder Acharya', href: '/iskcon/founder', description: 'Srila Prabhupada\'s divine mission' },
+      { name: 'Vaishnava Calendar', href: '/iskcon/vaishnava-calendar', description: 'Sacred dates and festivals' },
+    ],
+  },
+];
+
+const quickLinks = [
+  { name: 'Activities', href: '/activities' },
+  { name: 'Festivals', href: '/festivals' },
+  { name: 'Our Members', href: 'https://members.iskconproject.com', external: true },
+];
 
 const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className='w-full sticky top-0 shadow-md bg-white/80 backdrop-blur-sm z-20 py-2'>
-      <div className='container mx-auto md:px-auto flex justify-between items-center'>
-        <div className='flex gap-2 items-center'>
-          <Link href='/'>
-            <IskconAsansolLogoIcon className='w-12 h-12 text-red-600 block' />
-          </Link>
-        </div>
-
-        <div className='flex gap-4'>
-          <div className='hidden lg:block'>
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Iskcon</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className='md:w-[200px]'>
-                      <li>
-                        <Link href='/iskcon/history' legacyBehavior passHref>
-                          <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            History
-                          </NavigationMenuLink>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href='/iskcon/philosophy' legacyBehavior passHref>
-                          <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            Philosophy
-                          </NavigationMenuLink>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href='/iskcon/founder' legacyBehavior passHref>
-                          <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            Founder
-                          </NavigationMenuLink>
-                        </Link>
-                      </li>
-                      <li className=''>
-                        <Link
-                          href='/iskcon/vaishnava-calendar'
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            Vaishnava Calendar
-                          </NavigationMenuLink>
-                        </Link>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href='/donation' legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      Donation
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href='/activities' legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      Activities
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href='/festivals' legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      Festivals
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <Link href='https://members.iskconproject.com' legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Our Members
-                    </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
-
-          <div className='hidden'>
-            <Menubar>
-              <MenubarMenu>
-                <MenubarTrigger>
-                  <TranslateIcon />
-                </MenubarTrigger>
-                <MenubarContent>
-                  <MenubarItem>English</MenubarItem>
-                  <MenubarItem>Bengali</MenubarItem>
-                </MenubarContent>
-              </MenubarMenu>
-            </Menubar>
-          </div>
-        </div>
+    <>
+      {/* Top Bar - Mahamantra */}
+      <div className="bg-maroon-800 text-gold-300 py-1.5 text-center text-sm font-medium tracking-wide hidden md:block">
+        <span className="animate-pulse">🙏</span>
+        <span className="mx-4">
+          Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare
+        </span>
+        <span className="animate-pulse">🙏</span>
       </div>
-    </nav>
+
+      {/* Main Navigation */}
+      <nav
+        className={cn(
+          'w-full sticky top-0 z-50 transition-all duration-300',
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-saffron-500/5'
+            : 'bg-white/80 backdrop-blur-sm'
+        )}
+      >
+        <div className="container mx-auto">
+          <div className="flex justify-between items-center h-16 md:h-20">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 transition-transform group-hover:scale-105">
+                <Image
+                  src="/images/logo/iskcon-asansol-logo.svg"
+                  alt="ISKCON Asansol Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="font-heading text-lg md:text-xl font-semibold text-maroon-800 leading-tight">
+                  ISKCON Asansol
+                </h1>
+                <p className="text-xs text-maroon-600/70 font-medium">
+                  Sri Sri Jagannath Temple
+                </p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              <NavigationMenu>
+                <NavigationMenuList className="gap-1">
+                  {/* Home */}
+                  <NavigationMenuItem>
+                    <Link href="/" legacyBehavior passHref>
+                      <NavigationMenuLink className={cn(
+                        "px-4 py-2 text-sm font-medium text-maroon-700 hover:text-saffron-600 transition-colors rounded-lg hover:bg-saffron-50"
+                      )}>
+                        Home
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+
+                  {/* About Dropdown */}
+                  {navigationItems.map((item) => (
+                    <NavigationMenuItem key={item.title}>
+                      <NavigationMenuTrigger className="px-4 py-2 text-sm font-medium text-maroon-700 hover:text-saffron-600 bg-transparent hover:bg-saffron-50 data-[state=open]:bg-saffron-50">
+                        {item.title}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-1 p-4 bg-white rounded-xl shadow-xl border border-cream-200">
+                          {item.items.map((subItem) => (
+                            <li key={subItem.name}>
+                              <Link href={subItem.href} legacyBehavior passHref>
+                                <NavigationMenuLink
+                                  className={cn(
+                                    "block select-none rounded-lg p-3 leading-none no-underline outline-none transition-colors",
+                                    "hover:bg-gradient-to-r hover:from-saffron-50 hover:to-gold-50",
+                                    "focus:bg-saffron-50"
+                                  )}
+                                >
+                                  <div className="text-sm font-semibold text-maroon-800 mb-1">
+                                    {subItem.name}
+                                  </div>
+                                  <p className="text-xs text-maroon-600/70 line-clamp-1">
+                                    {subItem.description}
+                                  </p>
+                                </NavigationMenuLink>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  ))}
+
+                  {/* Quick Links */}
+                  {quickLinks.map((link) => (
+                    <NavigationMenuItem key={link.name}>
+                      <Link
+                        href={link.href}
+                        legacyBehavior
+                        passHref
+                      >
+                        <NavigationMenuLink
+                          className={cn(
+                            "px-4 py-2 text-sm font-medium text-maroon-700 hover:text-saffron-600 transition-colors rounded-lg hover:bg-saffron-50"
+                          )}
+                          target={link.external ? '_blank' : undefined}
+                          rel={link.external ? 'noopener noreferrer' : undefined}
+                        >
+                          {link.name}
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+
+              {/* Donate CTA */}
+              <Link href="/donation" className="ml-4">
+                <Button
+                  className={cn(
+                    "relative overflow-hidden px-6 py-2 font-semibold text-white rounded-full",
+                    "bg-gradient-to-r from-saffron-500 via-saffron-600 to-saffron-500",
+                    "hover:shadow-lg hover:shadow-saffron-500/30",
+                    "transition-all duration-300 ease-out",
+                    "group"
+                  )}
+                >
+                  <Heart className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                  <span>Donate</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden p-2 text-maroon-700 hover:text-saffron-600 hover:bg-saffron-50 rounded-lg transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={cn(
+            "lg:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-md border-t border-cream-200 shadow-xl transition-all duration-300 overflow-hidden",
+            isMobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <div className="container py-4 space-y-4">
+            {/* Quick Links */}
+            <div className="space-y-1">
+              <Link
+                href="/"
+                className="block px-4 py-3 text-maroon-700 font-medium hover:bg-saffron-50 rounded-lg transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              {quickLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-4 py-3 text-maroon-700 font-medium hover:bg-saffron-50 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noopener noreferrer' : undefined}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* About Section */}
+            <div className="border-t border-cream-200 pt-4">
+              <p className="px-4 text-xs font-semibold text-maroon-500 uppercase tracking-wider mb-2">
+                About ISKCON
+              </p>
+              {navigationItems[0].items.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block px-4 py-2.5 text-maroon-600 hover:bg-saffron-50 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Donate Button */}
+            <div className="border-t border-cream-200 pt-4 px-4">
+              <Link href="/donation" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button className="w-full gradient-saffron text-white font-semibold py-3 rounded-full">
+                  <Heart className="w-4 h-4 mr-2" />
+                  Donate Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 

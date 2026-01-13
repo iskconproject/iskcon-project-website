@@ -1,35 +1,44 @@
-import DonateUs from "@/components/donate-us";
-import Activities from "@/components/activities";
 import { Metadata } from "next";
 import Hero from "@/components/hero";
-import Events from "@/components/events";
-import YoutubeGallery from "@/components/youtube-gallery";
-import Social from "@/components/social";
+import DeityDarshanSection from "@/components/deity-darshan-section";
 import EventsAndAnnouncements from "@/components/events-and-announcements";
-import { VaishnavEvent } from "@/components/vaishnava-calendar";
-import { getCalendarEvents } from "@/lib/calendar.server";
 import LifetimeRajbhogSeva from "@/components/lifetime-rajbhog-seva";
+import DonateUs from "@/components/donate-us";
+import Activities from "@/components/activities";
+import SpiritualQuoteSection from "@/components/spiritual-quote-section";
+import Social from "@/components/social";
+import { getCalendarEvents } from "@/lib/calendar.server";
 
 export const metadata: Metadata = {
-  title: "Iskcon Project | Donate for our ongoing Jagannath Temple in Asansol",
+  title: "ISKCON Asansol | Sri Sri Jagannath Temple - Donate & Experience Divine Darshan",
   description:
-    "Official website of Iskcon Jagannath Temple Asansol. Donate and help us build our new temple. Join us in our daily worship of the Lord. Become a life member today. Hare Krishna!",
+    "Welcome to ISKCON Asansol - Sri Sri Jagannath Temple. Experience divine darshan, participate in festivals, and support our temple through donations. Founded by His Divine Grace A.C. Bhaktivedanta Swami Prabhupada. Hare Krishna!",
   creator: "ISKCON Asansol",
-  keywords:
-    "iskcon, asansol, hare krishna, iskcon asansol, iskcon project, donate",
+  keywords: [
+    "iskcon",
+    "asansol", 
+    "hare krishna",
+    "iskcon asansol",
+    "jagannath temple",
+    "donate",
+    "festivals",
+    "darshan",
+    "krishna consciousness",
+    "spiritual",
+  ],
   openGraph: {
-    title: "Iskcon Project | Iskcon Jagannath Temple Asansol",
+    title: "ISKCON Asansol | Sri Sri Jagannath Temple",
     description:
-      "Official website of Iskcon Jagannath Temple Asansol. Donate and help us build our new temple. Join us in our daily worship of the Lord. Become a life member today. Hare Krishna!",
+      "Experience the divine presence of Lord Jagannath at ISKCON Asansol. Join us for darshan, festivals, and spiritual programs.",
     url: "https://iskconproject.com/",
     type: "website",
-    siteName: "ISKCON Project",
+    siteName: "ISKCON Asansol",
     images: [
       {
-        url: "/images/lord_radha_krishna.jpg",
-        width: 800,
-        height: 600,
-        alt: "Lord Radha Krishna",
+        url: "/images/jagannath_deity.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sri Sri Jagannath Temple - ISKCON Asansol",
       },
     ],
   },
@@ -42,136 +51,83 @@ const jsonLD = () => {
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "ISKCON Asansol",
+          "@type": "HinduTemple",
+          name: "ISKCON Asansol - Sri Sri Jagannath Temple",
           alternateName: "ISKCON Project",
           url: "https://iskconproject.com/",
           logo: "https://iskconproject.com/images/logo/iskcon-asansol-logo.svg",
+          image: "https://iskconproject.com/images/jagannath_deity.jpg",
+          description: "Sri Sri Jagannath Temple managed by ISKCON Asansol. A place for spiritual growth and devotion.",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "NH2 Bye-Pass, Garui",
+            addressLocality: "Asansol",
+            addressRegion: "West Bengal",
+            postalCode: "713341",
+            addressCountry: "IN",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: "23.6888",
+            longitude: "86.9661",
+          },
+          telephone: "+919433320314",
+          email: "iskconasansol@gmail.com",
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              opens: "04:30",
+              closes: "12:30",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              opens: "16:30",
+              closes: "20:45",
+            },
+          ],
           sameAs: [
-            "https://www.facebook.com/ISKCONAsansol/",
+            "https://www.facebook.com/people/Iskcon-Asansol/100072286610743/",
             "https://www.instagram.com/iskconasansol/",
-            "https://twitter.com/iskconasansol",
-            "https://www.youtube.com/channel/UCj3q6W8eJyQ2g2T7mJ5gKjQ",
-          ],
-          contactPoint: [
-            {
-              "@type": "ContactPoint",
-              telephone: "+919433320314",
-              contactType: "temple office",
-              contactOption: "TollFree",
-              areaServed: "IN",
-              availableLanguage: ["en", "hi", "bn"],
-            },
-          ],
-          donation: [
-            {
-              "@type": "DonateAction",
-              name: "Donate Gita for Ram Mandir",
-              description: "Contribute and help us distribute Gita",
-              image: "https://iskconproject.com/images/ram-mandir.jpg",
-              url: "https://iskconproject.com/donation/gita-donation",
-              potentialAction: {
-                "@type": "DonateAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://iskconproject.com/donation/gita-donation",
-                  inLanguage: "en-US",
-                  actionPlatform: [
-                    "http://schema.org/DesktopWebPlatform",
-                    "http://schema.org/IOSPlatform",
-                    "http://schema.org/AndroidPlatform",
-                  ],
-                },
-                expectsAcceptanceOf: {
-                  "@type": "Offer",
-                  name: "Gita Donation",
-                  price: "1001",
-                  priceCurrency: "INR",
-                  eligibleRegion: "IN",
-                  availability: "https://schema.org/InStock",
-                  seller: {
-                    "@type": "Organization",
-                    name: "ISKCON Asansol",
-                    url: "https://iskconproject.com/",
-                    logo: "https://iskconproject.com/images/logo/iskcon-asansol-logo.svg",
-                  },
-                },
-              },
-            },
-            {
-              "@type": "DonateAction",
-              name: "Welcome to Iskcon Asansol",
-              description: "Join us in building our new temple",
-              image: "https://iskconproject.com/images/lord_radha_krishna.jpg",
-              url: "https://iskconproject.com/donation/projects",
-              potentialAction: {
-                "@type": "DonateAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: "https://iskconproject.com/donation/projects",
-                  inLanguage: "en-US",
-                  actionPlatform: [
-                    "http://schema.org/DesktopWebPlatform",
-                    "http://schema.org/IOSPlatform",
-                    "http://schema.org/AndroidPlatform",
-                  ],
-                },
-                expectsAcceptanceOf: {
-                  "@type": "Offer",
-                  name: "Project Donation",
-                  price: "1001",
-                  priceCurrency: "INR",
-                  eligibleRegion: "IN",
-                },
-              },
-            },
-            {
-              "@type:": "DonateAction",
-              name: "General Donation",
-              description: "Donate for the temple",
-              image: "https://iskconproject.com/images/lord_radha_krishna.jpg",
-              url: "https://iskconproject.com/donation/general-donation",
-              potentialAction: {
-                "@type": "DonateAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://iskconproject.com/donation/general-donation",
-                  inLanguage: "en-US",
-                  actionPlatform: [
-                    "http://schema.org/DesktopWebPlatform",
-                    "http://schema.org/IOSPlatform",
-                    "http://schema.org/AndroidPlatform",
-                  ],
-                },
-                expectsAcceptanceOf: {
-                  "@type": "Offer",
-                  name: "General Donation",
-                  price: "1001",
-                  priceCurrency: "INR",
-                  eligibleRegion: "IN",
-                },
-              },
-            },
+            "https://www.youtube.com/@ISKCON699/",
           ],
         }),
       }}
     />
   );
 };
+
 export default async function Home() {
   const calendarEvents = await getCalendarEvents();
+  
   return (
-    <main>
+    <>
       {jsonLD()}
-      <Hero/>
+      
+      {/* Hero Section - Full Screen */}
+      <Hero />
+      
+      {/* Deity Darshan - Experience the Divine */}
+      <DeityDarshanSection />
+      
+      {/* Upcoming Events & Festivals */}
       <EventsAndAnnouncements calendarEvents={calendarEvents} />
+      
+      {/* Lifetime Rajbhog Seva - Premium Offering */}
       <LifetimeRajbhogSeva />
+      
+      {/* Donation Options */}
       <DonateUs />
+      
+      {/* Temple Activities */}
       <Activities />
-      <YoutubeGallery />
+      
+      {/* Spiritual Quote - Prabhupada's Wisdom */}
+      <SpiritualQuoteSection />
+      
+      {/* Social Media & Connect */}
       <Social />
-    </main>
+    </>
   );
 }

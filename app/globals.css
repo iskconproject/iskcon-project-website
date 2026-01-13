@@ -2,17 +2,362 @@
 @tailwind components;
 @tailwind utilities;
 
-/* calendar styles */
+/* ============================================
+   ISKCON ASANSOL - SPIRITUAL DESIGN SYSTEM
+   ============================================ */
 
+@layer base {
+  :root {
+    /* Primary - Sacred Saffron */
+    --saffron-50: 36 100% 95%;
+    --saffron-100: 34 100% 91%;
+    --saffron-200: 32 98% 83%;
+    --saffron-300: 31 97% 72%;
+    --saffron-400: 27 96% 61%;
+    --saffron-500: 25 95% 53%;
+    --saffron-600: 21 90% 48%;
+    --saffron-700: 17 88% 40%;
+    --saffron-800: 15 79% 34%;
+    --saffron-900: 15 75% 28%;
+
+    /* Secondary - Divine Gold */
+    --gold-50: 48 100% 96%;
+    --gold-100: 48 96% 89%;
+    --gold-200: 48 97% 77%;
+    --gold-300: 46 97% 65%;
+    --gold-400: 43 96% 56%;
+    --gold-500: 38 92% 50%;
+    --gold-600: 32 95% 44%;
+    --gold-700: 26 90% 37%;
+    --gold-800: 23 83% 31%;
+    --gold-900: 22 78% 26%;
+
+    /* Neutral - Temple Cream */
+    --cream-50: 40 33% 99%;
+    --cream-100: 36 45% 97%;
+    --cream-200: 33 37% 94%;
+    --cream-300: 30 25% 88%;
+    --cream-400: 28 18% 69%;
+    --cream-500: 25 13% 52%;
+
+    /* Sacred - Deep Maroon */
+    --maroon-50: 0 86% 97%;
+    --maroon-100: 0 93% 94%;
+    --maroon-200: 0 96% 89%;
+    --maroon-300: 0 94% 82%;
+    --maroon-400: 0 91% 71%;
+    --maroon-500: 0 84% 60%;
+    --maroon-600: 0 72% 51%;
+    --maroon-700: 0 74% 42%;
+    --maroon-800: 0 70% 35%;
+    --maroon-900: 0 63% 31%;
+
+    /* Background & Foreground */
+    --background: 40 33% 99%;
+    --foreground: 0 63% 15%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 0 63% 15%;
+
+    /* Muted */
+    --muted: 33 37% 94%;
+    --muted-foreground: 25 13% 40%;
+
+    /* Primary */
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 0 63% 15%;
+
+    /* Accent */
+    --accent: 33 37% 94%;
+    --accent-foreground: 25 95% 40%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 30 25% 88%;
+    --input: 30 25% 88%;
+    --ring: 25 95% 53%;
+
+    /* Radius */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 63% 8%;
+    --foreground: 40 33% 95%;
+    --card: 0 63% 12%;
+    --card-foreground: 40 33% 95%;
+    --muted: 0 50% 20%;
+    --muted-foreground: 30 25% 70%;
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --border: 0 50% 25%;
+    --input: 0 50% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Elegant Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Card */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .glass-card-dark {
+    @apply bg-maroon-900/80 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-saffron {
+    @apply bg-gradient-to-br from-saffron-400 via-saffron-500 to-saffron-600;
+  }
+
+  .gradient-gold {
+    @apply bg-gradient-to-br from-gold-300 via-gold-400 to-gold-500;
+  }
+
+  .gradient-spiritual {
+    @apply bg-gradient-to-br from-saffron-500 via-gold-500 to-saffron-600;
+  }
+
+  .gradient-divine {
+    @apply bg-gradient-to-b from-cream-50 via-cream-100 to-saffron-50;
+  }
+
+  /* Text Gradients */
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-saffron {
+    @apply bg-gradient-to-r from-saffron-500 via-saffron-400 to-saffron-500 bg-clip-text text-transparent;
+  }
+
+  /* Decorative Elements */
+  .ornamental-border {
+    @apply relative;
+  }
+
+  .ornamental-border::before {
+    content: '';
+    @apply absolute left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent;
+  }
+
+  .ornamental-border-top::before {
+    @apply -top-2;
+  }
+
+  .ornamental-border-bottom::before {
+    @apply -bottom-2;
+  }
+
+  /* Section Styles */
+  .section-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .section-lotus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23f97316' fill-opacity='0.02'%3E%3Cpath d='M40 10c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 35c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Premium Button */
+  .btn-premium {
+    @apply relative overflow-hidden px-8 py-3 font-semibold text-white rounded-full;
+    @apply bg-gradient-to-r from-saffron-500 via-gold-500 to-saffron-500;
+    @apply hover:shadow-lg hover:shadow-saffron-500/30;
+    @apply transition-all duration-300 ease-out;
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  .btn-premium:hover {
+    background-position: 100% 0;
+  }
+
+  /* Glow Effects */
+  .glow-gold {
+    @apply shadow-lg shadow-gold-400/30;
+  }
+
+  .glow-saffron {
+    @apply shadow-lg shadow-saffron-500/30;
+  }
+
+  /* Card Hover Effects */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .card-hover-glow {
+    @apply card-hover hover:shadow-saffron-500/20;
+  }
+
+  /* Image Overlay */
+  .image-overlay {
+    @apply relative overflow-hidden;
+  }
+
+  .image-overlay::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-maroon-900/80 via-maroon-900/20 to-transparent;
+  }
+
+  /* Spiritual Divider */
+  .divider-lotus {
+    @apply flex items-center justify-center gap-4 py-8;
+  }
+
+  .divider-lotus::before,
+  .divider-lotus::after {
+    content: '';
+    @apply flex-1 h-px bg-gradient-to-r from-transparent via-gold-300 to-transparent;
+  }
+
+  /* Container */
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Text Shadow */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Backdrop */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Calendar styles */
 .fc-header-toolbar {
   display: inline-block;
   padding: 4px 4px;
-
   @apply space-x-8;
 }
 
 .fc .fc-toolbar-title {
-  @apply text-lg md:text-2xl;
+  @apply text-lg md:text-2xl font-heading;
 }
 
 .fc-day {
@@ -24,23 +369,23 @@
 }
 
 .fc-view {
-  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
+  @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white rounded-lg;
 }
 
 .fc-h-event {
-  @apply bg-violet-800 border border-violet-800;
+  @apply bg-saffron-600 border border-saffron-600;
 }
 
-.fc-h-event.ekadasi{
-  @apply bg-red-600 border border-red-600;
+.fc-h-event.ekadasi {
+  @apply bg-maroon-600 border border-maroon-600;
 }
 
-.fc .fc-daygrid-day:hover{
-  @apply bg-violet-50;
+.fc .fc-daygrid-day:hover {
+  @apply bg-saffron-50;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-  @apply bg-violet-100;
+  @apply bg-gold-100;
 }
 
 .fc-toolbar-chunk {
@@ -48,16 +393,40 @@
 }
 
 .fc .fc-button {
-  @apply bg-violet-800 hover:bg-violet-900;
+  @apply bg-saffron-600 hover:bg-saffron-700 border-saffron-600;
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active {
-  @apply bg-violet-600;
+  @apply bg-saffron-700;
 }
 
 .fc .fc-button-primary:disabled {
-  @apply bg-violet-600;
+  @apply bg-saffron-400;
 }
+
 .fc-v-event {
-  @apply bg-violet-500 border border-violet-600;
+  @apply bg-saffron-500 border border-saffron-600;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cream-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-saffron-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-saffron-400;
+}
+
+/* Selection */
+::selection {
+  @apply bg-saffron-200 text-maroon-900;
 }

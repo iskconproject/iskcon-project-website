@@ -1,62 +1,89 @@
-
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { CreditCard, Building2, QrCode, Phone } from "lucide-react";
 
-type Props = {
-  className?: string
+interface OfflinePaymentProps {
+  className?: string;
 }
-const OfflinePayment: React.FC<Props> = ({ className }) => {
-  return (
-    <section
-      className={`relative py-10 md:px-0 bg-white to-white min-h-[60vh] ${className || ""}`}
-    >
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-orange-600 mb-2 tracking-tight">Offline Donations</h2>
-        <p className="text-lg text-slate-700 mb-8 max-w-2xl">
-          For those who prefer to donate offline, you can contribute through cash or cheque at our temple office. Your support is invaluable and even a small donation can make a significant difference in our efforts to serve the community and promote spiritual welfare.
-        </p>
 
-        <div className="grid md:grid-cols-3 gap-0 items-stretch relative">
-          {/* Bank Details Card */}
-          <div className="flex flex-col justify-center px-4 md:px-0 py-4 md:py-0">
-            <div className="mb-4">
-              <div className="text-lg font-semibold text-slate-900 mb-2">Bank Transfer Details</div>
-              <div className="space-y-2 text-base">
-                <div><span className="font-semibold">Bank Name:</span> ICICI Bank</div>
-                <div><span className="font-semibold">Account Name:</span> ISKCON</div>
-                <div><span className="font-semibold">A/C No:</span> 402401000048</div>
-                <div><span className="font-semibold">IFSC Code:</span> ICIC0004024</div>
+const OfflinePayment = ({ className }: OfflinePaymentProps) => {
+  return (
+    <section className={cn("", className)}>
+      <div className="container">
+        <div className="text-center mb-12">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-maroon-800 mb-3">
+            Offline <span className="text-saffron-600">Payment Options</span>
+          </h2>
+          <p className="text-maroon-600 max-w-lg mx-auto">
+            Prefer traditional payment methods? You can also donate via bank transfer or at our temple
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Bank Transfer */}
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-cream-200">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white mb-4">
+              <Building2 className="w-6 h-6" />
+            </div>
+            <h3 className="font-heading text-xl font-semibold text-maroon-800 mb-4">
+              Bank Transfer
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between py-2 border-b border-cream-100">
+                <span className="text-maroon-500">Account Name</span>
+                <span className="text-maroon-800 font-medium">ISKCON Asansol</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-cream-100">
+                <span className="text-maroon-500">Bank</span>
+                <span className="text-maroon-800 font-medium">State Bank of India</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-cream-100">
+                <span className="text-maroon-500">Account No.</span>
+                <span className="text-maroon-800 font-medium">38891892011</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-cream-100">
+                <span className="text-maroon-500">IFSC Code</span>
+                <span className="text-maroon-800 font-medium">SBIN0010123</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-maroon-500">Branch</span>
+                <span className="text-maroon-800 font-medium">Asansol Main</span>
               </div>
             </div>
           </div>
 
-          {/* OR Separator */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="hidden md:flex flex-col items-center h-full">
-              <div className="w-px h-32 bg-slate-300 mb-2" />
-              <span className="text-lg font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">OR</span>
-              <div className="w-px h-32 bg-slate-300 mt-2" />
+          {/* UPI / QR */}
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-cream-200">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center text-white mb-4">
+              <QrCode className="w-6 h-6" />
             </div>
-            <div className="flex md:hidden items-center my-4">
-              <div className="h-px w-12 bg-slate-300 mr-2" />
-              <span className="text-base font-bold text-slate-400 bg-white px-3 py-1 rounded-full shadow-sm">OR</span>
-              <div className="h-px w-12 bg-slate-300 ml-2" />
+            <h3 className="font-heading text-xl font-semibold text-maroon-800 mb-4">
+              Scan & Pay (UPI)
+            </h3>
+            <div className="flex flex-col items-center">
+              <div className="relative w-40 h-40 bg-cream-50 rounded-xl p-2 mb-4">
+                <Image
+                  src="/images/namhatta-trust-qr.png"
+                  alt="UPI QR Code"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-maroon-600 text-sm text-center">
+                Scan this QR code with any UPI app to make an instant payment
+              </p>
             </div>
           </div>
+        </div>
 
-          {/* QR Code Card */}
-          <div className="flex flex-col justify-center items-center px-4 md:px-0 py-4 md:py-0">
-            <div className="text-lg font-semibold text-slate-900 mb-2 text-center">Scan and Pay</div>
-            <div className="mb-4">
-              <Image
-                src="/images/namhatta-development-trust.png"
-                width={220}
-                height={220}
-                alt="MS Namhatta Development Trust QR Code"
-                className="rounded-lg shadow-md border border-slate-200"
-              />
-            </div>
-            <div className="text-center text-sm text-slate-600">MS NAMHATTA DEVELOPMENT TRUST</div>
-            <div className="text-center text-xs text-slate-500 mt-1">Scan and pay with any UPI app</div>
+        {/* Contact for Help */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-saffron-50 rounded-full text-saffron-700">
+            <Phone className="w-5 h-5" />
+            <span className="font-medium">Need help? Call us at</span>
+            <a href="tel:+919433320314" className="font-bold hover:underline">
+              +91 94333 20314
+            </a>
           </div>
         </div>
       </div>
