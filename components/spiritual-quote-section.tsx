@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Quote, BookOpen, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from './ui/button';
 
 const quotes = [
   {
@@ -100,11 +100,9 @@ export default function SpiritualQuoteSection() {
                 "transition-all duration-300 group"
               )}
             >
-              <Button size="lg" className="w-full bg-transparent p-0 h-auto hover:bg-transparent text-white dark:text-zinc-950 font-semibold">
-                <BookOpen className="w-5 h-5 mr-2" />
-                Learn from Srila Prabhupada
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <BookOpen className="w-5 h-5" />
+              Learn from Srila Prabhupada
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
