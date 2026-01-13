@@ -4,6 +4,7 @@ export type HeroCarouselItem = {
   topSubtitle: string;
   mainTitle: string;
   bottomSubtitle: string;
+  href: string;
   cta?: {
     text: string;
     href: string;
@@ -17,6 +18,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
     topSubtitle: "Celebrate the Divine",
     mainTitle: "Rath Yatra Festival 2025",
     bottomSubtitle: "Join us for a journey of spiritual bliss",
+    href: "/festivals/rath-yatra",
     cta: {
       text: "Contribute Now",
       href: "/festivals/rath-yatra",
@@ -29,6 +31,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
     mainTitle: "Sri Sri Jagannath Temple, Asansol",
     bottomSubtitle:
       "Founder Acharya: His Divine Grace A.C. Bhaktivedanta Swami Prabhupāda",
+    href: "/donation/general-donation",
     cta: {
       text: "Donate Us",
       href: "/donation/general-donation",
@@ -41,6 +44,7 @@ export const heroCarouselItems: HeroCarouselItem[] = [
     mainTitle: "Daily Temple Activities",
     bottomSubtitle:
       "Participate in our daily worship and prasadam distribution",
+    href: "/activities",
     cta: {
       text: "View Activities",
       href: "/activities",
