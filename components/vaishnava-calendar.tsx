@@ -18,6 +18,7 @@ export interface VaishnavEvent {
   fasttype?: number;
   fastsubject?: string;
   spec?: string;
+  isEkadasi?: boolean;
 }
 
 type Props = {

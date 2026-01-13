@@ -4,18 +4,47 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from './ui/carousel';
-import { heroCarouselItems } from '@/config/hero-carousel';
+import { heroCarouselItems as fallbackItems } from '@/config/hero-carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { cn } from '@/lib/utils';
+import { client } from '@/sanity/lib/client';
+import { urlForImage } from '@/sanity/lib/image';
+
+const HERO_QUERY = `*[_type == "heroCarousel"][0]{
+  items[]{
+    "image": image.asset->url,
+    imageAlt,
+    topSubtitle,
+    mainTitle,
+    bottomSubtitle,
+    href,
+    "ctaText": ctaText
+  }
+}`;
 
 export default function HeroCarousel() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+  const [items, setItems] = React.useState<any[]>(fallbackItems);
 
   const plugin = React.useRef(
     Autoplay({ delay: 8000, stopOnInteraction: false })
   );
+
+  React.useEffect(() => {
+    async function fetchHero() {
+      try {
+        const data = await client.fetch(HERO_QUERY);
+        if (data?.items?.length > 0) {
+          setItems(data.items);
+        }
+      } catch (error) {
+        console.error("Error fetching hero carousel from Sanity:", error);
+      }
+    }
+    fetchHero();
+  }, []);
 
   React.useEffect(() => {
     if (!api) return;
@@ -24,7 +53,7 @@ export default function HeroCarousel() {
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap());
     });
-  }, [api]);
+  }, [api, items]);
 
   return (
     <section className="relative w-full">
@@ -35,23 +64,23 @@ export default function HeroCarousel() {
         opts={{ loop: true }}
       >
         <CarouselContent>
-          {heroCarouselItems.map((item, index) => (
+          {items.map((item, index) => (
             <CarouselItem key={index}>
-              <Link href={item.href} className="block relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden">
+              <Link href={item.href || '#'} className="block relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden">
                 {/* Background Image with Ken Burns Effect */}
                 <Image
-                  src={item.image}
+                  src={item.image || '/images/jagannath_deity.jpg'}
                   className={cn(
                     "object-cover object-top w-full h-full transition-transform duration-[8000ms]",
                     current === index && "scale-110"
                   )}
                   fill
-                  alt={item.imageAlt}
+                  alt={item.imageAlt || 'Hero Image'}
                   priority={index === 0}
                   quality={90}
                 />
                 
-                {/* Subtle Gradient Overlay for depth (optional, keeping it minimal) */}
+                {/* Subtle Gradient Overlay for depth */}
                 <div className="absolute inset-0 bg-black/5" />
               </Link>
             </CarouselItem>
@@ -79,7 +108,6 @@ export default function HeroCarousel() {
           ))}
         </div>
       </Carousel>
-
     </section>
   );
 }

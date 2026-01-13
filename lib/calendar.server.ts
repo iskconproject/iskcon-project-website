@@ -18,9 +18,15 @@ export async function getCalendarEvents() {
   });
   
   const data = await response.json();
-  return data.events
+  const events = data.events || [];
+
+  return events
+    .map((event: VaishnavEvent) => ({
+      ...event,
+      isEkadasi: event.title.toLowerCase().includes('ekadasi'),
+    }))
     .sort((a: VaishnavEvent, b: VaishnavEvent) => {
-      return new Date(a.start).getDate() - new Date(b.start).getDate();
+      return new Date(a.start).getTime() - new Date(b.start).getTime();
     })
     .filter((event: VaishnavEvent) => {
       return new Date(event.start).getDate() >= currentDay;

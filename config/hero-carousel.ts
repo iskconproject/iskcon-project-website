@@ -1,5 +1,6 @@
 export type HeroCarouselItem = {
-  image: string;
+  image?: any; // Sanity Image
+  imageUrl?: string; // Fallback URL
   imageAlt: string;
   topSubtitle: string;
   mainTitle: string;
