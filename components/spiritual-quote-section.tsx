@@ -40,11 +40,11 @@ export default function SpiritualQuoteSection() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-white relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-white dark:from-zinc-950 dark:to-zinc-900 relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-saffron-100 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold-100 rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-saffron-100 dark:bg-saffron-900/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold-100 dark:bg-gold-900/20 rounded-full blur-3xl opacity-50" />
       </div>
 
       <div className="container relative">
@@ -56,16 +56,16 @@ export default function SpiritualQuoteSection() {
 
           {/* Quote Text */}
           <blockquote className="relative">
-            <p className="font-heading text-xl md:text-2xl lg:text-3xl text-maroon-800 leading-relaxed mb-6 transition-all duration-500">
+            <p className="font-heading text-xl md:text-2xl lg:text-3xl text-maroon-800 dark:text-saffron-100 leading-relaxed mb-6 transition-all duration-500">
               "{quotes[currentQuote].text}"
             </p>
             
             {/* Source */}
             <footer className="space-y-1">
-              <cite className="not-italic text-saffron-600 font-semibold text-lg">
+              <cite className="not-italic text-saffron-600 dark:text-saffron-400 font-semibold text-lg">
                 — {quotes[currentQuote].author}
               </cite>
-              <p className="text-maroon-500 text-sm">
+              <p className="text-maroon-500 dark:text-zinc-400 text-sm">
                 {quotes[currentQuote].source}
               </p>
             </footer>
@@ -81,7 +81,7 @@ export default function SpiritualQuoteSection() {
                   "w-2.5 h-2.5 rounded-full transition-all duration-300",
                   currentQuote === index
                     ? "bg-saffron-500 w-8"
-                    : "bg-saffron-200 hover:bg-saffron-300"
+                    : "bg-saffron-200 dark:bg-zinc-700 hover:bg-saffron-300 dark:hover:bg-zinc-600"
                 )}
                 aria-label={`Go to quote ${index + 1}`}
               />
@@ -100,9 +100,11 @@ export default function SpiritualQuoteSection() {
                 "transition-all duration-300 group"
               )}
             >
-              <BookOpen className="w-5 h-5" />
-              Learn from Srila Prabhupada
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="w-full bg-transparent p-0 h-auto hover:bg-transparent text-white dark:text-zinc-950 font-semibold">
+                <BookOpen className="w-5 h-5 mr-2" />
+                Learn from Srila Prabhupada
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </Link>
           </div>
         </div>
