@@ -29,7 +29,7 @@ const benefits = [
 
 export default function LifetimeRajbhogSeva() {
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
+    <section className="py-16 md:py-24 relative overflow-hidden bg-cream-50 dark:bg-zinc-950">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -39,7 +39,7 @@ export default function LifetimeRajbhogSeva() {
           className="object-cover"
           quality={80}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-maroon-900/95 via-maroon-900/90 to-maroon-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-maroon-900/95 via-maroon-900/90 to-maroon-900/80 dark:from-black/95 dark:via-black/90 dark:to-black/80" />
       </div>
 
       <div className="container relative">
@@ -67,7 +67,7 @@ export default function LifetimeRajbhogSeva() {
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10"
+                  className="flex items-start gap-3 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-saffron-500 to-gold-500 flex items-center justify-center flex-shrink-0">
                     <benefit.icon className="w-5 h-5 text-white" />

@@ -34,14 +34,14 @@ const socialLinks = [
 
 const Social = () => {
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-cream-100">
+    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-cream-100 dark:from-zinc-950 dark:to-zinc-900 border-t border-cream-100 dark:border-zinc-800">
       <div className="container">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 mb-3">
-            Stay <span className="text-saffron-600">Connected</span>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 dark:text-saffron-500 mb-3">
+            Stay <span className="text-saffron-600 dark:text-saffron-400">Connected</span>
           </h2>
-          <p className="text-maroon-600 max-w-lg mx-auto">
+          <p className="text-maroon-600 dark:text-zinc-400 max-w-lg mx-auto">
             Follow us on social media for daily inspiration, temple updates, and spiritual content
           </p>
         </div>
@@ -55,11 +55,12 @@ const Social = () => {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group relative bg-white rounded-2xl p-6",
-                "border border-cream-200 shadow-md",
+                "group relative bg-white dark:bg-zinc-900 rounded-2xl p-6",
+                "border border-cream-200 dark:border-zinc-800 shadow-md",
                 "hover:shadow-xl hover:-translate-y-1",
                 "transition-all duration-300",
-                social.hoverColor
+                social.hoverColor,
+                "dark:hover:bg-zinc-800"
               )}
             >
               {/* Icon */}
@@ -72,25 +73,25 @@ const Social = () => {
               </div>
 
               {/* Content */}
-              <h3 className="font-heading text-xl font-semibold text-maroon-800 mb-1">
+              <h3 className="font-heading text-xl font-semibold text-maroon-800 dark:text-saffron-200 mb-1">
                 {social.name}
               </h3>
-              <p className="text-saffron-600 font-medium text-sm mb-2">
+              <p className="text-saffron-600 dark:text-saffron-400 font-medium text-sm mb-2">
                 {social.handle}
               </p>
-              <p className="text-maroon-500 text-sm">
+              <p className="text-maroon-500 dark:text-zinc-400 text-sm">
                 {social.description}
               </p>
 
               {/* External Link Icon */}
-              <ExternalLink className="absolute top-6 right-6 w-4 h-4 text-cream-400 group-hover:text-saffron-500 transition-colors" />
+              <ExternalLink className="absolute top-6 right-6 w-4 h-4 text-cream-400 dark:text-zinc-600 group-hover:text-saffron-500 dark:group-hover:text-saffron-400 transition-colors" />
             </a>
           ))}
         </div>
 
         {/* Newsletter Signup (Optional - placeholder for future) */}
         <div className="mt-16 max-w-2xl mx-auto">
-          <div className="bg-gradient-to-r from-saffron-500 to-gold-500 rounded-2xl p-8 text-center text-white">
+          <div className="bg-gradient-to-r from-saffron-500 to-gold-500 dark:from-saffron-700 dark:to-gold-700 rounded-2xl p-8 text-center text-white">
             <h3 className="font-heading text-2xl font-bold mb-2">
               Join Our Temple Family
             </h3>

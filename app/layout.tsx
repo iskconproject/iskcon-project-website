@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import MobileNav from "@/components/mobile_menu";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -90,11 +91,18 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${notoBengali.variable} scroll-smooth`}
     >
       <body className="font-sans antialiased bg-cream-50 text-maroon-900">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <MobileNav />
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <MobileNav />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

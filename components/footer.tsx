@@ -65,12 +65,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-gradient-to-b from-cream-50 to-cream-100 border-t border-cream-200">
+    <footer className="bg-gradient-to-b from-cream-50 to-cream-100 dark:from-zinc-950 dark:to-zinc-950 border-t border-cream-200 dark:border-zinc-800">
       {/* Decorative Top Border */}
       <div className="h-1 bg-gradient-to-r from-saffron-400 via-gold-400 to-saffron-400" />
 
       {/* Mahamantra Marquee */}
-      <MahamantraMarquee className="py-6 text-lg text-saffron-600 font-medium" />
+      <MahamantraMarquee className="py-6 text-lg text-saffron-600 dark:text-saffron-500 font-medium" />
 
       {/* Main Footer Content */}
       <div className="container py-12 md:py-16">
@@ -87,16 +87,16 @@ const Footer = () => {
                 />
               </div>
               <div>
-                <h3 className="font-heading text-xl font-bold text-maroon-800">
+                <h3 className="font-heading text-xl font-bold text-maroon-800 dark:text-saffron-500">
                   ISKCON Asansol
                 </h3>
-                <p className="text-xs text-maroon-600">
+                <p className="text-xs text-maroon-600 dark:text-zinc-400">
                   International Society for Krishna Consciousness
                 </p>
               </div>
             </Link>
 
-            <address className="not-italic text-sm text-maroon-600 space-y-3">
+            <address className="not-italic text-sm text-maroon-600 dark:text-zinc-400 space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-saffron-500 mt-0.5 flex-shrink-0" />
                 <p>
@@ -107,13 +107,13 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-saffron-500 flex-shrink-0" />
-                <a href="tel:+919433320314" className="hover:text-saffron-600 transition-colors">
+                <a href="tel:+919433320314" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                   +91 94333 20314
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-saffron-500 flex-shrink-0" />
-                <a href="mailto:iskconasansol@gmail.com" className="hover:text-saffron-600 transition-colors">
+                <a href="mailto:iskconasansol@gmail.com" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                   iskconasansol@gmail.com
                 </a>
               </div>
@@ -127,7 +127,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-2.5 rounded-full bg-white border border-cream-200 text-maroon-400 transition-all duration-300 ${social.color} shadow-sm hover:shadow-md`}
+                  className={`p-2.5 rounded-full bg-white dark:bg-zinc-900 border border-cream-200 dark:border-zinc-800 text-maroon-400 dark:text-zinc-500 transition-all duration-300 ${social.color} shadow-sm hover:shadow-md`}
                   aria-label={social.name}
                 >
                   <social.icon className="w-5 h-5" />
@@ -138,7 +138,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading text-lg font-semibold text-maroon-800 mb-4 flex items-center gap-2">
+            <h4 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-4 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-gradient-to-r from-saffron-400 to-gold-400 rounded-full" />
               Quick Links
             </h4>
@@ -147,7 +147,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-maroon-600 hover:text-saffron-600 transition-colors text-sm flex items-center gap-2 group"
+                    className="text-maroon-600 dark:text-zinc-400 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-saffron-300 group-hover:bg-saffron-500 transition-colors" />
                     {link.name}
@@ -159,7 +159,7 @@ const Footer = () => {
 
           {/* About Links */}
           <div>
-            <h4 className="font-heading text-lg font-semibold text-maroon-800 mb-4 flex items-center gap-2">
+            <h4 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-4 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-gradient-to-r from-saffron-400 to-gold-400 rounded-full" />
               About Us
             </h4>
@@ -168,7 +168,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-maroon-600 hover:text-saffron-600 transition-colors text-sm flex items-center gap-2 group"
+                    className="text-maroon-600 dark:text-zinc-400 hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-saffron-300 group-hover:bg-saffron-500 transition-colors" />
                     {link.name}
@@ -180,19 +180,19 @@ const Footer = () => {
 
           {/* Temple Timings */}
           <div>
-            <h4 className="font-heading text-lg font-semibold text-maroon-800 mb-4 flex items-center gap-2">
+            <h4 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-4 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-gradient-to-r from-saffron-400 to-gold-400 rounded-full" />
               Temple Schedule
             </h4>
-            <div className="bg-white rounded-xl p-4 border border-cream-200 shadow-sm">
+            <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-cream-200 dark:border-zinc-800 shadow-sm">
               <ul className="space-y-2">
                 {templeSchedule.map((item, index) => (
                   <li
                     key={index}
-                    className="flex items-center justify-between text-sm py-1.5 border-b border-cream-100 last:border-0"
+                    className="flex items-center justify-between text-sm py-1.5 border-b border-cream-100 dark:border-zinc-800 last:border-0"
                   >
-                    <span className="text-maroon-700 font-medium">{item.name}</span>
-                    <span className="text-saffron-600 font-semibold flex items-center gap-1.5">
+                    <span className="text-maroon-700 dark:text-zinc-300 font-medium">{item.name}</span>
+                    <span className="text-saffron-600 dark:text-saffron-400 font-semibold flex items-center gap-1.5">
                       <Clock className="w-3 h-3" />
                       {item.time}
                     </span>
@@ -204,7 +204,7 @@ const Footer = () => {
         </div>
 
         {/* Donate Banner */}
-        <div className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-saffron-500 via-saffron-600 to-gold-500 text-white relative overflow-hidden">
+        <div className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-saffron-500 via-saffron-600 to-gold-500 dark:from-saffron-600 dark:via-saffron-700 dark:to-gold-600 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/images/pattern-lotus.svg')] opacity-10" />
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
@@ -227,21 +227,21 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-cream-200 bg-cream-100/50">
+      <div className="border-t border-cream-200 dark:border-zinc-800 bg-cream-100/50 dark:bg-zinc-950">
         <div className="container py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-maroon-500">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-maroon-500 dark:text-zinc-500">
             <p>© {currentYear} ISKCON Asansol. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <Link href="/terms" className="hover:text-saffron-600 transition-colors">
+              <Link href="/terms" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/privacy" className="hover:text-saffron-600 transition-colors">
+              <Link href="/privacy" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/refund-cancellation" className="hover:text-saffron-600 transition-colors">
+              <Link href="/refund-cancellation" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                 Refund Policy
               </Link>
-              <Link href="/contact-us" className="hover:text-saffron-600 transition-colors">
+              <Link href="/contact-us" className="hover:text-saffron-600 dark:hover:text-saffron-400 transition-colors">
                 Contact
               </Link>
             </div>

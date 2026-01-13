@@ -36,22 +36,22 @@ const donationItems = [
 
 const DonateUs = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-white relative">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-cream-50 to-white dark:from-zinc-950 dark:to-zinc-900 relative">
       {/* Decorative Background */}
-      <div className="absolute inset-0 section-pattern opacity-50" />
+      <div className="absolute inset-0 section-pattern opacity-50 dark:opacity-10" />
 
       <div className="container relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-saffron-100 rounded-full text-saffron-700 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-saffron-100 dark:bg-saffron-900/30 rounded-full text-saffron-700 dark:text-saffron-300 text-sm font-medium mb-4">
               <Heart className="w-4 h-4" />
               <span>Make a Difference</span>
             </div>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 mb-3">
-              Support Our <span className="text-saffron-600">Mission</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 dark:text-saffron-500 mb-3">
+              Support Our <span className="text-saffron-600 dark:text-saffron-400">Mission</span>
             </h2>
-            <p className="text-maroon-600 max-w-lg">
+            <p className="text-maroon-600 dark:text-zinc-400 max-w-lg">
               Your generous contribution helps spread Krishna consciousness and maintain the sacred services
             </p>
           </div>
@@ -59,7 +59,7 @@ const DonateUs = () => {
           <Link href="/donation">
             <Button
               variant="outline"
-              className="border-saffron-300 text-saffron-700 hover:bg-saffron-50 rounded-full px-6 group"
+              className="border-saffron-300 dark:border-saffron-700 text-saffron-700 dark:text-saffron-400 hover:bg-saffron-50 dark:hover:bg-saffron-900/20 rounded-full px-6 group dark:bg-transparent"
             >
               View All Options
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -74,21 +74,21 @@ const DonateUs = () => {
               href={item.link}
               key={index}
               className={cn(
-                "group relative bg-white rounded-3xl overflow-hidden",
-                "border border-cream-200 shadow-lg shadow-maroon-900/5",
+                "group relative bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden",
+                "border border-cream-200 dark:border-zinc-800 shadow-lg shadow-maroon-900/5 dark:shadow-black/30",
                 "hover:shadow-2xl hover:shadow-saffron-500/10 hover:-translate-y-2",
                 "transition-all duration-300"
               )}
             >
               {/* Image Container */}
-              <div className={cn("relative h-48 overflow-hidden", item.bgColor)}>
+              <div className={cn("relative h-48 overflow-hidden", item.bgColor, "dark:bg-zinc-800/50")}>
                 <div className="absolute inset-0 flex items-center justify-center p-6">
                   <Image
                     src={item.imageURL}
                     alt={item.title}
                     width={150}
                     height={150}
-                    className="object-contain group-hover:scale-110 transition-transform duration-500"
+                    className="object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-lg"
                   />
                 </div>
                 
@@ -104,10 +104,10 @@ const DonateUs = () => {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-heading text-xl font-semibold text-maroon-800 mb-2 group-hover:text-saffron-600 transition-colors">
+                <h3 className="font-heading text-xl font-semibold text-maroon-800 dark:text-saffron-500 mb-2 group-hover:text-saffron-600 dark:group-hover:text-saffron-400 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-maroon-600/80 text-sm mb-4">
+                <p className="text-maroon-600/80 dark:text-zinc-400 text-sm mb-4">
                   {item.subtitle}
                 </p>
 
@@ -137,7 +137,7 @@ const DonateUs = () => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-12 flex flex-wrap justify-center gap-6 md:gap-12 text-sm text-maroon-500">
+        <div className="mt-12 flex flex-wrap justify-center gap-6 md:gap-12 text-sm text-maroon-500 dark:text-zinc-400">
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

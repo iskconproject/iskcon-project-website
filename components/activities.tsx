@@ -49,23 +49,23 @@ const activities = [
 
 const Activities = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-saffron-50 via-gold-50/50 to-cream-50 relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-saffron-50 via-gold-50/50 to-cream-50 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 relative overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-saffron-200/40 to-transparent rounded-full translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-gold-200/40 to-transparent rounded-full -translate-x-1/2 translate-y-1/2" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-saffron-200/40 to-transparent dark:from-saffron-900/10 rounded-full translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-gold-200/40 to-transparent dark:from-gold-900/10 rounded-full -translate-x-1/2 translate-y-1/2" />
 
       <div className="container relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-saffron-700 text-sm font-medium mb-4 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-zinc-900 rounded-full text-saffron-700 dark:text-saffron-400 text-sm font-medium mb-4 shadow-sm">
               <Users className="w-4 h-4" />
               <span>Join the Community</span>
             </div>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 mb-3">
-              Temple <span className="text-saffron-600">Activities</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-maroon-800 dark:text-saffron-500 mb-3">
+              Temple <span className="text-saffron-600 dark:text-saffron-400">Activities</span>
             </h2>
-            <p className="text-maroon-600 max-w-lg">
+            <p className="text-maroon-600 dark:text-zinc-400 max-w-lg">
               Engage in transformative spiritual practices and connect with fellow devotees
             </p>
           </div>
@@ -73,7 +73,7 @@ const Activities = () => {
           <Link href="/activities">
             <Button
               variant="outline"
-              className="border-saffron-300 text-saffron-700 hover:bg-white rounded-full px-6 group bg-white/50"
+              className="border-saffron-300 dark:border-saffron-700 text-saffron-700 dark:text-saffron-400 hover:bg-white dark:hover:bg-zinc-800 rounded-full px-6 group bg-white/50 dark:bg-zinc-900/50"
             >
               Explore All
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -88,14 +88,14 @@ const Activities = () => {
               key={index}
               href={activity.link}
               className={cn(
-                "group relative bg-white rounded-2xl overflow-hidden",
-                "border border-cream-200 shadow-md",
+                "group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden",
+                "border border-cream-200 dark:border-zinc-800 shadow-md",
                 "hover:shadow-xl hover:-translate-y-2",
                 "transition-all duration-300"
               )}
             >
               {/* Image Container */}
-              <div className={cn("relative h-44 overflow-hidden", activity.bgColor)}>
+              <div className={cn("relative h-44 overflow-hidden", activity.bgColor, "dark:bg-zinc-800")}>
                 <div className="absolute inset-0 flex items-center justify-center p-4">
                   <div className="relative w-28 h-28">
                     <Image
@@ -126,15 +126,15 @@ const Activities = () => {
 
               {/* Content */}
               <div className="p-5">
-                <h3 className="font-heading text-lg font-semibold text-maroon-800 mb-1 group-hover:text-saffron-600 transition-colors">
+                <h3 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-1 group-hover:text-saffron-600 dark:group-hover:text-saffron-400 transition-colors">
                   {activity.title}
                 </h3>
-                <p className="text-maroon-500 text-sm mb-3">
+                <p className="text-maroon-500 dark:text-zinc-400 text-sm mb-3">
                   {activity.subtitle}
                 </p>
                 
                 {/* Learn More Link */}
-                <span className="inline-flex items-center text-saffron-600 text-sm font-medium group-hover:text-saffron-700">
+                <span className="inline-flex items-center text-saffron-600 dark:text-saffron-400 text-sm font-medium group-hover:text-saffron-700 dark:group-hover:text-saffron-300">
                   Learn more
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </span>
