@@ -8,17 +8,12 @@ import { heroCarouselItems as fallbackItems } from '@/config/hero-carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { cn } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
-import { urlForImage } from '@/sanity/lib/image';
 
-const HERO_QUERY = `*[_type == "heroCarousel"][0]{
-  items[]{
-    "image": image.asset->url,
-    imageAlt,
-    topSubtitle,
-    mainTitle,
-    bottomSubtitle,
-    href,
-    "ctaText": ctaText
+const HERO_QUERY = `*[_type == "heroCarousel" && _id == "heroCarousel"][0]{
+  images[]{
+    "image": asset->url,
+    alt,
+    href
   }
 }`;
 
@@ -36,8 +31,8 @@ export default function HeroCarousel() {
     async function fetchHero() {
       try {
         const data = await client.fetch(HERO_QUERY);
-        if (data?.items?.length > 0) {
-          setItems(data.items);
+        if (data?.images?.length > 0) {
+          setItems(data.images);
         }
       } catch (error) {
         console.error("Error fetching hero carousel from Sanity:", error);
@@ -75,7 +70,7 @@ export default function HeroCarousel() {
                     current === index && "scale-110"
                   )}
                   fill
-                  alt={item.imageAlt || 'Hero Image'}
+                  alt={item.alt || 'Hero Image'}
                   priority={index === 0}
                   quality={90}
                 />

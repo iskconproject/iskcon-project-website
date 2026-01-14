@@ -1,61 +1,35 @@
 import { defineType, defineField } from 'sanity';
+import { Images } from 'lucide-react';
 
 export default defineType({
   name: 'heroCarousel',
   title: 'Hero Carousel',
   type: 'document',
+  icon: Images,
   fields: [
     defineField({
-      name: 'items',
-      title: 'Carousel Items',
+      name: 'images',
+      title: 'Images',
       type: 'array',
       of: [
         {
-          type: 'object',
-          name: 'heroItem',
-          title: 'Hero Item',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
           fields: [
             defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-              options: {
-                hotspot: true,
-              },
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'imageAlt',
-              title: 'Image Alt Text',
+              name: 'alt',
+              title: 'Alt Text',
               type: 'string',
               validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'topSubtitle',
-              title: 'Top Subtitle',
-              type: 'string',
-            }),
-            defineField({
-              name: 'mainTitle',
-              title: 'Main Title',
-              type: 'string',
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'bottomSubtitle',
-              title: 'Bottom Subtitle',
-              type: 'string',
             }),
             defineField({
               name: 'href',
               title: 'Link URL',
               type: 'string',
+              initialValue: '#',
               validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'ctaText',
-              title: 'CTA Button Text',
-              type: 'string',
             }),
           ],
         },

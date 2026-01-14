@@ -1,54 +1,24 @@
 export type HeroCarouselItem = {
   image?: any; // Sanity Image
   imageUrl?: string; // Fallback URL
-  imageAlt: string;
-  topSubtitle: string;
-  mainTitle: string;
-  bottomSubtitle: string;
+  alt: string;
   href: string;
-  cta?: {
-    text: string;
-    href: string;
-  };
 };
 
 export const heroCarouselItems: HeroCarouselItem[] = [
   {
     image: "/images/rath-yatra-new.jpg",
-    imageAlt: "Lord Jagannath Blessing",
-    topSubtitle: "Celebrate the Divine",
-    mainTitle: "Rath Yatra Festival 2025",
-    bottomSubtitle: "Join us for a journey of spiritual bliss",
+    alt: "Lord Jagannath Blessing",
     href: "/festivals/rath-yatra",
-    cta: {
-      text: "Contribute Now",
-      href: "/festivals/rath-yatra",
-    },
   },
   {
     image: "/images/jagannath_deity.jpg",
-    imageAlt: "Lord Jagannath Vigraha",
-    topSubtitle: "Welcome to",
-    mainTitle: "Sri Sri Jagannath Temple, Asansol",
-    bottomSubtitle:
-      "Founder Acharya: His Divine Grace A.C. Bhaktivedanta Swami Prabhupāda",
+    alt: "Lord Jagannath Vigraha",
     href: "/donation/general-donation",
-    cta: {
-      text: "Donate Us",
-      href: "/donation/general-donation",
-    },
   },
   {
     image: "/images/jagannath-mahaprasadam.jpg",
-    imageAlt: "Jagannath Mahaprasadam",
-    topSubtitle: "Experience the Divine",
-    mainTitle: "Daily Temple Activities",
-    bottomSubtitle:
-      "Participate in our daily worship and prasadam distribution",
+    alt: "Jagannath Mahaprasadam",
     href: "/activities",
-    cta: {
-      text: "View Activities",
-      href: "/activities",
-    },
   },
 ];
