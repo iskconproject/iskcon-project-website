@@ -12,8 +12,16 @@ export const structure: StructureResolver = (S) =>
             .schemaType('heroCarousel')
             .documentId('heroCarousel')
         ),
+      S.listItem()
+        .title('Divine Darshan')
+        .id('darshan')
+        .child(
+          S.document()
+            .schemaType('darshan')
+            .documentId('darshan')
+        ),
       // Filter out singleton types from the global “Every document” list
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroCarousel'].includes(listItem.getId() || '')
+        (listItem) => !['heroCarousel', 'darshan'].includes(listItem.getId() || '')
       ),
     ]);

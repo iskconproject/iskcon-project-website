@@ -89,6 +89,7 @@ export default function RootLayout({
     <html 
       lang="en" 
       className={`${playfair.variable} ${inter.variable} ${notoBengali.variable} scroll-smooth`}
+      suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-cream-50 text-maroon-900">
         <ThemeProvider

@@ -114,11 +114,11 @@ export default async function Home() {
       {/* Upcoming Events & Festivals */}
       <EventsAndAnnouncements calendarEvents={calendarEvents} />
       
-      {/* Lifetime Rajbhog Seva - Premium Offering */}
-      <LifetimeRajbhogSeva />
-      
       {/* Donation Options */}
       <DonateUs />
+      
+      {/* Lifetime Rajbhog Seva - Premium Offering */}
+      <LifetimeRajbhogSeva />
       
       {/* Temple Activities */}
       <Activities />

@@ -9,7 +9,7 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
 
 const singletonActions = new Set(['publish', 'discardChanges', 'restore']);
-const singletonTypes = new Set(['heroCarousel']);
+const singletonTypes = new Set(['heroCarousel', 'darshan']);
 
 export default defineConfig({
   basePath: '/studio',
