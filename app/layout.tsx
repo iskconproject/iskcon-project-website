@@ -98,8 +98,8 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-cream-50 text-maroon-900">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <SchemaMarkup />
