@@ -2,52 +2,66 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Users, BookOpen, Utensils, Music } from 'lucide-react';
+import { ArrowRight, Users, BookOpen, Utensils, Music, Calendar } from 'lucide-react';
+import { client } from '@/sanity/lib/client';
+import { urlForImage } from '@/sanity/lib/image';
 
-const activities = [
-  {
-    title: 'Deity Worship',
-    subtitle: 'Experience the divine through sacred worship',
-    description: 'Participate in the daily worship of Lord Jagannath with devotion',
-    icon: Music,
-    image: '/images/jagannath.svg',
-    link: '/activities/deity-worship',
-    color: 'from-saffron-500 to-orange-600',
-    bgColor: 'bg-orange-50',
-  },
-  {
-    title: 'Devotee Prasadam',
-    subtitle: 'Sacred food blessed by the Lord',
-    description: 'Partake in the divine prasadam distributed daily at the temple',
-    icon: Utensils,
-    image: '/images/namaste.svg',
-    link: '/activities/prasadam',
-    color: 'from-emerald-500 to-teal-600',
-    bgColor: 'bg-teal-50',
-  },
-  {
-    title: 'Bhagavatam Classes',
-    subtitle: 'Learn eternal wisdom daily',
-    description: 'Deepen your understanding of Srimad Bhagavatam teachings',
-    icon: BookOpen,
-    image: '/images/bhagwatam.png',
-    link: '/classes/bhagwatam-class',
-    color: 'from-purple-500 to-violet-600',
-    bgColor: 'bg-purple-50',
-  },
-  {
-    title: 'Sunday Programs',
-    subtitle: 'Weekly spiritual gathering',
-    description: 'Join us every Sunday for kirtan, class, and feast',
-    icon: Users,
-    image: '/images/govardhan.svg',
-    link: '/classes/gita-class',
-    color: 'from-blue-500 to-indigo-600',
-    bgColor: 'bg-blue-50',
-  },
-];
+interface Activity {
+  title: string;
+  subtitle: string;
+  description: string;
+  slug: string;
+  mainImage: any;
+  thumbnail: any;
+}
 
-const Activities = () => {
+async function getActivities() {
+  const query = `*[_type == "activity"]{
+    title,
+    subtitle,
+    description,
+    description,
+    "slug": slug.current,
+    mainImage,
+    thumbnail
+  }`;
+  return await client.fetch<Activity[]>(query);
+}
+
+const Activities = async () => {
+  const activities = await getActivities();
+
+  // Color mapping could be dynamic or round-robin if we want to keep the styling.
+  // For now, I'll map based on index or just use a default style if I can't determine "type".
+  // The original had specific colors for specific items.
+  // I will add a helper to assign colors/icons based on index to maintain variety.
+
+  const getStyle = (index: number) => {
+    const styles = [
+      {
+        icon: Music,
+        color: 'from-saffron-500 to-orange-600',
+        bgColor: 'bg-orange-50',
+      },
+      {
+        icon: Users, // Changed icon for variety
+        color: 'from-emerald-500 to-teal-600',
+        bgColor: 'bg-teal-50',
+      },
+      {
+         icon: Utensils,
+         color: 'from-purple-500 to-violet-600',
+         bgColor: 'bg-purple-50',
+      },
+      {
+        icon: BookOpen,
+        color: 'from-blue-500 to-indigo-600',
+        bgColor: 'bg-blue-50',
+      }
+    ];
+    return styles[index % styles.length];
+  };
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-saffron-50 via-gold-50/50 to-cream-50 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 relative overflow-hidden">
       {/* Decorative Elements */}
@@ -83,64 +97,76 @@ const Activities = () => {
 
         {/* Activities Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {activities.map((activity, index) => (
-            <Link
-              key={index}
-              href={activity.link}
-              className={cn(
-                "group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden",
-                "border border-cream-200 dark:border-zinc-800 shadow-md",
-                "hover:shadow-xl hover:-translate-y-2",
-                "transition-all duration-300"
-              )}
-            >
-              {/* Image Container */}
-              <div className={cn("relative h-44 overflow-hidden", activity.bgColor, "dark:bg-zinc-800")}>
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <div className="relative w-28 h-28">
-                    <Image
-                      src={activity.image}
-                      alt={activity.title}
-                      fill
-                      className="object-contain group-hover:scale-110 transition-transform duration-500"
-                    />
+          {activities.map((activity, index) => {
+            const style = getStyle(index);
+            const Icon = style.icon;
+            
+            return (
+              <Link
+                key={activity.slug}
+                href={`/activities/${activity.slug}`}
+                className={cn(
+                  "group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden",
+                  "border border-cream-200 dark:border-zinc-800 shadow-md",
+                  "hover:shadow-xl hover:-translate-y-2",
+                  "transition-all duration-300"
+                )}
+              >
+                {/* Image Container */}
+                <div className={cn("relative h-44 overflow-hidden", style.bgColor, "dark:bg-zinc-800")}>
+                  <div className="absolute inset-0 flex items-center justify-center p-4">
+                    <div className="relative w-full h-full"> 
+                      {/* Changed w-28 h-28 to w-full h-full to fit various image aspects better, or keep it contained */}
+                      {activity.thumbnail || activity.mainImage ? (
+                        <Image
+                          src={urlForImage(activity.thumbnail || activity.mainImage).url()}
+                          alt={activity.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                        />
+                      ) : (
+                         <div className="w-full h-full flex items-center justify-center text-saffron-300">
+                            <Icon className="w-16 h-16 opacity-50" />
+                         </div>
+                      )}
+                    </div>
                   </div>
+
+                  {/* Icon Badge */}
+                  <div className={cn(
+                    "absolute top-3 right-3 w-9 h-9 rounded-lg flex items-center justify-center",
+                    "bg-gradient-to-br text-white shadow-md",
+                    style.color
+                  )}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+
+                  {/* Decorative Circle */}
+                  <div className={cn(
+                    "absolute -bottom-8 -right-8 w-24 h-24 rounded-full opacity-20",
+                    "bg-gradient-to-br",
+                    style.color
+                  )} />
                 </div>
 
-                {/* Icon Badge */}
-                <div className={cn(
-                  "absolute top-3 right-3 w-9 h-9 rounded-lg flex items-center justify-center",
-                  "bg-gradient-to-br text-white shadow-md",
-                  activity.color
-                )}>
-                  <activity.icon className="w-4 h-4" />
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-1 group-hover:text-saffron-600 dark:group-hover:text-saffron-400 transition-colors">
+                    {activity.title}
+                  </h3>
+                  <p className="text-maroon-500 dark:text-zinc-400 text-sm mb-3 line-clamp-2">
+                    {activity.subtitle || activity.description} 
+                  </p>
+                  
+                  {/* Learn More Link */}
+                  <span className="inline-flex items-center text-saffron-600 dark:text-saffron-400 text-sm font-medium group-hover:text-saffron-700 dark:group-hover:text-saffron-300">
+                    Learn more
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
-
-                {/* Decorative Circle */}
-                <div className={cn(
-                  "absolute -bottom-8 -right-8 w-24 h-24 rounded-full opacity-20",
-                  "bg-gradient-to-br",
-                  activity.color
-                )} />
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3 className="font-heading text-lg font-semibold text-maroon-800 dark:text-saffron-500 mb-1 group-hover:text-saffron-600 dark:group-hover:text-saffron-400 transition-colors">
-                  {activity.title}
-                </h3>
-                <p className="text-maroon-500 dark:text-zinc-400 text-sm mb-3">
-                  {activity.subtitle}
-                </p>
-                
-                {/* Learn More Link */}
-                <span className="inline-flex items-center text-saffron-600 dark:text-saffron-400 text-sm font-medium group-hover:text-saffron-700 dark:group-hover:text-saffron-300">
-                  Learn more
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

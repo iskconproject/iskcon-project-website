@@ -29,6 +29,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.10.0(react-hook-form@7.70.0(react@19.2.3))
+      '@portabletext/react':
+        specifier: ^6.0.2
+        version: 6.0.2(react@19.2.3)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -195,9 +198,6 @@ importers:
       eslint-config-next:
         specifier: 16.1.1
         version: 16.1.1(@typescript-eslint/parser@8.53.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
-      jsdom:
-        specifier: ^27.4.0
-        version: 27.4.0
       postcss:
         specifier: ^8
         version: 8.5.6
