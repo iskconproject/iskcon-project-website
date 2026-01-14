@@ -30,12 +30,20 @@ export default function HeroCarousel() {
   React.useEffect(() => {
     async function fetchHero() {
       // Skip fetching if Sanity is not configured (e.g., during build without env vars)
-      if (client.config().projectId === 'MISSING_PROJECT_ID') return;
+      if (client.config().projectId === 'MISSING_PROJECT_ID') {
+        console.warn("HeroCarousel: Sanity Project ID is missing, skipping fetch.");
+        return;
+      }
 
       try {
+        console.log("HeroCarousel: Fetching from Sanity with query:", HERO_QUERY);
         const data = await client.fetch(HERO_QUERY);
+        console.log("HeroCarousel: Received data:", data);
         if (data?.images?.length > 0) {
+          console.log("HeroCarousel: Setting items to:", data.images);
           setItems(data.images);
+        } else {
+          console.warn("HeroCarousel: No images found in Sanity response.");
         }
       } catch (error) {
         console.error("Error fetching hero carousel from Sanity:", error);
