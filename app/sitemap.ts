@@ -10,10 +10,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic slugs from Sanity
   const query = `{
     "festivals": *[_type == "festival"].slug.current,
-    "activities": *[_type == "activity"].slug.current
+    "activities": *[_type == "activity"].slug.current,
+    "aboutPages": *[_type == "aboutPage"].slug.current
   }`;
   
-  const { festivals = [], activities = [] } = await client.fetch(query);
+  const { festivals = [], activities = [], aboutPages = [] } = await client.fetch(query);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -58,25 +59,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.4,
     },
-    {
-      url: `${BASE_URL}/iskcon/history`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/iskcon/philosophy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/iskcon/founder`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.1,
-    },
   ];
+
+  const aboutRoutes: MetadataRoute.Sitemap = aboutPages.map((slug: string) => ({
+    url: `${BASE_URL}/iskcon/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'yearly',
+    priority: 0.6,
+  }));
 
   const festivalRoutes: MetadataRoute.Sitemap = festivals.map((slug: string) => ({
     url: `${BASE_URL}/festivals/${slug}`,
@@ -92,5 +82,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...festivalRoutes, ...activityRoutes];
+  return [...staticRoutes, ...festivalRoutes, ...activityRoutes, ...aboutRoutes];
 }

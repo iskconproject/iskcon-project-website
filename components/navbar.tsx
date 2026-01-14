@@ -21,9 +21,10 @@ const navigationItems = [
   {
     title: 'About',
     items: [
+      { name: 'About ISKCON Asansol', href: '/iskcon/about-asansol', description: 'Our mission and presence in Asansol' },
       { name: 'History', href: '/iskcon/history', description: 'The journey of ISKCON worldwide' },
       { name: 'Philosophy', href: '/iskcon/philosophy', description: 'Core teachings of Krishna consciousness' },
-      { name: 'Founder Acharya', href: '/iskcon/founder', description: 'Srila Prabhupada\'s divine mission' },
+      { name: 'Founder Acharya', href: '/iskcon/founder-acharya', description: 'Srila Prabhupada\'s divine mission' },
       { name: 'Vaishnava Calendar', href: '/iskcon/vaishnava-calendar', description: 'Sacred dates and festivals' },
     ],
   },
