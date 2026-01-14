@@ -21,7 +21,8 @@ export default function HeroCarousel() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
-  const [items, setItems] = React.useState<any[]>(fallbackItems);
+  const [items, setItems] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const plugin = React.useRef(
     Autoplay({ delay: 8000, stopOnInteraction: false })
@@ -31,22 +32,23 @@ export default function HeroCarousel() {
     async function fetchHero() {
       // Skip fetching if Sanity is not configured (e.g., during build without env vars)
       if (client.config().projectId === 'MISSING_PROJECT_ID') {
-        console.warn("HeroCarousel: Sanity Project ID is missing, skipping fetch.");
+        setItems(fallbackItems);
+        setIsLoading(false);
         return;
       }
 
       try {
-        console.log("HeroCarousel: Fetching from Sanity with query:", HERO_QUERY);
         const data = await client.fetch(HERO_QUERY);
-        console.log("HeroCarousel: Received data:", data);
         if (data?.images?.length > 0) {
-          console.log("HeroCarousel: Setting items to:", data.images);
           setItems(data.images);
         } else {
-          console.warn("HeroCarousel: No images found in Sanity response.");
+          setItems(fallbackItems);
         }
       } catch (error) {
         console.error("Error fetching hero carousel from Sanity:", error);
+        setItems(fallbackItems);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchHero();
@@ -70,27 +72,45 @@ export default function HeroCarousel() {
         opts={{ loop: true }}
       >
         <CarouselContent>
-          {items.map((item, index) => (
-            <CarouselItem key={index}>
-              <Link href={item.href || '#'} className="block relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden">
-                {/* Background Image with Ken Burns Effect */}
+          {isLoading ? (
+            <CarouselItem>
+              <div className="relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden bg-muted animate-pulse">
+                {/* Fallback image as blurry placeholder */}
                 <Image
-                  src={item.image || '/images/jagannath_deity.jpg'}
-                  className={cn(
-                    "object-cover object-top w-full h-full transition-transform duration-[8000ms]",
-                    current === index && "scale-110"
-                  )}
+                  src="/images/jagannath_deity.jpg"
                   fill
-                  alt={item.alt || 'Hero Image'}
-                  priority={index === 0}
-                  quality={90}
+                  alt="Loading..."
+                  className="object-cover object-top blur-2xl scale-110 opacity-30"
+                  priority
                 />
-                
-                {/* Subtle Gradient Overlay for depth */}
-                <div className="absolute inset-0 bg-black/5" />
-              </Link>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-gold-400 border-t-transparent rounded-full animate-spin" />
+                </div>
+              </div>
             </CarouselItem>
-          ))}
+          ) : (
+            items.map((item, index) => (
+              <CarouselItem key={index}>
+                <Link href={item.href || '#'} className="block relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden">
+                  {/* Background Image with Ken Burns Effect */}
+                  <Image
+                    src={item.image || '/images/jagannath_deity.jpg'}
+                    className={cn(
+                      "object-cover object-top w-full h-full transition-transform duration-[8000ms]",
+                      current === index && "scale-110"
+                    )}
+                    fill
+                    alt={item.alt || 'Hero Image'}
+                    priority={index === 0}
+                    quality={90}
+                  />
+                  
+                  {/* Subtle Gradient Overlay for depth */}
+                  <div className="absolute inset-0 bg-black/5" />
+                </Link>
+              </CarouselItem>
+            ))
+          )}
         </CarouselContent>
 
         {/* Navigation Arrows - Desktop Only */}
