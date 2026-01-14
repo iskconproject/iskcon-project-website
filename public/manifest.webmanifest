@@ -1,7 +1,7 @@
 {
-  "name": "Iskcon Project",
-  "short_name": "Iskcon Project",
-  "description": "Iskcon Project is an initiate of Iskcon Asansol. It is a non-profit organization. It is a project to spread the teachings of Lord Krishna and Srila Prabhupada.",
+  "name": "ISKCON Asansol",
+  "short_name": "ISKCON Asansol",
+  "description": "ISKCON Asansol - Sri Sri Jagannath Temple. Join us for daily darshan, festivals, and spiritual programs.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff",

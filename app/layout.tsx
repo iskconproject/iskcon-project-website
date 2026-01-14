@@ -6,6 +6,7 @@ import MobileNav from "@/components/mobile_menu";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
+import SchemaMarkup from "@/components/seo/schema-markup";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -36,6 +37,9 @@ export const metadata: Metadata = {
   description:
     "Welcome to ISKCON Asansol - Sri Sri Jagannath Temple. Experience the divine presence of Lord Jagannath, Baladeva, and Subhadra. Join us for daily darshan, festivals, and spiritual programs. Founded by His Divine Grace A.C. Bhaktivedanta Swami Prabhupada.",
   metadataBase: new URL("https://iskconproject.com"),
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "ISKCON Asansol",
     "Jagannath Temple",
@@ -98,6 +102,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SchemaMarkup />
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />
