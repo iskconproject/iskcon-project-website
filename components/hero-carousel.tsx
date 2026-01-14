@@ -29,6 +29,9 @@ export default function HeroCarousel() {
 
   React.useEffect(() => {
     async function fetchHero() {
+      // Skip fetching if Sanity is not configured (e.g., during build without env vars)
+      if (client.config().projectId === 'MISSING_PROJECT_ID') return;
+
       try {
         const data = await client.fetch(HERO_QUERY);
         if (data?.images?.length > 0) {
