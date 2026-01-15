@@ -95,25 +95,35 @@ export default function HeroCarousel() {
                   href={item.href || '#'} 
                   className={cn(
                     "block relative w-full overflow-hidden",
-                    "aspect-auto md:aspect-[1512/538]"
+                    "aspect-[16/9] md:aspect-[1512/538]"
                   )}
                 >
-                  {/* Background Image with Ken Burns Effect */}
+                  {/* Blurred background for consistent height on mobile - fills gaps when object-contain is used */}
+                  <div className="absolute inset-0 md:hidden">
+                    <Image
+                      src={item.image || '/images/jagannath_deity.jpg'}
+                      fill
+                      className="object-cover blur-3xl scale-125 opacity-40 translate-z-0"
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  {/* Main Image - Contain on mobile to show full content, Cover on desktop for premium look */}
                   <Image
                     src={item.image || '/images/jagannath_deity.jpg'}
+                    fill
                     className={cn(
-                      "w-full h-auto object-contain md:object-cover md:object-center transition-transform duration-[8000ms]",
+                      "object-contain md:object-cover md:object-center transition-transform duration-[8000ms] relative z-10 font-sans",
                       current === index && "scale-110"
                     )}
-                    width={1512}
-                    height={538}
                     alt={item.alt || 'Hero Image'}
                     priority={index === 0}
-                    quality={90}
+                    quality={100}
                   />
                   
                   {/* Subtle Gradient Overlay for depth */}
-                  <div className="absolute inset-0 bg-black/5" />
+                  <div className="absolute inset-0 bg-black/5 z-20" />
                 </Link>
               </CarouselItem>
             ))
