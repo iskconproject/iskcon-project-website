@@ -74,7 +74,7 @@ export default function HeroCarousel() {
         <CarouselContent>
           {isLoading ? (
             <CarouselItem>
-              <div className="relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden bg-muted animate-pulse">
+              <div className="relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[1512/538] overflow-hidden bg-muted animate-pulse">
                 {/* Fallback image as blurry placeholder */}
                 <Image
                   src="/images/jagannath_deity.jpg"
@@ -91,15 +91,22 @@ export default function HeroCarousel() {
           ) : (
             items.map((item, index) => (
               <CarouselItem key={index}>
-                <Link href={item.href || '#'} className="block relative w-full aspect-[16/9] md:aspect-[1512/538] overflow-hidden">
+                <Link 
+                  href={item.href || '#'} 
+                  className={cn(
+                    "block relative w-full overflow-hidden",
+                    "aspect-auto md:aspect-[1512/538]"
+                  )}
+                >
                   {/* Background Image with Ken Burns Effect */}
                   <Image
                     src={item.image || '/images/jagannath_deity.jpg'}
                     className={cn(
-                      "object-cover object-top w-full h-full transition-transform duration-[8000ms]",
+                      "w-full h-auto object-contain md:object-cover md:object-center transition-transform duration-[8000ms]",
                       current === index && "scale-110"
                     )}
-                    fill
+                    width={1512}
+                    height={538}
                     alt={item.alt || 'Hero Image'}
                     priority={index === 0}
                     quality={90}

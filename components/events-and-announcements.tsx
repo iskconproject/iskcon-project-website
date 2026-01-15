@@ -86,7 +86,7 @@ const EventsAndAnnouncements: React.FC<EventsAndAnnouncementsProps> = ({
 
                     {/* Event Info */}
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-white font-semibold text-lg truncate group-hover:text-gold-300 transition-colors">
+                      <h4 className="text-white font-semibold text-base md:text-lg group-hover:text-gold-300 transition-colors leading-tight">
                         {item.title}
                       </h4>
                       <p className="text-cream-300/70 text-sm">

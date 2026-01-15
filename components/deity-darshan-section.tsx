@@ -92,10 +92,10 @@ export default function DeityDarshanSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch"> 
           {/* Main Image - Click to open Lightbox */}
           <div 
-             className="relative cursor-pointer group h-full min-h-[400px]" 
+             className="relative cursor-pointer group h-full" 
              onClick={() => setLightboxOpen(true)}
           >
-            <div className="relative h-full aspect-[4/3] lg:aspect-auto w-full rounded-3xl overflow-hidden shadow-2xl shadow-maroon-900/20 dark:shadow-black/50">
+            <div className="relative h-auto aspect-[4/3] lg:aspect-auto w-full rounded-3xl overflow-hidden shadow-2xl shadow-maroon-900/20 dark:shadow-black/50">
               {/* Decorative Frame */}
               <div className="absolute inset-0 border-4 border-gold-400/50 dark:border-gold-600/30 rounded-3xl z-10 pointer-events-none" />
               <div className="absolute inset-2 border border-gold-300/30 dark:border-gold-500/20 rounded-2xl z-10 pointer-events-none" />
@@ -158,11 +158,13 @@ export default function DeityDarshanSection() {
               <h4 className="font-heading text-xl md:text-2xl font-semibold text-maroon-800 dark:text-saffron-500 mb-6 border-b border-cream-200 dark:border-zinc-800 pb-4 text-center">
                 Daily Darshan Schedule
               </h4>
-              <div className="flex-grow flex flex-col justify-center space-y-4"> {/* Distributed spacing */}
+              <div className="flex-grow flex flex-col justify-center space-y-2 md:space-y-4"> {/* Distributed spacing */}
                 {timings.map((t, i) => (
-                    <div key={i} className="flex justify-between items-center py-3 border-b border-dashed border-cream-100 dark:border-zinc-800 last:border-0 hover:bg-cream-50 dark:hover:bg-zinc-800/50 px-2 rounded-lg transition-colors">
-                        <span className="text-maroon-600 dark:text-zinc-400 font-medium">{t.name}</span>
-                        <span className="text-saffron-600 dark:text-saffron-400 font-bold bg-saffron-50 dark:bg-zinc-800 px-3 py-1 rounded-full text-sm">{t.time}</span>
+                    <div key={i} className="flex justify-between items-center py-2.5 md:py-3 border-b border-dashed border-cream-100 dark:border-zinc-800 last:border-0 hover:bg-cream-50 dark:hover:bg-zinc-800/50 px-1 md:px-2 rounded-lg transition-colors gap-2">
+                        <span className="text-maroon-600 dark:text-zinc-400 font-medium text-sm md:text-base">{t.name}</span>
+                        <span className="text-saffron-600 dark:text-saffron-400 font-bold bg-saffron-50 dark:bg-zinc-800 px-2 md:px-3 py-1 rounded-full text-[10px] xs:text-xs md:text-sm whitespace-nowrap">
+                          {t.time}
+                        </span>
                     </div>
                 ))}
               </div>

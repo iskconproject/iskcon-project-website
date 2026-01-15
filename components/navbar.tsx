@@ -201,7 +201,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           className={cn(
-            "lg:hidden absolute top-full left-0 right-0 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-md border-t border-cream-200 dark:border-zinc-800 shadow-xl transition-all duration-300 overflow-hidden",
+            "lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-zinc-950 border-t border-cream-200 dark:border-zinc-800 shadow-xl transition-all duration-300 overflow-hidden z-50",
             isMobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
           )}
         >
