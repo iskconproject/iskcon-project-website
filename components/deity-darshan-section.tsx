@@ -95,7 +95,7 @@ export default function DeityDarshanSection() {
              className="relative cursor-pointer group h-full" 
              onClick={() => setLightboxOpen(true)}
           >
-            <div className="relative h-auto aspect-[4/3] lg:aspect-auto w-full rounded-3xl overflow-hidden shadow-2xl shadow-maroon-900/20 dark:shadow-black/50">
+            <div className="relative h-auto aspect-[4/3] lg:h-full lg:aspect-auto w-full rounded-3xl overflow-hidden shadow-2xl shadow-maroon-900/20 dark:shadow-black/50">
               {/* Decorative Frame */}
               <div className="absolute inset-0 border-4 border-gold-400/50 dark:border-gold-600/30 rounded-3xl z-10 pointer-events-none" />
               <div className="absolute inset-2 border border-gold-300/30 dark:border-gold-500/20 rounded-2xl z-10 pointer-events-none" />
