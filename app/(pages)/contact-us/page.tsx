@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from "react";
+
 import { EnvelopeIcon, PhoneIcon } from "@/components/icons";
 import MapEmbed from "@/components/map-embed";
 import PageHeader from "@/components/page-header";
@@ -10,6 +12,42 @@ import { MapPin, Send } from "lucide-react";
 import Image from "next/image";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const { name, phone, email, message } = formData;
+    
+    const whatsappMessage = 
+`*New Contact Request*
+----------------
+*Name:* ${name}
+*Phone:* ${phone}
+*Email:* ${email}
+----------------
+*Message:*
+${message}`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/919433320314?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <main className="bg-cream-50 dark:bg-zinc-950 transition-colors duration-300">
       <PageHeader 
@@ -97,32 +135,57 @@ const ContactUs = () => {
             <h3 className="font-heading text-2xl font-bold text-maroon-800 dark:text-saffron-500 mb-6">
               Send a Message
             </h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-maroon-700 dark:text-zinc-300">Name</label>
-                  <Input id="name" placeholder="Your name" className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" />
+                  <Input 
+                    id="name" 
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name" 
+                    className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" 
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-sm font-medium text-maroon-700 dark:text-zinc-300">Phone</label>
-                  <Input id="phone" placeholder="Your mobile number" className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" />
+                  <Input 
+                    id="phone" 
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Your mobile number" 
+                    className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" 
+                    required
+                  />
                 </div>
               </div>
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium text-maroon-700 dark:text-zinc-300">Email</label>
-                <Input id="email" type="email" placeholder="your@email.com" className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" />
+                <Input 
+                  id="email" 
+                  type="email" 
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com" 
+                  className="bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700" 
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium text-maroon-700 dark:text-zinc-300">Message</label>
                 <Textarea 
                   id="message" 
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="How can we help you?" 
                   className="min-h-[150px] bg-cream-50 dark:bg-zinc-950 border-cream-200 dark:border-zinc-800 text-maroon-900 dark:text-zinc-100 placeholder:text-maroon-300 dark:placeholder:text-zinc-700"
+                  required
                 />
               </div>
               <Button type="submit" className="w-full bg-gradient-to-r from-saffron-500 to-gold-500 hover:from-saffron-600 hover:to-gold-600 text-white font-semibold py-6 rounded-xl shadow-lg shadow-saffron-500/20">
                 <Send className="w-4 h-4 mr-2" />
-                Send Message
+                Send Message via WhatsApp
               </Button>
             </form>
           </div>
