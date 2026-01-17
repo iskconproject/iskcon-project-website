@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Building2, Flower2, Utensils, ArrowRight, Shield, CheckCircle } from "lucide-react";
+import { Heart, Building2, Flower2, Utensils, ArrowRight } from "lucide-react";
 import OfflinePayment from "@/components/offline-payment";
 
 export const metadata: Metadata = {
@@ -165,24 +165,7 @@ const Donation = () => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 md:gap-12">
-            <div className="flex items-center gap-2 text-maroon-600">
-              <Shield className="w-5 h-5 text-green-500" />
-              <span className="text-sm font-medium">Secure Payments</span>
-            </div>
-            <div className="flex items-center gap-2 text-maroon-600">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-sm font-medium">80G Tax Benefits</span>
-            </div>
-            <div className="flex items-center gap-2 text-maroon-600">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-sm font-medium">Instant Receipt</span>
-            </div>
-            <div className="flex items-center gap-2 text-maroon-600">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-sm font-medium">Transparent Usage</span>
-            </div>
-          </div>
+
         </div>
       </section>
 
