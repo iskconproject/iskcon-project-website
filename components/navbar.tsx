@@ -64,8 +64,8 @@ const Navbar = () => {
         className={cn(
           'w-full sticky top-0 z-50 transition-all duration-300 border-b border-transparent',
           isScrolled
-            ? 'bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md shadow-lg shadow-saffron-500/5 dark:shadow-black/20 dark:border-zinc-800'
-            : 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm'
+            ? 'bg-white/95 dark:bg-black/95 backdrop-blur-md shadow-lg shadow-saffron-500/5 dark:shadow-black/20 dark:border-zinc-800'
+            : 'bg-white/80 dark:bg-black/80 backdrop-blur-sm'
         )}
       >
         <div className="container mx-auto">
@@ -201,7 +201,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           className={cn(
-            "lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-zinc-950 border-t border-cream-200 dark:border-zinc-800 shadow-xl transition-all duration-300 overflow-hidden z-50",
+            "lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-black border-t border-cream-200 dark:border-zinc-800 shadow-xl transition-all duration-300 overflow-hidden z-50",
             isMobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
           )}
         >
